@@ -1,0 +1,14 @@
+{
+    "name": "eu.vincent-lambert.microrepxr",
+    "version": "0.0.0",
+    "description": "A toolkit to manage representations of microgestures in Augmented Reality",
+    "displayName": "µRepXR",
+    "unity": "2022.3",
+    "unityRelease": "62f1",
+    "authors": {
+        "name": "Vincent Lambert",
+        "email": "vincent.lambert29@gmail.com",
+        "url": "https://vincent-lambert.eu"
+    },
+    "license": "MIT"
+}
