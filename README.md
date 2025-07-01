@@ -127,6 +127,10 @@ Even tough we included a few prefabs that you can use to create you own represen
 
 We used 3D modelled hands within the Blender files to accurately scale the visual cues of each family and created animations for the *dynamic* versions of each family. In Blender, you can use `modifiers` to easily create animations, e.g. growing arrows, shrinking balls, etc... Nevertheless, we **HIGHLY** recommend not to use them for animation because every modifier is **applied** when imported in Unity. Bascially, if you created a model whose mesh was modified during the animation, forget about it. This compatibility issue can create a lot of mess when importing animated models from Blender to Unity but if you only work with *static* representations this should not be a problem.
 
+<div style="text-align: center;">
+    <img src="./Documentation/Images/blender.png" alt="Blender screenshot" width="450"/>
+</div>
+
 #### 2. Creating the visual cues prefabs
 
 In Unity, select your Blender file (see `µRepXR > PrefabResources > BlenderModels` for the example file) and expand it by clicking on the right arrow in the `Project` tab. You can see all the elements in your Blender model. Drag and drop the Blender model as a prefab in your scene and separate each visual cue in independant prefabs. Ensure that the material are correctly configured and save them for later. You can delete them from the scene once you are done.
@@ -141,6 +145,6 @@ The handedness allows you to create a representation for the left OR the right h
     <img src="./Documentation/Images/unity_representation.png" alt="Inspector representation screenshot" width="350"/>
 </div>
 
-With this `Representation.cs` script, you can thus create both representations for one microgestures or for multiple microgestures simultaneously.
+With this `Representation.cs` script, you can thus create both *single-picture* and *simultaneous* representations of microgestures.
 
 When you are done, save your representation prefab and test it !
