@@ -41,18 +41,26 @@ Then, you can click on `New project` and select the `Universal 3D` core template
 #### 2. Install MRTK features
 
 The µRepXR package is based on MRTK3, so we need to install the MRTK3 features. To do so, download the [Mixed Reality Feature Tool](https://www.microsoft.com/en-us/download/details.aspx?id=102778) and open it. You can then select your project and install the following features:
-- Platform Support → Mixed Reality OpenXR Plugin
-- MRTK3 → MRTK Input 
-- MRTK3 → MRTK UX Components
 - MRTK3 → MRTK Core Definitions
-- MRTK3 → MRTK UX Core Scripts
+- MRTK3 → MRTK Input 
 - MRTK3 → MRTK Spatial Manipulation 
+- MRTK3 → MRTK UX Components
+- MRTK3 → MRTK UX Core Scripts
+- Platform Support → Mixed Reality OpenXR Plugin
 
-Hit Validate and ensure that "No validation issue were detected". You can then confirm the import and exit the feature tool
+<div style="text-align: center;">
+    <img src="./Documentation/Images/feature_tool.png" alt="Mixed Reality Feature Tool screenshot" width="900"/>
+</div>
+
+Hit `Validate` and ensure that "No validation issue were detected". You can then confirm the import and exit the feature tool.
 
 #### 3. Setup MRTK3 in the Project Settings
 
 Re-open the Unity project. As you can expect, we still need a little bit of tinkering to make everything work so open the `Project Settings` (`Edit > Project Settings`). Select the `MRTK3` option in the left panel and assign the default MRTK profile with the eponymous button. 
+
+<div style="text-align: center;">
+    <img src="./Documentation/Images/unity_project_settings.png" alt="Project Settings screenshot" width="900"/>
+</div>
 
 As you can notice, there are multiple tabs that allow you to specify a different behavior according to the targeted environment. Initially, we developped this package for the Hololens 2. For this reaseon, our targetted environments were the Standalone (Windows, Max, Linux) that we used to simulate the application in Unity and the Universal Windows Platform (UWP) used by the Hololens 2. 
 
@@ -72,6 +80,10 @@ You can then close the `Project Settings` window.
 
 Select `All Prefabs` in the `Project` tab and search for "MRTK". In the available prefabs, drag and drop `MRTKInputSimulator` and `MRTK XR Rig` in the scene under the top-left `Hierarchy` tab. You can then delete the `Main Camera` which is not needed because already included in the `MRTK XR Rig` prefab.
 
+<div style="text-align: center;">
+    <img src="./Documentation/Images/unity_scene.png" alt="Project Settings screenshot" width="300"/>
+</div>
+
 #### 6. Install the µRepXR package
 
 Open the `Package Manager` (`Window > Package Manager`). Hit the top-left `+` button and select `Add a package from disk` then browse to the folder containing the µRepXR package. Select the `package.json` file to install the package.
@@ -87,6 +99,10 @@ This script is a simple Representation manager that will be usefull to quickly t
 
 Go to the `µRepXR > Prefabs > Representations` folder in the `Project` tab. As you can see, we let pre-made representations for everyone to easily manipulate and understand the project without taking too much space. Drag and drop the `AandB_Tap` prefab instead of the `None (Game Object)` box. You just selected the `AandB_Tap` representation as you base representation for the scene. 
 
+<div style="text-align: center;">
+    <img src="./Documentation/Images/unity_general.png" alt="Inspector representation screenshot" width="350"/>
+</div>
+
 Hit the play button to run the simulation. When it is running, hold the spacebar to see a synthetic hand with the representation tied to it. The representation may appear blue for a few tenths of a second. It is only the time for the *Universal Render Pipeline* to load the shader correctly the first time.
 
 Congratulations ! You can now play with this package as you please.
@@ -101,7 +117,7 @@ Even tough we included a few prefabs that you can use to create you own represen
 
 #### 1. 3D modelling (in Blender)
 
-[Blender](free and open-source 3D computer graphics software tool ) is a tool that runs on basically any operating system (OS) and allows you to create 3D models that can later be imported in Unity. You can also directly create the 3D models in Unity but we recommend to use Blender because there are a lot of features that make it easier to create 3D models and the community is very active and helpful.
+[Blender](https://www.blender.org/download/) is a tool that runs on basically any operating system (OS) and allows you to create 3D models that can later be imported in Unity. You can also directly create the 3D models in Unity but we recommend to use Blender because there are a lot of features that make it easier to create 3D models and the community is very active and helpful.
 
 We used 3D modelled hands within the Blender files to accurately scale the visual cues of each family and created animations for the *dynamic* versions of each family. In Blender, you can use `modifiers` to easily create animations, e.g. growing arrows, shrinking balls, etc... Nevertheless, we **HIGHLY** recommend not to use them for animation because every modifier is **applied** when imported in Unity. Bascially, if you created a model whose mesh was modified during the animation, forget about it. This compatibility issue can create a lot of mess when importing animated models from Blender to Unity but if you only work with *static* representations this should not be a problem.
 
@@ -114,6 +130,10 @@ In Unity, select your Blender file (see `µRepXR > PrefabResources > BlenderMode
 In Unity, create an empty object. Then, go to the `µRepXR > Scripts` folder in the `Project` tab and drag and drop the `Representation.cs` script in the `Inspector` of your new empty object. As you can see, there is a new GUI with two elements: a handedness and a list of `Artefacts`.
 
 The handedness allows you to create a representation for the left OR the right hand. It is as simple as that. The list of `Artefacts` allows you to pick your previously created visual cue prefabs and associate them to a placeholder. Click on the `+` button and you will see a `None (Game Object)` box in which you can drag and drop a visual cue prefab. Then, you can decide if this visual cue should appear on a `Unique` finger, on `Joined` fingers or between two far `Away` fingers. Depending on the chosen configuration, the ChoiceBox widgets will slightly change to precise the exact location, e.g. the `Tip`of the `Index` finger. The behavior of the representation will also change. For a `Unique` finger, the representation will never disappear but for `Joined` fingers it will only be visible when the relevant fingers are joined. For the `Away` option, it will only be visible when the relevant fingers are far apart. 
+
+<div style="text-align: center;">
+    <img src="./Documentation/Images/unity_representation.png" alt="Inspector representation screenshot" width="350"/>
+</div>
 
 With this `Representation.cs` script, you can thus create both representations for one microgestures or for multiple microgestures simultaneously.
 
