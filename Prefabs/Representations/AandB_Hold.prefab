@@ -63,7 +63,7 @@ MonoBehaviour:
         twoZoneActorZone: 0
         threeZoneActorZone: 0
         fourZoneActorZone: 0
-      AwayLocation:
+      awayLocation:
         actor: 11
         oneZoneActorZone: 0
         twoZoneActorZone: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
         twoZoneActorZone: 0
         threeZoneActorZone: 0
         fourZoneActorZone: 0
-      AwayLocation:
+      awayLocation:
         actor: 11
         oneZoneActorZone: 0
         twoZoneActorZone: 0

@@ -32,7 +32,7 @@ public class PlaceholderPropertyDrawer : ConditionnalPropertyDrawer
         fingersStatusProp = property.FindPropertyRelative ("fingersStatus");
         uniqueLocationProp = property.FindPropertyRelative ("uniqueLocation");
         joinedLocationProp = property.FindPropertyRelative ("joinedLocation");
-        AwayLocationProp = property.FindPropertyRelative ("AwayLocation");
+        AwayLocationProp = property.FindPropertyRelative ("awayLocation");
 
         selectedUnique = (fingersStatusProp.enumValueIndex == (int) FingersStatus.Unique);
         selectedJoined = (fingersStatusProp.enumValueIndex == (int) FingersStatus.Joined);
@@ -45,22 +45,25 @@ public class PlaceholderPropertyDrawer : ConditionnalPropertyDrawer
         } else {
             tools.initialize();
             tools.beginHorizontal();
-            tools.insertLabel("Fingers");
             if (tools.insertRadio(selectedUnique && !selectedJoined)) {
                 selectedUnique = true;
                 selectedJoined = false;
             };
-            tools.insertLabel("Unique");
+            tools.insertLabel("Always visible on a specific finger", 300);
+            tools.endHorizontal();
+            tools.beginHorizontal();
             if (tools.insertRadio(!selectedUnique && selectedJoined)) {
                 selectedUnique = false;
                 selectedJoined = true;
             };
-            tools.insertLabel("Joined");
+            tools.insertLabel("Visible on two fingers that are joined", 300);
+            tools.endHorizontal();
+            tools.beginHorizontal();
             if (tools.insertRadio(!selectedUnique && !selectedJoined)) {
                 selectedUnique = false;
                 selectedJoined = false;
             };
-            tools.insertLabel("Away");
+            tools.insertLabel("Visible between two fingers that are NOT joined", 300);
             tools.endHorizontal();
             
             if (selectedUnique) {

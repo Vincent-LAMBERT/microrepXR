@@ -23,7 +23,7 @@ namespace Microgestures
         public FingersStatus fingersStatus;
         public UniqueLocation uniqueLocation;
         public JoinedLocation joinedLocation;
-        public AwayLocation AwayLocation;
+        public AwayLocation awayLocation;
 
         public Placeholder()
         {
@@ -32,12 +32,12 @@ namespace Microgestures
 
         public Placeholder(UniqueLocation location) { this.uniqueLocation = location; }
         public Placeholder(JoinedLocation location) { this.joinedLocation = location; }
-        public Placeholder(AwayLocation location) { this.AwayLocation = location; }
+        public Placeholder(AwayLocation location) { this.awayLocation = location; }
 
         private FingersStatus getFingerStatus() { return fingersStatus; }
         private UniqueLocation getUniqueLocation() { return uniqueLocation; }
         private JoinedLocation getJoinedLocation() { return joinedLocation; }
-        private AwayLocation getAwayLocation() { return AwayLocation; }
+        private AwayLocation getAwayLocation() { return awayLocation; }
 
         public Location getLocation() { 
             switch (this.getFingerStatus()) {
@@ -46,7 +46,7 @@ namespace Microgestures
                 case FingersStatus.Joined:
                     return joinedLocation;
                 default :
-                    return AwayLocation;
+                    return awayLocation;
             }
         }
 

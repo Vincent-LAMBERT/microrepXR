@@ -1,5 +1,11 @@
 <p align="center">
-<h1 align="center">µRepXR</h1>
+
+
+<div style="display: table; margin: 0 auto">
+    <h1 style="display: table-cell; vertical-align: middle;padding-right: 20px">µRepXR</h1>
+    <span style="display: table-cell; vertical-align: middle;padding-right: 5px"><img src="./Documentation/Images/microRep_Full.png" alt="Project Settings screenshot" height="75" width="75"/></span>
+    <span style="display: table-cell; vertical-align: middle;"><img src="./Documentation/Images/unity_logo.png" alt="Project Settings screenshot" height="80" width="80"/></span>
+</div>
 <h3 align="center">A Unity Package to Create Representation of Microgestures in Augmented Reality</h3>
 </p>
 <p align="center">
@@ -129,7 +135,7 @@ In Unity, select your Blender file (see `µRepXR > PrefabResources > BlenderMode
 
 In Unity, create an empty object. Then, go to the `µRepXR > Scripts` folder in the `Project` tab and drag and drop the `Representation.cs` script in the `Inspector` of your new empty object. As you can see, there is a new GUI with two elements: a handedness and a list of `Artefacts`.
 
-The handedness allows you to create a representation for the left OR the right hand. It is as simple as that. The list of `Artefacts` allows you to pick your previously created visual cue prefabs and associate them to a placeholder. Click on the `+` button and you will see a `None (Game Object)` box in which you can drag and drop a visual cue prefab. Then, you can decide if this visual cue should appear on a `Unique` finger, on `Joined` fingers or between two far `Away` fingers. Depending on the chosen configuration, the ChoiceBox widgets will slightly change to precise the exact location, e.g. the `Tip`of the `Index` finger. The behavior of the representation will also change. For a `Unique` finger, the representation will never disappear but for `Joined` fingers it will only be visible when the relevant fingers are joined. For the `Away` option, it will only be visible when the relevant fingers are far apart. 
+The handedness allows you to create a representation for the left OR the right hand. It is as simple as that. The list of `Artefacts` allows you to pick your previously created visual cue prefabs and associate them to a placeholder. Click on the `+` button and you will see a `None (Game Object)` box in which you can drag and drop a visual cue prefab. Then, you can decide if this visual cue should be `Always visible on a specific finger`, `Visible on two fingers that are joined` or `Visible between two fingers that are NOT joined`. Depending on the chosen configuration, the ChoiceBox widgets will slightly change to precise the exact location, e.g. the `Tip`of the `Index` finger.
 
 <div style="text-align: center;">
     <img src="./Documentation/Images/unity_representation.png" alt="Inspector representation screenshot" width="350"/>

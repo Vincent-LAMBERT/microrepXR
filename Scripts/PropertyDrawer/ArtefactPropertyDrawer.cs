@@ -35,7 +35,6 @@ public class ArtefactPropertyDrawer : ConditionnalPropertyDrawer
         } else {
             initializePropertyHeight(gameObjectProp, placeholderProp);
             tools.initialize();
-            tools.insertNone(0.2f);
             tools.insertField(gameObjectProp);
             // beginHorizontal(maxHeightInProps(gameObjectProp, behaviorProp));
             // tools.beginHorizontal(tools.maxHeightInProps(gameObjectProp));
@@ -44,7 +43,6 @@ public class ArtefactPropertyDrawer : ConditionnalPropertyDrawer
             // insertLabel("Behavior", 0.200f);
             // insertField(behaviorProp, 0.325f);
             // tools.endHorizontal();
-
             tools.insertField(placeholderProp);
         }
     }
