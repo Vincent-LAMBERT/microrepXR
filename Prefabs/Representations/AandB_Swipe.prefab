@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand:
     handedness: 2
-  artefacts:
+  visualCue:
   - gameObject: {fileID: 6069534564516778404, guid: 8f83e7dcd1752844cb59994bef85bdf1,
       type: 3}
     placeholder:

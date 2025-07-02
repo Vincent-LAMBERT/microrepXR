@@ -16,8 +16,8 @@ using UnityEngine.UIElements;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.UIElements;
-[CustomPropertyDrawer (typeof(Artefact))]
-public class ArtefactPropertyDrawer : ConditionnalPropertyDrawer
+[CustomPropertyDrawer (typeof(VisualCue))]
+public class VisualCuePropertyDrawer : ConditionnalPropertyDrawer
 {    
     SerializedProperty gameObjectProp;
     // SerializedProperty behaviorProp;

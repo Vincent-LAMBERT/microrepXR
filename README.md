@@ -137,9 +137,9 @@ In Unity, select your Blender file (see `µRepXR > PrefabResources > BlenderMode
 
 #### 3. Creating the representations prefabs
 
-In Unity, create an empty object. Then, go to the `µRepXR > Scripts` folder in the `Project` tab and drag and drop the `Representation.cs` script in the `Inspector` of your new empty object. As you can see, there is a new GUI with two elements: a handedness and a list of `Artefacts`.
+In Unity, create an empty object. Then, go to the `µRepXR > Scripts` folder in the `Project` tab and drag and drop the `Representation.cs` script in the `Inspector` of your new empty object. As you can see, there is a new GUI with two elements: a handedness and a list of `VisualCues`.
 
-The handedness allows you to create a representation for the left OR the right hand. It is as simple as that. The list of `Artefacts` allows you to pick your previously created visual cue prefabs and associate them to a placeholder. Click on the `+` button and you will see a `None (Game Object)` box in which you can drag and drop a visual cue prefab. Then, you can decide if this visual cue should be `Always visible on a specific finger`, `Visible on two fingers that are joined` or `Visible between two fingers that are NOT joined`. Depending on the chosen configuration, the ChoiceBox widgets will slightly change to precise the exact location, e.g. the `Tip`of the `Index` finger.
+The handedness allows you to create a representation for the left OR the right hand. It is as simple as that. The list of `VisualCues` allows you to pick your previously created visual cue prefabs and associate them to a placeholder. Click on the `+` button and you will see a `None (Game Object)` box in which you can drag and drop a visual cue prefab. Then, you can decide if this visual cue should be `Always visible on a specific finger`, `Visible on two fingers that are joined` or `Visible between two fingers that are NOT joined`. Depending on the chosen configuration, the ChoiceBox widgets will slightly change to precise the exact location, e.g. the `Tip`of the `Index` finger.
 
 <div style="text-align: center;">
     <img src="./Documentation/Images/unity_representation.png" alt="Inspector representation screenshot" width="350"/>

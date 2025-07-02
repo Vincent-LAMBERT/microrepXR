@@ -48,7 +48,7 @@ namespace Microgestures
             this.handedness = handedness;
         }
         
-        public void initialize(Artefact[] artefacts)
+        public void initialize(VisualCue[] visualCues)
         {
             this.thumb = new Thumb(this.handedness);
             this.index = new Index(this.handedness);
@@ -88,10 +88,10 @@ namespace Microgestures
             actors.Add(this.middleAwayRing);
             actors.Add(this.ringAwayLittle);
 
-            foreach (Artefact art in artefacts) { handleArtefact(art); }
+            foreach (VisualCue art in visualCues) { handleVisualCue(art); }
         }
 
-        private void handleArtefact(Artefact art) {
+        private void handleVisualCue(VisualCue art) {
             Placeholder ph = art.getPlaceholder();
             place(art.getGameObject(), getAllBehaviors(ph), ph.getLocation());
         }

@@ -20,12 +20,12 @@ using UnityEditor.UIElements;
 public class RepresentationEditor : Editor
 {
     SerializedProperty handProp;
-    SerializedProperty artefactsProp;
+    SerializedProperty visualCuesProp;
 
     void OnEnable()
     {
         handProp = serializedObject.FindProperty("hand");
-        artefactsProp = serializedObject.FindProperty("artefacts");
+        visualCuesProp = serializedObject.FindProperty("visualCue");
     }
 
     public override void OnInspectorGUI()
@@ -33,7 +33,7 @@ public class RepresentationEditor : Editor
         serializedObject.Update();
 
         EditorGUILayout.PropertyField(handProp, new GUIContent("Hand"));
-        EditorGUILayout.PropertyField(artefactsProp, new GUIContent("Artefacts"));
+        EditorGUILayout.PropertyField(visualCuesProp, new GUIContent("Visual Cues"));
 
         serializedObject.ApplyModifiedProperties();
     }
@@ -47,16 +47,16 @@ namespace Microgestures
     public class Representation : MonoBehaviour
     {
         public Hand hand;
-        public Artefact[] artefacts;
+        public VisualCue[] visualCues;
     
-        public Representation(Handedness handedness, Artefact[] artefacts) {
+        public Representation(Handedness handedness, VisualCue[] visualCues) {
             this.hand = new Hand(handedness);
-            this.artefacts = artefacts;
+            this.visualCues = visualCues;
         }
 
         void Start()
         {
-            hand.initialize(artefacts);
+            hand.initialize(visualCues);
             hand.instantiate(this.transform);
         }
         void Update()

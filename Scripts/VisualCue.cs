@@ -14,15 +14,15 @@ using UnityEngine.UIElements;
 
 namespace Microgestures
 {
-    [AddComponentMenu("Artefact", 0)]
+    [AddComponentMenu("VisualCue", 0)]
     [Serializable]
-    public class Artefact
+    public class VisualCue
     {
         public GameObject gameObject;
         public Behavior behavior;
         public Placeholder placeholder;
 
-        public Artefact(GameObject gameObject, Behavior behavior, Placeholder placeholder)
+        public VisualCue(GameObject gameObject, Behavior behavior, Placeholder placeholder)
         {
             this.gameObject = gameObject;
             this.behavior = behavior;
