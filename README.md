@@ -3,7 +3,7 @@
 
 <div style="display: table; margin: 0 auto">
     <h1 style="display: table-cell; vertical-align: middle;padding-right: 20px">µRepXR</h1>
-    <span style="display: table-cell; vertical-align: middle;padding-right: 5px"><img src="./Documentation/Images/microRep_Full.png" alt="Project Settings screenshot" height="75" width="75"/></span>
+    <span style="display: table-cell; vertical-align: middle;padding-right: 5px"><img src="./Documentation/Images/microRep_full.png" alt="Project Settings screenshot" height="75" width="75"/></span>
     <span style="display: table-cell; vertical-align: middle;"><img src="./Documentation/Images/unity_logo.png" alt="Project Settings screenshot" height="80" width="80"/></span>
 </div>
 <h3 align="center">A Unity Package to Create Representation of Microgestures in Augmented Reality</h3>
