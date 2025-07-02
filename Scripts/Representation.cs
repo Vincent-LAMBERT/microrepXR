@@ -25,7 +25,7 @@ public class RepresentationEditor : Editor
     void OnEnable()
     {
         handProp = serializedObject.FindProperty("hand");
-        visualCuesProp = serializedObject.FindProperty("visualCue");
+        visualCuesProp = serializedObject.FindProperty("visualCues");
     }
 
     public override void OnInspectorGUI()

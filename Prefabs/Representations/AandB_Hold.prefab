@@ -46,25 +46,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand:
     handedness: 2
-  visualCue:
+  visualCues:
   - gameObject: {fileID: 4378975784766875557, guid: aa4809a627edd454daf3533ddc34bbde,
       type: 3}
     placeholder:
       fingersStatus: 0
       uniqueLocation:
-        actor: 1
+        actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
         fourZoneActorZone: 0
       joinedLocation:
-        actor: 5
+        actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
         fourZoneActorZone: 0
       awayLocation:
-        actor: 11
+        actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
@@ -74,13 +74,13 @@ MonoBehaviour:
     placeholder:
       fingersStatus: 2
       uniqueLocation:
-        actor: 1
+        actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
         fourZoneActorZone: 0
       joinedLocation:
-        actor: 5
+        actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0

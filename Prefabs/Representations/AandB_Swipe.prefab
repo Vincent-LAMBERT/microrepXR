@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand:
     handedness: 2
-  visualCue:
+  visualCues:
   - gameObject: {fileID: 6069534564516778404, guid: 8f83e7dcd1752844cb59994bef85bdf1,
       type: 3}
     placeholder:
@@ -58,13 +58,13 @@ MonoBehaviour:
         threeZoneActorZone: 1
         fourZoneActorZone: 0
       joinedLocation:
-        actor: 5
+        actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
         fourZoneActorZone: 0
       awayLocation:
-        actor: 11
+        actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
@@ -80,13 +80,13 @@ MonoBehaviour:
         threeZoneActorZone: 1
         fourZoneActorZone: 0
       joinedLocation:
-        actor: 5
+        actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
         fourZoneActorZone: 0
       awayLocation:
-        actor: 11
+        actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
