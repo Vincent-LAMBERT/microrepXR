@@ -45,7 +45,6 @@ namespace Microgestures
 
         public bool visibleJoints(Handedness handedness, bool wristOriented, out HandJointPose pose) {
             jointPositions = new List<Vector3> ();
-            UnityEngine.Debug.Log("wristOriented: " + wristOriented);
             try
             {
                 if (wristOriented)
@@ -56,7 +55,6 @@ namespace Microgestures
                 else
                 {
                     pose = getCenterJoint(handedness);
-                    UnityEngine.Debug.Log("pose: " + pose);
                 }
             }
             catch (InvalidOperationException e)
