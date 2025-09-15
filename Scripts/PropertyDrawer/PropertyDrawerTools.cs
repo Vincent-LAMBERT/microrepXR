@@ -154,6 +154,170 @@ public class PropertyDrawerTools
         currentPosition.width = initWidth;
     }
 
+    public int insertInt(int integer) {
+        int width = (int) currentPosition.width;
+        if (widthToDefine) { width = 50; }
+        return insertInt(integer, width);
+    }
+
+    public int insertInt(int integer, float widthPart) {
+        int width = (int) ((float) initialWidth*widthPart);
+        return insertInt(integer, width);
+    }
+
+    public int insertInt(int integer, int width) {
+        if (horizontal) {
+            return insertIntHorizontally(integer, width);
+        } else {
+            return insertIntVertically(integer, width);
+        }
+    }
+
+    private int insertIntVertically(int integer, int width) {
+        int initWidth = (int) currentPosition.width;
+        currentPosition.width = width;
+        currentPosition.height=initialHeight;
+        integer = EditorGUI.IntField(currentPosition, integer);
+        addVerticalMargin();
+        currentPosition.width = initWidth;
+        currentPosition.y+=initialHeight;
+        return integer;
+    }
+
+    private int insertIntHorizontally(int integer, int width) {
+        int initWidth = (int) currentPosition.width;
+        currentPosition.width = width;
+        addHorizontalMargins();
+        integer = EditorGUI.IntField(currentPosition, integer);
+        removeHorizontalMargins();
+        currentPosition.x+=currentPosition.width;
+        currentPosition.width = initWidth;
+        return integer;
+    }
+
+    public float insertFloat(float number) {
+        int width = (int) currentPosition.width;
+        if (widthToDefine) { width = 50; }
+        return insertFloat(number, width);
+    }
+
+    public float insertFloat(float number, float widthPart) {
+        int width = (int) ((float) initialWidth*widthPart);
+        return insertFloat(number, width);
+    }
+
+    public float insertFloat(float number, int width) {
+        if (horizontal) {
+            return insertFloatHorizontally(number, width);
+        } else {
+            return insertFloatVertically(number, width);
+        }
+    }
+
+    private float insertFloatVertically(float number, int width) {
+        int initWidth = (int) currentPosition.width;
+        currentPosition.width = width;
+        currentPosition.height=initialHeight;
+        number = EditorGUI.FloatField(currentPosition, number);
+        addVerticalMargin();
+        currentPosition.width = initWidth;
+        currentPosition.y+=initialHeight;
+        return number;
+    }
+
+    private float insertFloatHorizontally(float number, int width) {
+        int initWidth = (int) currentPosition.width;
+        currentPosition.width = width;
+        addHorizontalMargins();
+        number = EditorGUI.FloatField(currentPosition, number);
+        removeHorizontalMargins();
+        currentPosition.x+=currentPosition.width;
+        currentPosition.width = initWidth;
+        return number;
+    }
+
+    public Color insertColor(Color color) {
+        int width = (int) currentPosition.width;
+        if (widthToDefine) { width = 70; }
+        return insertColor(color, width);
+    }
+
+    public Color insertColor(Color color, float widthPart) {
+        int width = (int) ((float) initialWidth*widthPart);
+        return insertColor(color, width);
+    }
+
+    public Color insertColor(Color color, int width) {
+        if (horizontal) {
+            return insertColorHorizontally(color, width);
+        } else {
+            return insertColorVertically(color, width);
+        }
+    }
+
+    private Color insertColorVertically(Color color, int width) {
+        int initWidth = (int) currentPosition.width;
+        currentPosition.width = width;
+        currentPosition.height=initialHeight;
+        color = EditorGUI.ColorField(currentPosition, color);
+        addVerticalMargin();
+        currentPosition.width = initWidth;
+        currentPosition.y+=initialHeight;
+        return color;
+    }
+
+    private Color insertColorHorizontally(Color color, int width) {
+        int initWidth = (int) currentPosition.width;
+        currentPosition.width = width;
+        addHorizontalMargins();
+        color = EditorGUI.ColorField(currentPosition, color);
+        removeHorizontalMargins();
+        currentPosition.x+=currentPosition.width;
+        currentPosition.width = initWidth;
+        return color;
+    }
+
+    public string insertTextField(string str) {
+        int width = (int) currentPosition.width;
+        if (widthToDefine) { width = 100; }
+        return insertTextField(str, width);
+    }
+
+    public string insertTextField(string str, float widthPart) {
+        int width = (int) ((float) initialWidth*widthPart);
+        return insertTextField(str, width);
+    }
+
+    public string insertTextField(string str, int width) {
+        if (horizontal) {
+            return insertTextFieldHorizontally(str, width);
+        } else {
+            return insertTextFieldVertically(str, width);
+        }
+    }
+
+    private string insertTextFieldVertically(string str, int width) {
+        int initWidth = (int) currentPosition.width;
+        currentPosition.width = width;
+        currentPosition.height=initialHeight;
+        str = EditorGUI.TextField(currentPosition, str);
+        addVerticalMargin();
+        currentPosition.width = initWidth;
+        currentPosition.y+=initialHeight;
+        return str;
+    }
+
+    private string insertTextFieldHorizontally(string str, int width) {
+        int initWidth = (int) currentPosition.width;
+        currentPosition.width = width;
+        addHorizontalMargins();
+        str = EditorGUI.TextField(currentPosition, str);
+        removeHorizontalMargins();
+        currentPosition.x+=currentPosition.width;
+        currentPosition.width = initWidth;
+        return str;
+    }
+
     public bool insertRadio(bool boolean) {
         int width = (int) currentPosition.width;
         if (widthToDefine) { width = 20; }

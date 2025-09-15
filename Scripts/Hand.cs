@@ -93,7 +93,7 @@ namespace Microgestures
 
         private void handleArtefact(Artefact art) {
             Placeholder ph = art.getPlaceholder();
-            place(art.getGameObject(), getAllBehaviors(ph), ph.getLocation());
+            place(art.getGameObject(), art.getTransformElements(), getAllBehaviors(ph), ph.getLocation(), art.getCommand());
         }
 
         private Stack<Behavior> getAllBehaviors(Placeholder ph) {
@@ -107,10 +107,10 @@ namespace Microgestures
             return Behavior.transparencyOnThumbMovement(handedness);
         }
 
-        private void place(GameObject gameObject, Stack<Behavior> behaviors, Location location) {
+        private void place(GameObject gameObject, TransformElements transformElements, Stack<Behavior> behaviors, Location location, Command command) {
             foreach (Actor actor in actors) {
                 if (actor.isActorType(location.getActorEnum())) {
-                    actor.add(gameObject, behaviors, location);
+                    actor.add(gameObject, transformElements, behaviors, location, command);
                     break;
                 }
             }

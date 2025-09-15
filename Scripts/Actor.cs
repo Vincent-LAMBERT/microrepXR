@@ -29,16 +29,12 @@ namespace Microgestures
             foreach (ARObject arObject in arObjects) {
                 if (state && arObject.visibleJoints(handedness, isWristOriented(), out pose))
                 {
-                    if (arObject.obj)
-                    {
-                        arObject.obj.transform.position = pose.Position;
-                        arObject.obj.transform.rotation = pose.Rotation;
-                        arObject.obj.SetActive(true);
-                    }
+                    arObject.setPose(pose);
+                    arObject.setActive(true);
                 }
                 else
                 {
-                    arObject.obj.SetActive(false);
+                    arObject.setActive(false);
                 }
             }
         }
@@ -48,7 +44,7 @@ namespace Microgestures
         }
         abstract public ActorEnum[] getActorTypes();
         virtual public bool isWristOriented() { return false; }
-        abstract public void add(GameObject gameObject, Stack<Behavior> behaviors, Location zone);
+        abstract public void add(GameObject gameObject, TransformElements transformElements, Stack<Behavior> behaviors, Location zone, Command command);
     }
     
     public abstract class OneZoneActor : Actor
@@ -69,10 +65,11 @@ namespace Microgestures
                 }
             }
         }
-        
-        public override void add(GameObject gameObject, Stack<Behavior> behaviors, Location location) {
+
+        public override void add(GameObject gameObject, TransformElements transformElements, Stack<Behavior> behaviors, Location location, Command command)
+        {
             OneZoneActorZone zone = location.getOneZoneActorZone();
-            ARObject arObj = new ARObject(gameObject, behaviors);
+            ARObject arObj = new ARObject(gameObject, transformElements, command, behaviors);
             tip.Add(arObj);
         }
     }
@@ -103,9 +100,9 @@ namespace Microgestures
             }
         }
         
-        public override void add(GameObject gameObject, Stack<Behavior> behaviors, Location location) {
+        public override void add(GameObject gameObject, TransformElements transformElements, Stack<Behavior> behaviors, Location location, Command command) {
             TwoZoneActorZone zone = location.getTwoZoneActorZone();
-            ARObject arObj = new ARObject(gameObject, behaviors);
+            ARObject arObj = new ARObject(gameObject, transformElements, command, behaviors);
             switch (zone) {
                case TwoZoneActorZone.Tip:
                    tip.Add(arObj);
@@ -151,9 +148,9 @@ namespace Microgestures
             }
         }
 
-        public override void add(GameObject gameObject, Stack<Behavior> behaviors, Location location) {
+        public override void add(GameObject gameObject, TransformElements transformElements, Stack<Behavior> behaviors, Location location, Command command) {
             ThreeZoneActorZone zone = location.getThreeZoneActorZone();
-            ARObject arObj = new ARObject(gameObject, behaviors);
+            ARObject arObj = new ARObject(gameObject, transformElements, command, behaviors);
             switch (zone) {
                case ThreeZoneActorZone.Tip:
                    tip.Add(arObj);
@@ -210,9 +207,9 @@ namespace Microgestures
             }
         }
 
-        public override void add(GameObject gameObject, Stack<Behavior> behaviors, Location location) {
+        public override void add(GameObject gameObject, TransformElements transformElements, Stack<Behavior> behaviors, Location location, Command command) {
             FourZoneActorZone zone = location.getFourZoneActorZone();
-            ARObject arObj = new ARObject(gameObject, behaviors);
+            ARObject arObj = new ARObject(gameObject, transformElements, command, behaviors);
             switch (zone) {
                case FourZoneActorZone.Tip:
                    tip.Add(arObj);

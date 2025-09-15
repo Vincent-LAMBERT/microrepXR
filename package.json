@@ -1,6 +1,6 @@
 {
     "name": "eu.vincent-lambert.microrepxr",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "A toolkit to manage representations of microgestures in Augmented Reality",
     "displayName": "µRepXR",
     "unity": "2022.3",
