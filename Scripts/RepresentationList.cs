@@ -5,8 +5,8 @@ using Microgestures;
 
 namespace Microgestures
 {
-    [AddComponentMenu("MicroRepToolKit", 0)]
-    public class MicroRepToolKit: MonoBehaviour
+    [AddComponentMenu("RepresentationList", 0)]
+    public class RepresentationList: MonoBehaviour
     {
         public GameObject[] representations;
         private int active=0;

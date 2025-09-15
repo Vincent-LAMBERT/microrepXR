@@ -16,8 +16,8 @@ using UnityEngine.UIElements;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.UIElements;
-[CustomPropertyDrawer (typeof(Artefact))]
-public class ArtefactPropertyDrawer : ConditionnalPropertyDrawer
+[CustomPropertyDrawer (typeof(VisualCue))]
+public class VisualCuePropertyDrawer : ConditionnalPropertyDrawer
 {    
     SerializedProperty gameObjectProp;
     SerializedProperty transformElementsProp;
@@ -37,7 +37,6 @@ public class ArtefactPropertyDrawer : ConditionnalPropertyDrawer
         } else {
             initializePropertyHeight(gameObjectProp, transformElementsProp, placeholderProp, commandProp);
             tools.initialize();
-            tools.insertNone(0.2f);
             tools.insertField(gameObjectProp);
             tools.insertField(transformElementsProp);
             tools.insertField(placeholderProp);

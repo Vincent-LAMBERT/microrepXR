@@ -138,18 +138,15 @@ namespace Microgestures
         public bool visibleJoints(Handedness handedness, bool wristOriented, out HandJointPose pose)
         {
             jointPositions = new List<Vector3>();
-            // UnityEngine.Debug.Log("wristOriented: " + wristOriented);
             try
             {
                 if (wristOriented)
                 {
-                    // pose = getStartingJoint(handedness);
                     pose = getWristOrientedJoint(handedness);
                 }
                 else
                 {
                     pose = getCenterJoint(handedness);
-                    // UnityEngine.Debug.Log("pose: " + pose);
                 }
             }
             catch (InvalidOperationException e)
