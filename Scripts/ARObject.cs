@@ -76,14 +76,14 @@ namespace Microgestures
             {
                 obj.transform.position = pose.Position;
                 obj.transform.rotation = pose.Rotation;
-                
+
                 obj.transform.transform.Translate(new Vector3(this.transformElements.positionX, 0, 0), Space.Self);
                 obj.transform.transform.Translate(new Vector3(0, this.transformElements.positionY, 0), Space.Self);
                 obj.transform.transform.Translate(new Vector3(0, 0, this.transformElements.positionZ), Space.Self);
 
-                obj.transform.transform.Rotate(new Vector3(this.transformElements.rotationX, 0, 0));
-                obj.transform.transform.Rotate(new Vector3(0, this.transformElements.rotationY, 0));
-                obj.transform.transform.Rotate(new Vector3(0, 0, this.transformElements.rotationZ));
+                obj.transform.transform.Rotate(new Vector3(this.transformElements.rotationX, 0, 0), Space.Self);
+                obj.transform.transform.Rotate(new Vector3(0, this.transformElements.rotationY, 0), Space.Self);
+                obj.transform.transform.Rotate(new Vector3(0, 0, this.transformElements.rotationZ), Space.Self);
             }
             if (command != null)
             {
@@ -115,7 +115,7 @@ namespace Microgestures
                         this.textMesh.transform.Translate(new Vector3(offsetRight, 0, 0), Space.Self);
                         break;
                 }
-                
+
                 this.textMesh.transform.Translate(new Vector3(this.transformElements.positionX, 0, 0), Space.Self);
                 this.textMesh.transform.Translate(new Vector3(0, this.transformElements.positionY, 0), Space.Self);
                 this.textMesh.transform.Translate(new Vector3(0, 0, this.transformElements.positionZ), Space.Self);
@@ -161,7 +161,8 @@ namespace Microgestures
 
             pose = tweakPoseToCorrectHololens(headPosition, pose);
 
-            useBehaviors(jointPositions);
+            // useBehaviors(jointPositions);
+            useBehaviors();
 
             return true;
         }
@@ -203,7 +204,7 @@ namespace Microgestures
                             {
                                 pos += localpose.Position * joint.Item2;
                                 rot = localpose.Rotation;
-                                jointPositions.Add(localpose.Position);
+                                // jointPositions.Add(localpose.Position);
                             }
                             else
                             {
@@ -219,7 +220,7 @@ namespace Microgestures
                             {
                                 pos += localpose.Position * joint.Item2;
                                 rot = localpose.Rotation;
-                                jointPositions.Add(localpose.Position);
+                                // jointPositions.Add(localpose.Position);
                             }
                             else
                             {
@@ -300,9 +301,9 @@ namespace Microgestures
             return new HandJointPose();
         }
 
-        public void useBehaviors(List<Vector3> positions) {
+        public void useBehaviors() {
             foreach (Behavior behavior in behaviors) {
-                behavior.use(obj, positions);
+                behavior.use(obj, joints);
             }
         }
     }

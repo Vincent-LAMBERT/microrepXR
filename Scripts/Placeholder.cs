@@ -20,7 +20,7 @@ namespace Microgestures
     [Serializable, AddComponentMenu("Placeholder", 0)]
     public class Placeholder
     {
-        public FingersStatus fingersStatus;
+        public PlaceholderBehavior placeholderBehavior;
         public UniqueLocation uniqueLocation;
         public JoinedLocation joinedLocation;
         public AwayLocation awayLocation;
@@ -34,27 +34,31 @@ namespace Microgestures
         public Placeholder(JoinedLocation location) { this.joinedLocation = location; }
         public Placeholder(AwayLocation location) { this.awayLocation = location; }
 
-        private FingersStatus getFingerStatus() { return fingersStatus; }
+        private PlaceholderBehavior getPlaceholderBehavior() { return placeholderBehavior; }
         private UniqueLocation getUniqueLocation() { return uniqueLocation; }
         private JoinedLocation getJoinedLocation() { return joinedLocation; }
         private AwayLocation getAwayLocation() { return awayLocation; }
 
         public Location getLocation() { 
-            switch (this.getFingerStatus()) {
-                case FingersStatus.Unique:
+            switch (this.getPlaceholderBehavior()) {
+                case PlaceholderBehavior.AlwaysVisibleUnique:
                     return uniqueLocation;
-                case FingersStatus.Joined:
+                case PlaceholderBehavior.VisibleWhenNotJoined:
+                    return uniqueLocation;
+                case PlaceholderBehavior.VisibleWhenTwoJoined:
                     return joinedLocation;
                 default :
                     return awayLocation;
             }
         }
 
-        public Behavior getFingerStatusBehavior(Handedness handedness) {
-            switch (this.getFingerStatus()) {
-                case FingersStatus.Unique:
+        public Behavior getBehavior(Handedness handedness) {
+            switch (this.getPlaceholderBehavior()) {
+                case PlaceholderBehavior.AlwaysVisibleUnique:
                     return Behavior.nothing(handedness);
-                case FingersStatus.Joined:
+                case PlaceholderBehavior.VisibleWhenNotJoined:
+                    return Behavior.transparencyOnFingerJoined(handedness);
+                case PlaceholderBehavior.VisibleWhenTwoJoined:
                     return Behavior.transparencyOnDistance(handedness);
                 default :
                     return Behavior.transparencyOnProximity(handedness);
@@ -62,10 +66,11 @@ namespace Microgestures
         }
     }
 
-    public enum FingersStatus 
+    public enum PlaceholderBehavior 
     {
-        Unique,
-        Joined,
-        Away
+        AlwaysVisibleUnique,
+        VisibleWhenNotJoined,
+        VisibleWhenTwoJoined,
+        VisibleWhenTwoAway
     }
 }

@@ -76,8 +76,18 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9350e724ec1a1f245ab9b7e57135b8af,
         type: 3}
       propertyPath: m_Name
-      value: Ananas (3)
+      value: TestIcon3
       objectReference: {fileID: 0}
+    - target: {fileID: 7202271454713460447, guid: 9350e724ec1a1f245ab9b7e57135b8af,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cb3cdd50aacc1b44aeea1718d1c5e84, type: 2}
+    - target: {fileID: 7202271454713460447, guid: 9350e724ec1a1f245ab9b7e57135b8af,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 617c12857acdb2e408f2402200aa0faa, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: 9350e724ec1a1f245ab9b7e57135b8af, type: 3}

@@ -15,7 +15,7 @@ using MixedReality.Toolkit;
 
 namespace Microgestures 
 {
-    public class ThumbAwayIndex : FourZonesActor
+    public class ThumbAwayIndex : ThreeZonesActor
     {
         public override ActorEnum[] getActorTypes() 
             { return new ActorEnum[2]{
@@ -37,13 +37,9 @@ namespace Microgestures
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.IndexProximal, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getThumbBase() 
-            { return new Tuple<TrackedHandJoint, float>[2]{
-                Tuple.Create(TrackedHandJoint.IndexTip, 0.5f), 
-                Tuple.Create(TrackedHandJoint.ThumbProximal, 0.5f)}; }
     }
 
-    public class ThumbAwayMiddle : FourZonesActor
+    public class ThumbAwayMiddle : ThreeZonesActor
     {
         public override ActorEnum[] getActorTypes() 
             { return new ActorEnum[2]{
@@ -65,13 +61,9 @@ namespace Microgestures
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.MiddleProximal, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getThumbBase() 
-            { return new Tuple<TrackedHandJoint, float>[2]{
-                Tuple.Create(TrackedHandJoint.MiddleTip, 0.5f), 
-                Tuple.Create(TrackedHandJoint.ThumbProximal, 0.5f)}; }
     }
     
-    public class ThumbAwayRing : FourZonesActor
+    public class ThumbAwayRing : ThreeZonesActor
     {
         public override ActorEnum[] getActorTypes() 
             { return new ActorEnum[2]{
@@ -93,10 +85,6 @@ namespace Microgestures
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.RingProximal, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getThumbBase() 
-            { return new Tuple<TrackedHandJoint, float>[2]{
-                Tuple.Create(TrackedHandJoint.RingTip, 0.5f), 
-                Tuple.Create(TrackedHandJoint.ThumbProximal, 0.5f)}; }
     }
     
     public class ThumbAwayLittle : ThreeZonesActor

@@ -1,5 +1,6 @@
 // using MixedReality.Toolkit; // old for Handedness
 
+using System;
 using MixedReality.Toolkit;
 // using UnityEngine.XR.Hands; // new for Handedness and XRHandJointID
 // using MixedReality.Toolkit.Utilities;  // old for MixedRealityHandPose
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using UnityEngine.XR; // new for XRNode
 using MixedReality.Toolkit.Subsystems; // used to get the HandsAggregatorSubsystem
 using UnityEngine.XR.Management; // used to get the XRGeneralSettings
+using TMPro; // used for TMP_Text
 
 namespace Microgestures 
 {
@@ -56,14 +58,23 @@ namespace Microgestures
                 if (child.transform.childCount>0) {
                     setInitialTransparency(child);
                 } else {
-                    if(child.GetComponent<MeshRenderer>() == null) {
-                        renderer = child.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-                    } else {
-                        renderer = child.GetComponent<MeshRenderer>();
+                    // Test if the child is named "Command"
+                    if (child.name != "Command")
+                    {
+                        if (child.GetComponent<MeshRenderer>() != null)
+                        {
+                            // renderer = child.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
+                            renderer = child.GetComponent<MeshRenderer>();
+                            // Splitting is necessary because the left hand side is a copy
+                            colorDict[i] = renderer.sharedMaterial.color.a;
+                        }
                     }
-                    // Splitting is necessary because the left hand side is a copy
-                    colorDict[i] = renderer.sharedMaterial.color.a;
-                }
+                    // }
+                        // else
+                        // {
+                        //     renderer = child.GetComponent<TMP_Text>();
+                        // }
+                    }
             }
         }
 
@@ -75,17 +86,33 @@ namespace Microgestures
                 if (child.transform.childCount>0) {
                     alterTransparency(child, value);
                 } else {
-                    if(child.GetComponent<MeshRenderer>() == null) {
-                        renderer = child.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-                    } else {
-                        renderer = child.GetComponent<MeshRenderer>();
+                    // Test if the child is named "Command"
+                    if (child.name != "Command")
+                    {
+                        if (child.GetComponent<MeshRenderer>() != null)
+                        {
+                            // renderer = child.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
+                            renderer = child.GetComponent<MeshRenderer>();
+                            // Change the alpha value for each material of the renderer
+                            foreach (var mat in renderer.materials)
+                            {
+                                Color c = mat.color;
+                                // Changing the alpha value
+                                c.a = colorDict[i] * value;
+                                // Reassigning it
+                                mat.color = c;
+                            }
+                        }
                     }
-                    // Splitting is necessary because the left hand side is a copy
-                    Color c = renderer.material.color;
-                    // Changing the alpha value
-                    c.a = colorDict[i]*value;
-                    // Reassigning it
-                    renderer.material.color = c;
+                    // else
+                    // {
+                    //     renderer = child.GetComponent<TMP_Text>();
+                    //     Color c = renderer.color;
+                    //     // Changing the alpha value
+                    //     c.a = colorDict[i] * value;
+                    //     // Reassigning it
+                    //     renderer.color = c;
+                    // }
                 }
             }
         }
@@ -109,7 +136,7 @@ namespace Microgestures
             }
         }
 
-        public void use(GameObject obj, List<UnityEngine.Vector3> positions) {
+        public void use(GameObject obj, Tuple<TrackedHandJoint, float>[] joints) {
             switch (this.getType()) {
                 case BehaviorType.Nothing:
                     setVisible(obj, true);
@@ -117,23 +144,31 @@ namespace Microgestures
                 case BehaviorType.TransparencyOnThumbMovement:
                     transparencyOnThumbMovementBehavior(obj);
                     break;
+                case BehaviorType.TransparencyOnFingerJoined:
+                    transparencyOnFingerJoinedBehavior(obj, joints);
+                    break;
                 case BehaviorType.TransparencyOnProximity:
-                    transparencyOnProximityBehavior(obj, positions);
+                    transparencyOnProximityBehavior(obj, joints);
                     break;
                 case BehaviorType.TransparencyOnDistance:
-                    transparencyOnDistanceBehavior(obj, positions);
+                    transparencyOnDistanceBehavior(obj, joints);
                     break;
                 default :
-                    useCustom(obj, positions);
+                    useCustom(obj, joints);
                     break;
             }
         }
 
-        private float joinedMinFingersDistance = 60f;
-        private float joinedMaxFFingersDistance = 90f;
-        private float disjoinedMinFingersDistance = 0f;
-        private float disjoinedMaxFFingersDistance = 60f;
-        private float thumbDistanceFingersDistance = 70f;
+        // private float joinedMinFingersDistance = 60f;
+        // private float joinedMaxFFingersDistance = 90f;
+        private float joinedMinFingersDistance = 25f;
+        private float joinedMaxFFingersDistance = 28f;
+        private float distanceMinFingersDistance = 22f;
+        private float distanceMaxFFingersDistance = 25f;
+        private float proximityMinFingersDistance = 60f;
+        private float proximityMaxFFingersDistance = 80f;
+        // private float thumbDistanceFingersDistance = 70f;
+        private float thumbDistanceFingersDistance = 60f;
 
         private void transparencyOnThumbMovementBehavior(GameObject obj) {
             float dist = calculateFingersMinDistanceWithThumb();
@@ -144,37 +179,192 @@ namespace Microgestures
             }
         }
 
-        private void transparencyOnProximityBehavior(GameObject obj, List<UnityEngine.Vector3> positions) {
-            transparencyBehavior(obj, positions, disjoinedMinFingersDistance, disjoinedMaxFFingersDistance, 0f, 1f);
+        private void transparencyOnFingerJoinedBehavior(GameObject obj, Tuple<TrackedHandJoint, float>[] joints) {
+            List<UnityEngine.Vector3> positions = computeInvolvedPositionsFromJoints(joints);
+            // There should be only one joint in the list
+            UnityEngine.Vector3 position = positions[0];
+            List<UnityEngine.Vector3> closePositions = getClosePositions(joints[0].Item1);
+            float minDist = float.MaxValue;
+
+            foreach (UnityEngine.Vector3 closePosition in closePositions)
+            {
+                float dist = calculateDistanceBetweenPositions(new List<UnityEngine.Vector3> { position, closePosition });
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                }
+            }
+            transparencyBehavior(obj, minDist, joinedMinFingersDistance, joinedMaxFFingersDistance, 0f, 1f);
         }
 
-        private void transparencyOnDistanceBehavior(GameObject obj, List<UnityEngine.Vector3> positions) {
-            transparencyBehavior(obj, positions, joinedMinFingersDistance, joinedMaxFFingersDistance, 1f, 0f);
-        }
-
-        private void transparencyBehavior(GameObject obj, List<UnityEngine.Vector3> positions, 
-                float lowerLimit, float upperLimit, float lowerTransparency, float upperTransparency) {
-            float dist = calculateDistanceBetweenPositions(positions);
-            if (dist<=lowerLimit) {
-                alterTransparency(obj, lowerTransparency);
-            } else if (dist>=upperLimit) {
-                alterTransparency(obj, upperTransparency);
+        private List<UnityEngine.Vector3> getClosePositions(TrackedHandJoint joint)
+        {
+            if (joint == TrackedHandJoint.IndexTip) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.MiddleTip)
+                };
+            } else if (joint == TrackedHandJoint.IndexIntermediate) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.MiddleIntermediate)
+                };
+            } else if (joint == TrackedHandJoint.IndexProximal) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.MiddleProximal)
+                };
+            } else if (joint == TrackedHandJoint.MiddleTip) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.IndexTip),
+                    getJointPosition(TrackedHandJoint.RingTip),
+                };
+            } else if (joint == TrackedHandJoint.MiddleIntermediate) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.IndexIntermediate),
+                    getJointPosition(TrackedHandJoint.RingIntermediate),
+                };
+            } else if (joint == TrackedHandJoint.MiddleProximal) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.IndexProximal),
+                    getJointPosition(TrackedHandJoint.RingProximal),
+                };
+            } else if (joint == TrackedHandJoint.RingTip) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.MiddleTip),
+                    getJointPosition(TrackedHandJoint.LittleTip),
+                };
+            } else if (joint == TrackedHandJoint.RingIntermediate) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.MiddleIntermediate),
+                    getJointPosition(TrackedHandJoint.LittleIntermediate),
+                };
+            } else if (joint == TrackedHandJoint.RingProximal) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.MiddleProximal),
+                    getJointPosition(TrackedHandJoint.LittleProximal),
+                };
+            } else if (joint == TrackedHandJoint.LittleTip) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.RingTip),
+                };
+            } else if (joint == TrackedHandJoint.LittleIntermediate) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.RingIntermediate),
+                };
+            } else if (joint == TrackedHandJoint.LittleProximal) {
+                return new List<UnityEngine.Vector3> {
+                    getJointPosition(TrackedHandJoint.RingProximal),
+                };
             } else {
+                return new List<UnityEngine.Vector3> {};
+            }
+        }
+
+        private UnityEngine.Vector3 getJointPosition(TrackedHandJoint joint)
+        {
+            HandJointPose pose = new HandJointPose();
+            var handSubsystems = new List<HandsAggregatorSubsystem>();
+            SubsystemManager.GetSubsystems(handSubsystems);
+            for (var i = 0; i < handSubsystems.Count; ++i)
+            {
+                var handSubsystem = handSubsystems[i];
+                if (handSubsystem.running)
+                {
+                    if (getHandedness() == Handedness.Left)
+                    {
+                        if (handSubsystem.TryGetJoint(joint, XRNode.LeftHand, out pose))
+                        {
+                            return pose.Position;
+                        }
+                    }
+                    else
+                    {
+                        if (handSubsystem.TryGetJoint(joint, XRNode.RightHand, out pose))
+                        {
+                            return pose.Position;
+                        }
+                    }
+                }
+            }
+            return new UnityEngine.Vector3(0,0,0);
+        }
+
+        private void transparencyOnProximityBehavior(GameObject obj, Tuple<TrackedHandJoint, float>[] joints)
+        {
+            List<UnityEngine.Vector3> positions = computeInvolvedPositionsFromJoints(joints);
+            float dist = calculateDistanceBetweenPositions(positions);
+            transparencyBehavior(obj, dist, proximityMinFingersDistance, proximityMaxFFingersDistance, 0f, 1f);
+        }
+
+        private void transparencyOnDistanceBehavior(GameObject obj, Tuple<TrackedHandJoint, float>[] joints) {
+            List<UnityEngine.Vector3> positions = computeInvolvedPositionsFromJoints(joints);
+            float dist = calculateDistanceBetweenPositions(positions);
+            transparencyBehavior(obj, dist, distanceMinFingersDistance, distanceMaxFFingersDistance, 1f, 0f);
+        }
+
+        private void transparencyBehavior(GameObject obj, float dist, 
+                float lowerLimit, float upperLimit, float lowerTransparency, float upperTransparency) {
+            if (dist <= lowerLimit)
+            {
+                alterTransparency(obj, lowerTransparency);
+            }
+            else if (dist >= upperLimit)
+            {
+                alterTransparency(obj, upperTransparency);
+            }
+            else
+            {
                 float newTransparency = remap(dist, lowerLimit, upperLimit, lowerTransparency, upperTransparency);
                 alterTransparency(obj, newTransparency);
             }
         }
+        
+        public List<UnityEngine.Vector3> computeInvolvedPositionsFromJoints(Tuple<TrackedHandJoint, float>[] joints) {
+            List<UnityEngine.Vector3> positions = new List<UnityEngine.Vector3>();
+            HandJointPose pose;
+            var handSubsystems = new List<HandsAggregatorSubsystem>();
+            SubsystemManager.GetSubsystems(handSubsystems);
+            for (var i = 0; i < handSubsystems.Count; ++i)
+            {
+                var handSubsystem = handSubsystems[i];
+                if (handSubsystem.running)
+                {
+                    if (getHandedness() == Handedness.Left)
+                    {
+                        foreach (var joint in joints)
+                        {
+                            if (handSubsystem.TryGetJoint(joint.Item1, XRNode.LeftHand, out pose))
+                            {
+                                positions.Add(pose.Position);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var joint in joints)
+                        {
+                            if (handSubsystem.TryGetJoint(joint.Item1, XRNode.RightHand, out pose))
+                            {
+                                positions.Add(pose.Position);
+                            }
+                        }
+                    }
+                }
+            }
+            return positions;
+        }
 
-        public float calculateDistanceBetweenPositions(List<UnityEngine.Vector3> positions) {
+        public float calculateDistanceBetweenPositions(List<UnityEngine.Vector3> positions)
+        {
             float distance = 0;
             int n = positions.Count;
-            for(int i = 0; i < n; i++) {
-                for(int j = 0; j < n/2; j++) {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n / 2; j++)
+                {
                     distance += UnityEngine.Vector3.Distance(positions[i], positions[j]);
                 }
             }
-            int edges = (n*(n-1))/2;
-            return (distance*1000)/edges;
+            int edges = (n * (n - 1)) / 2;
+            return (distance * 1000) / edges;
         }
 
         HandJointPose pose;
@@ -238,13 +428,16 @@ namespace Microgestures
             return to;
         }
 
-        public void useCustom(GameObject obj, List<UnityEngine.Vector3> positions) {}
+        public void useCustom(GameObject obj, Tuple<TrackedHandJoint, float>[] joints) {}
 
         public static Behavior nothing(Handedness handedness) { 
             return new Behavior(BehaviorType.Nothing, handedness);
         }
         public static Behavior transparencyOnThumbMovement(Handedness handedness) { 
             return new Behavior(BehaviorType.TransparencyOnThumbMovement, handedness);
+        }
+        public static Behavior transparencyOnFingerJoined(Handedness handedness) { 
+            return new Behavior(BehaviorType.TransparencyOnFingerJoined, handedness);
         }
         public static Behavior transparencyOnProximity(Handedness handedness) { 
             return new Behavior(BehaviorType.TransparencyOnProximity, handedness);
@@ -257,6 +450,7 @@ namespace Microgestures
     public enum BehaviorType {
         Nothing,
         TransparencyOnThumbMovement,
+        TransparencyOnFingerJoined,
         TransparencyOnProximity,
         TransparencyOnDistance,
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7753958584783986601
+--- !u!1001 &8358395759112085509
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -73,20 +73,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4683669308469848369, guid: 9350e724ec1a1f245ab9b7e57135b8af,
+    - target: {fileID: -1461304994638716399, guid: 9350e724ec1a1f245ab9b7e57135b8af,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7cb3cdd50aacc1b44aeea1718d1c5e84, type: 2}
-    - target: {fileID: -4683669308469848369, guid: 9350e724ec1a1f245ab9b7e57135b8af,
+      objectReference: {fileID: 2100000, guid: 617c12857acdb2e408f2402200aa0faa, type: 2}
+    - target: {fileID: -1461304994638716399, guid: 9350e724ec1a1f245ab9b7e57135b8af,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 617c12857acdb2e408f2402200aa0faa, type: 2}
+      objectReference: {fileID: 2100000, guid: ed015ca4e18fef448b029b9bc6471f89, type: 2}
     - target: {fileID: 919132149155446097, guid: 9350e724ec1a1f245ab9b7e57135b8af,
         type: 3}
       propertyPath: m_Name
-      value: TestIcon1
+      value: TestIcon6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083501151425157549, guid: 9350e724ec1a1f245ab9b7e57135b8af,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083501151425157549, guid: 9350e724ec1a1f245ab9b7e57135b8af,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083501151425157549, guid: 9350e724ec1a1f245ab9b7e57135b8af,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -95,7 +110,7 @@ PrefabInstance:
     - {fileID: -6478352124364896555, guid: 9350e724ec1a1f245ab9b7e57135b8af, type: 3}
     - {fileID: -8700617353114198275, guid: 9350e724ec1a1f245ab9b7e57135b8af, type: 3}
     - {fileID: -5568371526223589888, guid: 9350e724ec1a1f245ab9b7e57135b8af, type: 3}
-    - {fileID: -516098083770646512, guid: 9350e724ec1a1f245ab9b7e57135b8af, type: 3}
+    - {fileID: -8391222552659086748, guid: 9350e724ec1a1f245ab9b7e57135b8af, type: 3}
     - {fileID: 8416272007918961125, guid: 9350e724ec1a1f245ab9b7e57135b8af, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []

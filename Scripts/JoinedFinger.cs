@@ -15,7 +15,7 @@ using MixedReality.Toolkit;
 
 namespace Microgestures 
 {
-    public class IndexJoinedMiddle : OneZoneActor
+    public class IndexJoinedMiddle : ThreeZonesActor
     {
         public override ActorEnum[] getActorTypes() 
             { return new ActorEnum[2]{
@@ -28,9 +28,17 @@ namespace Microgestures
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.IndexTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.MiddleTip, 0.5f)}; }
+        override protected Tuple<TrackedHandJoint, float>[] getCenter() 
+            { return new Tuple<TrackedHandJoint, float>[2]{
+                Tuple.Create(TrackedHandJoint.IndexIntermediate, 0.5f), 
+                Tuple.Create(TrackedHandJoint.MiddleIntermediate, 0.5f)}; }
+        override protected Tuple<TrackedHandJoint, float>[] getBasis() 
+            { return new Tuple<TrackedHandJoint, float>[2]{
+                Tuple.Create(TrackedHandJoint.IndexProximal, 0.5f), 
+                Tuple.Create(TrackedHandJoint.MiddleProximal, 0.5f)}; }
     }
 
-    public class MiddleJoinedRing : OneZoneActor
+    public class MiddleJoinedRing : ThreeZonesActor
     {
         public override ActorEnum[] getActorTypes() 
             { return new ActorEnum[2]{
@@ -43,9 +51,17 @@ namespace Microgestures
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.MiddleTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.RingTip, 0.5f)}; }
+        override protected Tuple<TrackedHandJoint, float>[] getCenter() 
+            { return new Tuple<TrackedHandJoint, float>[2]{
+                Tuple.Create(TrackedHandJoint.MiddleIntermediate, 0.5f), 
+                Tuple.Create(TrackedHandJoint.RingIntermediate, 0.5f)}; }
+        override protected Tuple<TrackedHandJoint, float>[] getBasis() 
+            { return new Tuple<TrackedHandJoint, float>[2]{
+                Tuple.Create(TrackedHandJoint.MiddleProximal, 0.5f), 
+                Tuple.Create(TrackedHandJoint.RingProximal, 0.5f)}; }
     }
 
-    public class RingJoinedLittle : OneZoneActor
+    public class RingJoinedLittle : ThreeZonesActor
     {
         public override ActorEnum[] getActorTypes() 
             { return new ActorEnum[2]{
@@ -58,5 +74,13 @@ namespace Microgestures
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.RingIntermediate, 0.5f), 
                 Tuple.Create(TrackedHandJoint.LittleTip, 0.5f)}; }
+        override protected Tuple<TrackedHandJoint, float>[] getCenter() 
+            { return new Tuple<TrackedHandJoint, float>[2]{
+                Tuple.Create(TrackedHandJoint.RingIntermediate, 0.5f), 
+                Tuple.Create(TrackedHandJoint.LittleIntermediate, 0.5f)}; }
+        override protected Tuple<TrackedHandJoint, float>[] getBasis() 
+            { return new Tuple<TrackedHandJoint, float>[2]{
+                Tuple.Create(TrackedHandJoint.RingProximal, 0.5f), 
+                Tuple.Create(TrackedHandJoint.LittleProximal, 0.5f)}; }
     }
 }

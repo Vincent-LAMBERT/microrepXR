@@ -20,23 +20,26 @@ using UnityEditor.UIElements;
 public class PlaceholderPropertyDrawer : ConditionnalPropertyDrawer
 {
     
-    SerializedProperty fingersStatusProp;
+    SerializedProperty placeholderBehaviorProp;
     SerializedProperty uniqueLocationProp;
     SerializedProperty joinedLocationProp;
     SerializedProperty awayLocationProp;
 
-    private bool selectedUnique;
-    private bool selectedJoined;
+    private bool selectedAlwaysVisibleUnique;
+    private bool selectedVisibleWhenNotJoined;
+    private bool selectedVisibleWhenTwoJoined;
+    private bool selectedVisibleWhenTwoAway;
 
     protected override void initializeProperties(SerializedProperty property) {
-        fingersStatusProp = property.FindPropertyRelative ("fingersStatus");
+        placeholderBehaviorProp = property.FindPropertyRelative ("placeholderBehavior");
         uniqueLocationProp = property.FindPropertyRelative ("uniqueLocation");
         joinedLocationProp = property.FindPropertyRelative ("joinedLocation");
-        AwayLocationProp = property.FindPropertyRelative ("awayLocation");
+        awayLocationProp = property.FindPropertyRelative ("awayLocation");
 
-        selectedUnique = (fingersStatusProp.enumValueIndex == (int) FingersStatus.Unique);
-        selectedJoined = (fingersStatusProp.enumValueIndex == (int) FingersStatus.Joined);
-
+        selectedAlwaysVisibleUnique = (placeholderBehaviorProp.enumValueIndex == (int) PlaceholderBehavior.AlwaysVisibleUnique);
+        selectedVisibleWhenNotJoined = (placeholderBehaviorProp.enumValueIndex == (int) PlaceholderBehavior.VisibleWhenNotJoined);
+        selectedVisibleWhenTwoJoined = (placeholderBehaviorProp.enumValueIndex == (int) PlaceholderBehavior.VisibleWhenTwoJoined);
+        selectedVisibleWhenTwoAway = (placeholderBehaviorProp.enumValueIndex == (int) PlaceholderBehavior.VisibleWhenTwoAway);
     }
 
     protected override void OnConditionnalGUI (SerializedProperty property) {
@@ -45,38 +48,57 @@ public class PlaceholderPropertyDrawer : ConditionnalPropertyDrawer
         } else {
             tools.initialize();
             tools.beginHorizontal();
-            if (tools.insertRadio(selectedUnique && !selectedJoined)) {
-                selectedUnique = true;
-                selectedJoined = false;
+            if (tools.insertRadio(selectedAlwaysVisibleUnique)) {
+                selectedAlwaysVisibleUnique = true;
+                selectedVisibleWhenNotJoined = false;
+                selectedVisibleWhenTwoJoined = false;
+                selectedVisibleWhenTwoAway = false;
             };
             tools.insertLabel("Always visible on a specific finger", 300);
             tools.endHorizontal();
             tools.beginHorizontal();
-            if (tools.insertRadio(!selectedUnique && selectedJoined)) {
-                selectedUnique = false;
-                selectedJoined = true;
+            if (tools.insertRadio(selectedVisibleWhenNotJoined)) {
+                selectedAlwaysVisibleUnique = false;
+                selectedVisibleWhenNotJoined = true;
+                selectedVisibleWhenTwoJoined = false;
+                selectedVisibleWhenTwoAway = false;
+            };
+            tools.insertLabel("Visible on a finger that is NOT joined with another", 300);
+            tools.endHorizontal();
+            tools.beginHorizontal();
+            if (tools.insertRadio(selectedVisibleWhenTwoJoined)) {
+                selectedAlwaysVisibleUnique = false;
+                selectedVisibleWhenNotJoined = false;
+                selectedVisibleWhenTwoJoined = true;
+                selectedVisibleWhenTwoAway = false;
             };
             tools.insertLabel("Visible on two fingers that are joined", 300);
             tools.endHorizontal();
             tools.beginHorizontal();
-            if (tools.insertRadio(!selectedUnique && !selectedJoined)) {
-                selectedUnique = false;
-                selectedJoined = false;
+            if (tools.insertRadio(selectedVisibleWhenTwoAway)) {
+                selectedAlwaysVisibleUnique = false;
+                selectedVisibleWhenNotJoined = false;
+                selectedVisibleWhenTwoJoined = false;
+                selectedVisibleWhenTwoAway = true;
             };
             tools.insertLabel("Visible between two fingers that are NOT joined", 300);
             tools.endHorizontal();
             
-            if (selectedUnique) {
-                fingersStatusProp.enumValueIndex = 0;
-                initializePropertyHeight(fingersStatusProp, uniqueLocationProp);
+            if (selectedAlwaysVisibleUnique) {
+                placeholderBehaviorProp.enumValueIndex = 0;
+                initializePropertyHeight(placeholderBehaviorProp, uniqueLocationProp);
                 tools.insertField(uniqueLocationProp);
-            } else if (selectedJoined) {
-                fingersStatusProp.enumValueIndex = 1;
-                initializePropertyHeight(fingersStatusProp, joinedLocationProp);
+            } else if (selectedVisibleWhenNotJoined) {
+                placeholderBehaviorProp.enumValueIndex = 1;
+                initializePropertyHeight(placeholderBehaviorProp, uniqueLocationProp);
+                tools.insertField(uniqueLocationProp);
+            } else if (selectedVisibleWhenTwoJoined) {
+                placeholderBehaviorProp.enumValueIndex = 2;
+                initializePropertyHeight(placeholderBehaviorProp, joinedLocationProp);
                 tools.insertField(joinedLocationProp);
             } else {
-                fingersStatusProp.enumValueIndex = 2;
-                initializePropertyHeight(fingersStatusProp, awayLocationProp);
+                placeholderBehaviorProp.enumValueIndex = 3;
+                initializePropertyHeight(placeholderBehaviorProp, awayLocationProp);
                 tools.insertField(awayLocationProp);
             }
         }

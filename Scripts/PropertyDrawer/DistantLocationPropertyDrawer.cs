@@ -33,44 +33,41 @@ public class AwayLocationPropertyDrawer : LocationPropertyDrawer
         actorProp = property.FindPropertyRelative ("actor");
         oneZoneActorZoneProp = property.FindPropertyRelative ("oneZoneActorZone");
         threeZoneActorZoneProp = property.FindPropertyRelative ("threeZoneActorZone");
-        fourZoneActorZoneProp = property.FindPropertyRelative ("fourZoneActorZone");
 
         all_actor = Location.getAwayActorEnum((ActorEnum) actorProp.enumValueIndex);
-
         oneZoneActor = false;
         threeZoneActor = false;
-        fourZoneActor = false;
 
         switch (all_actor) {
             case AwayActorEnum.ThumbAwayIndex:
                 mainActor = FingerEnum.Thumb;
                 thumbMate = AwayToThumbEnum.Index;
-                fourZoneActor = true;
+                threeZoneActor = true;
                 break;
             case AwayActorEnum.IndexAwayThumb:
                 mainActor = FingerEnum.Index;
                 indexMate = AwayToIndexEnum.Thumb;
-                fourZoneActor = true;
+                threeZoneActor = true;
                 break;
             case AwayActorEnum.ThumbAwayMiddle:
                 mainActor = FingerEnum.Thumb;
                 thumbMate = AwayToThumbEnum.Middle;
-                fourZoneActor = true;
+                threeZoneActor = true;
                 break;
             case AwayActorEnum.MiddleAwayThumb:
                 mainActor = FingerEnum.Middle;
                 middleMate = AwayToMiddleEnum.Thumb;
-                fourZoneActor = true;
+                threeZoneActor = true;
                 break;
             case AwayActorEnum.ThumbAwayRing:
                 mainActor = FingerEnum.Thumb;
                 thumbMate = AwayToThumbEnum.Ring;
-                fourZoneActor = true;
+                threeZoneActor = true;
                 break;
             case AwayActorEnum.RingAwayThumb:
                 mainActor = FingerEnum.Ring;
                 ringMate = AwayToRingEnum.Thumb;
-                fourZoneActor = true;
+                threeZoneActor = true;
                 break;
             case AwayActorEnum.ThumbAwayLittle:
                 mainActor = FingerEnum.Thumb;
@@ -122,10 +119,7 @@ public class AwayLocationPropertyDrawer : LocationPropertyDrawer
             twoZoneActorZone = (TwoZoneActorZone) twoZoneActorZoneProp.enumValueIndex;
         } else if (threeZoneActor) {
             threeZoneActorZone = (ThreeZoneActorZone) threeZoneActorZoneProp.enumValueIndex;
-        } else {
-            fourZoneActorZone = (FourZoneActorZone) fourZoneActorZoneProp.enumValueIndex;
         }
-
     }
 
 
@@ -137,7 +131,6 @@ public class AwayLocationPropertyDrawer : LocationPropertyDrawer
             tools.initialize();
             oneZoneActor = false;
             threeZoneActor = false;
-            fourZoneActor = false;
             tools.beginHorizontal();
             mainActor = (FingerEnum) tools.insertEnum(mainActor, 0.5f);
             
@@ -147,15 +140,15 @@ public class AwayLocationPropertyDrawer : LocationPropertyDrawer
                     switch (thumbMate) {
                         case AwayToThumbEnum.Index:
                             actorProp.enumValueIndex = (int) ActorEnum.ThumbAwayIndex;
-                            fourZoneActor = true;
+                            threeZoneActor = true;
                             break;
                         case AwayToThumbEnum.Middle:
-                            actorProp.enumValueIndex = (int) ActorEnum.ThumbAwayIndex;
-                            fourZoneActor = true;
+                            actorProp.enumValueIndex = (int) ActorEnum.ThumbAwayMiddle;
+                            threeZoneActor = true;
                             break;
                         case AwayToThumbEnum.Ring:
-                            actorProp.enumValueIndex = (int) ActorEnum.ThumbAwayIndex;
-                            fourZoneActor = true;
+                            actorProp.enumValueIndex = (int) ActorEnum.ThumbAwayRing;
+                            threeZoneActor = true;
                             break;
                         case AwayToThumbEnum.Little:
                             actorProp.enumValueIndex = (int) ActorEnum.ThumbAwayLittle;
@@ -170,7 +163,7 @@ public class AwayLocationPropertyDrawer : LocationPropertyDrawer
                     switch (indexMate) {
                         case AwayToIndexEnum.Thumb:
                             actorProp.enumValueIndex = (int) ActorEnum.IndexAwayThumb;
-                            fourZoneActor = true;
+                            threeZoneActor = true;
                             break;
                         case AwayToIndexEnum.Middle:
                             actorProp.enumValueIndex = (int) ActorEnum.IndexAwayMiddle;
@@ -185,7 +178,7 @@ public class AwayLocationPropertyDrawer : LocationPropertyDrawer
                     switch (middleMate) {
                         case AwayToMiddleEnum.Thumb:
                             actorProp.enumValueIndex = (int) ActorEnum.MiddleAwayThumb;
-                            fourZoneActor = true;
+                            threeZoneActor = true;
                             break;
                         case AwayToMiddleEnum.Index:
                             actorProp.enumValueIndex = (int) ActorEnum.MiddleAwayIndex;
@@ -204,7 +197,7 @@ public class AwayLocationPropertyDrawer : LocationPropertyDrawer
                     switch (ringMate) {
                         case AwayToRingEnum.Thumb:
                             actorProp.enumValueIndex = (int) ActorEnum.RingAwayThumb;
-                            fourZoneActor = true;
+                            threeZoneActor = true;
                             break;
                         case AwayToRingEnum.Middle:
                             actorProp.enumValueIndex = (int) ActorEnum.RingAwayMiddle;
@@ -240,16 +233,15 @@ public class AwayLocationPropertyDrawer : LocationPropertyDrawer
 
             tools.endHorizontal();
             
+            tools.beginHorizontal();
             if (oneZoneActor) {
                 oneZoneActorZoneProp.enumValueIndex = 
                     (int) (OneZoneActorZone) tools.insertEnum(oneZoneActorZone, 1f);
             } else if (threeZoneActor) {
                 threeZoneActorZoneProp.enumValueIndex = 
                     (int) (ThreeZoneActorZone) tools.insertEnum(threeZoneActorZone, 1f);
-            } else {
-                fourZoneActorZoneProp.enumValueIndex = 
-                    (int) (FourZoneActorZone) tools.insertEnum(fourZoneActorZone, 1f);
             }
+            tools.endHorizontal();
         }
     }
 }
