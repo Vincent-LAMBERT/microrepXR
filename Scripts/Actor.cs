@@ -50,7 +50,7 @@ namespace Microgestures
     public abstract class OneZoneActor : Actor
     {
         public List<ARObject> tip = new List<ARObject>();
-        abstract protected Tuple<TrackedHandJoint, float>[] getTip(); 
+        abstract public Tuple<TrackedHandJoint, float>[] getTip(); 
 
         public OneZoneActor(Handedness handedness) : base(handedness){}
 
@@ -78,8 +78,8 @@ namespace Microgestures
     {
         public List<ARObject> tip = new List<ARObject>();
         public List<ARObject> proximal = new List<ARObject>();
-        abstract protected Tuple<TrackedHandJoint, float>[] getTip(); 
-        abstract protected Tuple<TrackedHandJoint, float>[] getProximal(); 
+        abstract public Tuple<TrackedHandJoint, float>[] getTip(); 
+        abstract public Tuple<TrackedHandJoint, float>[] getProximal(); 
 
         public TwoZonesActor(Handedness handedness) : base(handedness){}
 
@@ -119,9 +119,9 @@ namespace Microgestures
         public List<ARObject> tip = new List<ARObject>();
         public List<ARObject> center = new List<ARObject>();
         public List<ARObject> basis = new List<ARObject>();
-        abstract protected Tuple<TrackedHandJoint, float>[] getTip(); 
-        abstract protected Tuple<TrackedHandJoint, float>[] getCenter(); 
-        abstract protected Tuple<TrackedHandJoint, float>[] getBasis(); 
+        abstract public Tuple<TrackedHandJoint, float>[] getTip(); 
+        abstract public Tuple<TrackedHandJoint, float>[] getCenter(); 
+        abstract public Tuple<TrackedHandJoint, float>[] getBasis(); 
 
         public ThreeZonesActor(Handedness handedness) : base(handedness){}
 

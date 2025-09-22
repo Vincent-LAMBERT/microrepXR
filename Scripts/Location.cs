@@ -9,6 +9,7 @@ using System.Threading;
 using System.ComponentModel;
 using TMPro;
 using UnityEngine;
+using MixedReality.Toolkit;
 using Microgestures;
 using UnityEngine.UIElements;
 
@@ -36,6 +37,62 @@ namespace Microgestures
         public Location(ActorEnum actor, ThreeZoneActorZone zone) {
             this.actor = actor;
             this.threeZoneActorZone = zone;
+        }
+
+        public Tuple<TrackedHandJoint, float>[] getJoints(Handedness handedness)
+        {
+            switch (actor)
+            {
+                case ActorEnum.Thumb: return getJointsForActor(new Thumb(handedness));
+                case ActorEnum.Index: return getJointsForActor(new Index(handedness));
+                case ActorEnum.Middle: return getJointsForActor(new Middle(handedness));
+                case ActorEnum.Ring: return getJointsForActor(new Ring(handedness));
+                case ActorEnum.Little: return getJointsForActor(new Little(handedness));
+                case ActorEnum.IndexJoinedMiddle: return getJointsForActor(new IndexJoinedMiddle(handedness));
+                case ActorEnum.MiddleJoinedIndex: return getJointsForActor(new IndexJoinedMiddle(handedness));
+                case ActorEnum.MiddleJoinedRing: return getJointsForActor(new MiddleJoinedRing(handedness));
+                case ActorEnum.RingJoinedMiddle: return getJointsForActor(new MiddleJoinedRing(handedness));
+                case ActorEnum.RingJoinedLittle: return getJointsForActor(new RingJoinedLittle(handedness));
+                case ActorEnum.LittleJoinedRing: return getJointsForActor(new RingJoinedLittle(handedness));
+                case ActorEnum.ThumbAwayIndex: return getJointsForActor(new ThumbAwayIndex(handedness));
+                case ActorEnum.ThumbAwayMiddle: return getJointsForActor(new ThumbAwayMiddle(handedness));
+                case ActorEnum.ThumbAwayRing: return getJointsForActor(new ThumbAwayRing(handedness));
+                case ActorEnum.ThumbAwayLittle: return getJointsForActor(new ThumbAwayLittle(handedness));
+                case ActorEnum.IndexAwayThumb: return getJointsForActor(new ThumbAwayIndex(handedness));
+                case ActorEnum.IndexAwayMiddle: return getJointsForActor(new IndexAwayMiddle(handedness));
+                case ActorEnum.MiddleAwayThumb: return getJointsForActor(new ThumbAwayMiddle(handedness));
+                case ActorEnum.MiddleAwayIndex: return getJointsForActor(new IndexAwayMiddle(handedness));
+                case ActorEnum.MiddleAwayRing: return getJointsForActor(new MiddleAwayRing(handedness));
+                case ActorEnum.RingAwayThumb: return getJointsForActor(new ThumbAwayRing(handedness));
+                case ActorEnum.RingAwayMiddle: return getJointsForActor(new MiddleAwayRing(handedness));
+                case ActorEnum.RingAwayLittle: return getJointsForActor(new RingAwayLittle(handedness));
+                case ActorEnum.LittleAwayThumb: return getJointsForActor(new ThumbAwayLittle(handedness));
+                case ActorEnum.LittleAwayRing: return getJointsForActor(new RingAwayLittle(handedness));
+                default: return null;
+            }
+        }
+
+        private Tuple<TrackedHandJoint, float>[] getJointsForActor(Actor actor)
+        {
+            if (OneZoneActorEnum.TryParse(this.actor.ToString(), out OneZoneActorEnum oneZoneActor))
+            {   return ((OneZoneActor) actor).getTip(); }
+            else if (TwoZoneActorEnum.TryParse(this.actor.ToString(), out TwoZoneActorEnum twoZoneActor))
+            {
+                if (twoZoneActorZone == TwoZoneActorZone.Tip)
+                    return ((TwoZonesActor) actor).getTip();
+                else
+                    return ((TwoZonesActor) actor).getProximal();
+            }
+            else if (ThreeZoneActorEnum.TryParse(this.actor.ToString(), out ThreeZoneActorEnum threeZoneActor))
+            {
+                if (threeZoneActorZone == ThreeZoneActorZone.Tip)
+                    return ((ThreeZonesActor) actor).getTip();
+                else if (threeZoneActorZone == ThreeZoneActorZone.Center)
+                    return ((ThreeZonesActor) actor).getCenter();
+                else // Basis
+                    return ((ThreeZonesActor) actor).getBasis();
+            }
+            return null;
         }
 
         public ActorEnum getActorEnum() { return actor; }
@@ -172,15 +229,14 @@ namespace Microgestures
     }
 
     public enum OneZoneActorEnum 
-        { IndexJoinedMiddle, MiddleJoinedIndex,
-          MiddleJoinedRing, RingJoinedMiddle,
-          RingJoinedLittle, LittleJoinedRing,
-
-          IndexAwayMiddle, MiddleAwayIndex,
+        { IndexAwayMiddle, MiddleAwayIndex,
           MiddleAwayRing, RingAwayMiddle,
           RingAwayLittle, LittleAwayRing }
     public enum TwoZoneActorEnum { Thumb, Little }
-    public enum ThreeZoneActorEnum { Index, Middle, Ring, ThumbAwayLittle, LittleAwayThumb}
+    public enum ThreeZoneActorEnum { Index, Middle, Ring, ThumbAwayLittle, LittleAwayThumb,
+          IndexJoinedMiddle, MiddleJoinedIndex,
+          MiddleJoinedRing, RingJoinedMiddle,
+          RingJoinedLittle, LittleJoinedRing}
 
     public enum FingerEnum  { Thumb, Index, Middle, Ring, Little }
 

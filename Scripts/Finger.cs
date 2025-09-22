@@ -22,10 +22,10 @@ namespace Microgestures
                 ActorEnum.Thumb};
             }
 
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[1]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 1f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getProximal() 
+        override public Tuple<TrackedHandJoint, float>[] getProximal() 
             { return new Tuple<TrackedHandJoint, float>[1]{
                 Tuple.Create(TrackedHandJoint.ThumbProximal, 1f)}; }
         public Thumb(Handedness handedness) : base(handedness){}
@@ -37,7 +37,7 @@ namespace Microgestures
             { return new ActorEnum[1]{
                 ActorEnum.Index};
             }
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[1]{
                 Tuple.Create(TrackedHandJoint.IndexTip, 1f)}; }
         // override protected Tuple<TrackedHandJoint, float>[] getCenter() 
@@ -48,13 +48,13 @@ namespace Microgestures
         //         Tuple.Create(TrackedHandJoint.IndexProximal, 1f)}; }
         
         // Had to change the placeholder values from MRTK2 to MRTK3
-        override protected Tuple<TrackedHandJoint, float>[] getCenter()
+        override public Tuple<TrackedHandJoint, float>[] getCenter()
         {
             return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.IndexTip, 0.25f),
                 Tuple.Create(TrackedHandJoint.IndexIntermediate, 0.75f)};
         }
-        override protected Tuple<TrackedHandJoint, float>[] getBasis() 
+        override public Tuple<TrackedHandJoint, float>[] getBasis() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.IndexIntermediate, 0.55f), 
                 Tuple.Create(TrackedHandJoint.IndexProximal, 0.45f)}; }
@@ -67,7 +67,7 @@ namespace Microgestures
             { return new ActorEnum[1]{
                 ActorEnum.Middle};
             }
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[1]{
                 Tuple.Create(TrackedHandJoint.MiddleTip, 1f)}; }
         // override protected Tuple<TrackedHandJoint, float>[] getCenter() 
@@ -78,11 +78,11 @@ namespace Microgestures
         //         Tuple.Create(TrackedHandJoint.MiddleProximal, 1f)}; }
         
         // Had to change the placeholder values from MRTK2 to MRTK3
-        override protected Tuple<TrackedHandJoint, float>[] getCenter() 
+        override public Tuple<TrackedHandJoint, float>[] getCenter() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.MiddleTip, 0.25f),
                 Tuple.Create(TrackedHandJoint.MiddleIntermediate, 0.75f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getBasis() 
+        override public Tuple<TrackedHandJoint, float>[] getBasis() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.MiddleIntermediate, 0.55f), 
                 Tuple.Create(TrackedHandJoint.MiddleProximal, 0.45f)}; }
@@ -95,7 +95,7 @@ namespace Microgestures
             { return new ActorEnum[1]{
                 ActorEnum.Ring};
             }
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[1]{
                 Tuple.Create(TrackedHandJoint.RingTip, 1f)}; }
         // override protected Tuple<TrackedHandJoint, float>[] getCenter() 
@@ -106,11 +106,11 @@ namespace Microgestures
         //         Tuple.Create(TrackedHandJoint.RingProximal, 1f)}; }
         
         // Had to change the placeholder values from MRTK2 to MRTK3
-        override protected Tuple<TrackedHandJoint, float>[] getCenter() 
+        override public Tuple<TrackedHandJoint, float>[] getCenter() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.RingTip, 0.25f),
                 Tuple.Create(TrackedHandJoint.RingIntermediate, 0.75f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getBasis() 
+        override public Tuple<TrackedHandJoint, float>[] getBasis() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.RingIntermediate, 0.55f), 
                 Tuple.Create(TrackedHandJoint.RingProximal, 0.45f)}; }
@@ -123,7 +123,7 @@ namespace Microgestures
             { return new ActorEnum[1]{
                 ActorEnum.Little};
             }
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[1]{
                 Tuple.Create(TrackedHandJoint.LittleTip, 1f)}; }
         // override protected Tuple<TrackedHandJoint, float>[] getProximal() 
@@ -131,7 +131,7 @@ namespace Microgestures
         //         Tuple.Create(TrackedHandJoint.LittleProximal, 1f)}; }
         
         // Had to change the placeholder values from MRTK2 to MRTK3
-        override protected Tuple<TrackedHandJoint, float>[] getProximal() 
+        override public Tuple<TrackedHandJoint, float>[] getProximal() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.LittleTip, 0.35f),
                 Tuple.Create(TrackedHandJoint.LittleProximal, 0.65f)}; }

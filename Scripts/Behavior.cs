@@ -1,5 +1,3 @@
-// using MixedReality.Toolkit; // old for Handedness
-
 using System;
 using MixedReality.Toolkit;
 // using UnityEngine.XR.Hands; // new for Handedness and XRHandJointID
@@ -18,16 +16,21 @@ namespace Microgestures
     {
         public BehaviorType type;
         public Handedness handedness;
+        public Location location;
         private Dictionary<int, float> colorDict = new Dictionary<int, float>();
 
-        public Behavior(BehaviorType type) {
+        public Behavior(BehaviorType type)
+        {
             this.type = type;
             this.handedness = Handedness.None;
+            this.location = null;
         }
 
-        public Behavior(BehaviorType type, Handedness handedness) {
+        public Behavior(BehaviorType type, Handedness handedness, Location location)
+        {
             this.type = type;
             this.handedness = handedness;
+            this.location = location;
         }
 
         public BehaviorType getType() {
@@ -136,7 +139,7 @@ namespace Microgestures
             }
         }
 
-        public void use(GameObject obj, Tuple<TrackedHandJoint, float>[] joints) {
+        public void use(GameObject obj) {
             switch (this.getType()) {
                 case BehaviorType.Nothing:
                     setVisible(obj, true);
@@ -144,17 +147,17 @@ namespace Microgestures
                 case BehaviorType.TransparencyOnThumbMovement:
                     transparencyOnThumbMovementBehavior(obj);
                     break;
-                case BehaviorType.TransparencyOnFingerJoined:
-                    transparencyOnFingerJoinedBehavior(obj, joints);
+                case BehaviorType.TransparencyIfFingerJoined:
+                    transparencyIfFingersJoinedBehavior(obj);
                     break;
-                case BehaviorType.TransparencyOnProximity:
-                    transparencyOnProximityBehavior(obj, joints);
+                case BehaviorType.TransparencyIfNotFarAway:
+                    transparencyIfNotFarAwayBehavior(obj);
                     break;
-                case BehaviorType.TransparencyOnDistance:
-                    transparencyOnDistanceBehavior(obj, joints);
+                case BehaviorType.TransparencyIfFingerNotJoined:
+                    transparencyIfFingersNotJoinedBehavior(obj);
                     break;
                 default :
-                    useCustom(obj, joints);
+                    useCustom(obj);
                     break;
             }
         }
@@ -179,7 +182,8 @@ namespace Microgestures
             }
         }
 
-        private void transparencyOnFingerJoinedBehavior(GameObject obj, Tuple<TrackedHandJoint, float>[] joints) {
+        private void transparencyIfFingersJoinedBehavior(GameObject obj) {
+            Tuple<TrackedHandJoint, float>[] joints = location.getJoints(handedness);
             List<UnityEngine.Vector3> positions = computeInvolvedPositionsFromJoints(joints);
             // There should be only one joint in the list
             UnityEngine.Vector3 position = positions[0];
@@ -287,14 +291,16 @@ namespace Microgestures
             return new UnityEngine.Vector3(0,0,0);
         }
 
-        private void transparencyOnProximityBehavior(GameObject obj, Tuple<TrackedHandJoint, float>[] joints)
+        private void transparencyIfNotFarAwayBehavior(GameObject obj)
         {
+            Tuple<TrackedHandJoint, float>[] joints = location.getJoints(handedness);
             List<UnityEngine.Vector3> positions = computeInvolvedPositionsFromJoints(joints);
             float dist = calculateDistanceBetweenPositions(positions);
             transparencyBehavior(obj, dist, proximityMinFingersDistance, proximityMaxFFingersDistance, 0f, 1f);
         }
 
-        private void transparencyOnDistanceBehavior(GameObject obj, Tuple<TrackedHandJoint, float>[] joints) {
+        private void transparencyIfFingersNotJoinedBehavior(GameObject obj) {
+            Tuple<TrackedHandJoint, float>[] joints = location.getJoints(handedness);
             List<UnityEngine.Vector3> positions = computeInvolvedPositionsFromJoints(joints);
             float dist = calculateDistanceBetweenPositions(positions);
             transparencyBehavior(obj, dist, distanceMinFingersDistance, distanceMaxFFingersDistance, 1f, 0f);
@@ -428,31 +434,31 @@ namespace Microgestures
             return to;
         }
 
-        public void useCustom(GameObject obj, Tuple<TrackedHandJoint, float>[] joints) {}
+        public void useCustom(GameObject obj) {}
 
         public static Behavior nothing(Handedness handedness) { 
-            return new Behavior(BehaviorType.Nothing, handedness);
+            return new Behavior(BehaviorType.Nothing, handedness, null);
         }
         public static Behavior transparencyOnThumbMovement(Handedness handedness) { 
-            return new Behavior(BehaviorType.TransparencyOnThumbMovement, handedness);
+            return new Behavior(BehaviorType.TransparencyOnThumbMovement, handedness, null);
         }
-        public static Behavior transparencyOnFingerJoined(Handedness handedness) { 
-            return new Behavior(BehaviorType.TransparencyOnFingerJoined, handedness);
+        public static Behavior transparencyIfFingersJoined(Handedness handedness, Location location) { 
+            return new Behavior(BehaviorType.TransparencyIfFingerJoined, handedness, location);
         }
-        public static Behavior transparencyOnProximity(Handedness handedness) { 
-            return new Behavior(BehaviorType.TransparencyOnProximity, handedness);
+        public static Behavior transparencyIfNotFarAway(Handedness handedness, Location location) { 
+            return new Behavior(BehaviorType.TransparencyIfNotFarAway, handedness, location);
         }
-        public static Behavior transparencyOnDistance(Handedness handedness) { 
-            return new Behavior(BehaviorType.TransparencyOnDistance, handedness);
+        public static Behavior transparencyIfFingersNotJoined(Handedness handedness, Location location) { 
+            return new Behavior(BehaviorType.TransparencyIfFingerNotJoined, handedness, location);
         }
     }
 
     public enum BehaviorType {
         Nothing,
         TransparencyOnThumbMovement,
-        TransparencyOnFingerJoined,
-        TransparencyOnProximity,
-        TransparencyOnDistance,
+        TransparencyIfFingerJoined,
+        TransparencyIfNotFarAway,
+        TransparencyIfFingerNotJoined,
     }
 }
 

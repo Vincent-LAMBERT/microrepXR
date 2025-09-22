@@ -99,7 +99,9 @@ namespace Microgestures
         private Stack<Behavior> getAllBehaviors(Placeholder ph) {
             Stack<Behavior> behaviors = new Stack<Behavior>();
             behaviors.Push(getCurrentDisplayModeRelatedBehavior(this.handedness));
-            behaviors.Push(ph.getBehavior(handedness));
+            foreach (Behavior b in ph.getBehaviors(this.handedness)) {
+                behaviors.Push(b);
+            }
             return behaviors;
         }
 

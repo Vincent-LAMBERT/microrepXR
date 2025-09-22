@@ -25,15 +25,15 @@ namespace Microgestures
         override public bool isWristOriented() { return true; }
         public ThumbAwayIndex(Handedness handedness) : base(handedness){}
 
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.IndexTip, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getCenter() 
+        override public Tuple<TrackedHandJoint, float>[] getCenter() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.IndexIntermediate, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getBasis() 
+        override public Tuple<TrackedHandJoint, float>[] getBasis() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.IndexProximal, 0.5f)}; }
@@ -49,15 +49,15 @@ namespace Microgestures
         override public bool isWristOriented() { return true; }
         public ThumbAwayMiddle(Handedness handedness) : base(handedness){}
 
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.MiddleTip, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getCenter() 
+        override public Tuple<TrackedHandJoint, float>[] getCenter() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.MiddleIntermediate, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getBasis() 
+        override public Tuple<TrackedHandJoint, float>[] getBasis() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.MiddleProximal, 0.5f)}; }
@@ -73,15 +73,15 @@ namespace Microgestures
         override public bool isWristOriented() { return true; }
         public ThumbAwayRing(Handedness handedness) : base(handedness){}
 
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.RingTip, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getCenter() 
+        override public Tuple<TrackedHandJoint, float>[] getCenter() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.RingIntermediate, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getBasis() 
+        override public Tuple<TrackedHandJoint, float>[] getBasis() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.RingProximal, 0.5f)}; }
@@ -97,15 +97,15 @@ namespace Microgestures
         override public bool isWristOriented() { return true; }
         public ThumbAwayLittle(Handedness handedness) : base(handedness){}
 
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.LittleTip, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getCenter() 
+        override public Tuple<TrackedHandJoint, float>[] getCenter() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.LittleIntermediate, 0.5f)}; }
-        override protected Tuple<TrackedHandJoint, float>[] getBasis() 
+        override public Tuple<TrackedHandJoint, float>[] getBasis() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.LittleTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.ThumbProximal, 0.5f)}; }
@@ -121,7 +121,7 @@ namespace Microgestures
         override public bool isWristOriented() { return true; }
         public IndexAwayMiddle(Handedness handedness) : base(handedness){}
 
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.IndexTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.MiddleTip, 0.5f)}; }
@@ -137,7 +137,7 @@ namespace Microgestures
         override public bool isWristOriented() { return true; }
         public MiddleAwayRing(Handedness handedness) : base(handedness){}
 
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.MiddleTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.RingTip, 0.5f)}; }
@@ -153,7 +153,7 @@ namespace Microgestures
         override public bool isWristOriented() { return true; }
         public RingAwayLittle(Handedness handedness) : base(handedness){}
 
-        override protected Tuple<TrackedHandJoint, float>[] getTip() 
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.RingTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.LittleTip, 0.5f)}; }

@@ -303,7 +303,7 @@ namespace Microgestures
 
         public void useBehaviors() {
             foreach (Behavior behavior in behaviors) {
-                behavior.use(obj, joints);
+                behavior.use(obj);
             }
         }
     }

@@ -24,7 +24,7 @@ namespace Microgestures
         public Placeholder placeholder;
         public Command command;
 
-        public VisualCue(GameObject gameObject, TransformElements transformElements, Behavior behavior, Placeholder placeholder)
+        public VisualCue(GameObject gameObject, TransformElements transformElements, Behavior behavior, Placeholder placeholder, Command command)
         {
             this.gameObject = gameObject;
             this.transformElements = transformElements;
