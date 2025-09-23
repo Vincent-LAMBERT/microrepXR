@@ -363,6 +363,47 @@ public class PropertyDrawerTools
         currentPosition.width = initWidth;
         return boolean;
     }
+    
+    public bool insertToggle(bool boolean) {
+        int width = (int) currentPosition.width;
+        if (widthToDefine) { width = 20; }
+        return insertToggle(boolean, width);
+    }
+
+    public bool insertToggle(bool boolean, float widthPart) {
+        int width = (int) ((float) initialWidth*widthPart);
+        return insertToggle(boolean, width);
+    }
+
+    public bool insertToggle(bool boolean, int width) {
+        if (horizontal) {
+            return insertToggleHorizontally(boolean, width);
+        } else {
+            return insertToggleVertically(boolean, width);
+        }
+    }
+
+    private bool insertToggleVertically(bool boolean, int width) {
+        int initWidth = (int) currentPosition.width;
+        currentPosition.width = width;
+        currentPosition.height=initialHeight;
+        boolean = EditorGUI.Toggle(currentPosition, boolean);
+        addVerticalMargin();
+        currentPosition.width = initWidth;
+        currentPosition.y+=initialHeight;
+        return boolean;
+    }
+
+    private bool insertToggleHorizontally(bool boolean, int width) {
+        int initWidth = (int) currentPosition.width;
+        currentPosition.width = width;
+        addHorizontalMargins();
+        boolean = EditorGUI.Toggle(currentPosition, boolean);
+        removeHorizontalMargins();
+        currentPosition.x+=currentPosition.width;
+        currentPosition.width = initWidth;
+        return boolean;
+    }
 
     public void insertNone(float integer) {
         if (horizontal) {

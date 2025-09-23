@@ -107,8 +107,8 @@ namespace Microgestures
                 Tuple.Create(TrackedHandJoint.LittleIntermediate, 0.5f)}; }
         override public Tuple<TrackedHandJoint, float>[] getBasis() 
             { return new Tuple<TrackedHandJoint, float>[2]{
-                Tuple.Create(TrackedHandJoint.LittleTip, 0.5f), 
-                Tuple.Create(TrackedHandJoint.ThumbProximal, 0.5f)}; }
+                Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
+                Tuple.Create(TrackedHandJoint.LittleProximal, 0.5f)}; }
     }
     
     public class IndexAwayMiddle : OneZoneActor

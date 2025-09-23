@@ -21,8 +21,17 @@ namespace Microgestures
     public class Placeholder
     {
         public bool placeholderIsBetweenFingers = false;
+        public bool placeholderComputeRotationPlane = false;
         public Location placeholderLocation;
-        public List<Tuple<Location, PlaceholderOnIfBehavior>> placeholderOnIfBehaviors = new List<Tuple<Location, PlaceholderOnIfBehavior>>();
+        public bool activateOnIfBehaviorOne = false;
+        public Location onIfBehaviorLocationOne;
+        public PlaceholderOnIfBehavior onIfBehaviorOne;
+        public bool activateOnIfBehaviorTwo = false;
+        public Location onIfBehaviorLocationTwo;
+        public PlaceholderOnIfBehavior onIfBehaviorTwo;
+        public bool activateOnIfBehaviorThree = false;
+        public Location onIfBehaviorLocationThree;
+        public PlaceholderOnIfBehavior onIfBehaviorThree;
 
         public Placeholder()
         {
@@ -37,26 +46,24 @@ namespace Microgestures
         {
             Stack<Behavior> behaviors = new Stack<Behavior>();
             
-            if (placeholderOnIfBehaviors.Count == 0)
+            foreach (var (activate, location, onIfBehavior) in new List<(bool, Location, PlaceholderOnIfBehavior)>{
+                (activateOnIfBehaviorOne, onIfBehaviorLocationOne, onIfBehaviorOne),
+                (activateOnIfBehaviorTwo, onIfBehaviorLocationTwo, onIfBehaviorTwo),
+                (activateOnIfBehaviorThree, onIfBehaviorLocationThree, onIfBehaviorThree),
+            })
             {
-                behaviors.Push(Behavior.nothing(handedness));
-            }
-            else
-            {
-                foreach (var (location, onIfBehavior) in placeholderOnIfBehaviors)
+                if (!activate) continue;
+                switch (onIfBehavior)
                 {
-                    switch (onIfBehavior)
-                    {
-                        case PlaceholderOnIfBehavior.FarAway:
-                            behaviors.Push(Behavior.transparencyIfNotFarAway(handedness, location));
-                            break;
-                        case PlaceholderOnIfBehavior.Joined:
-                            behaviors.Push(Behavior.transparencyIfFingersNotJoined(handedness, location));
-                            break;
-                        case PlaceholderOnIfBehavior.NotJoined:
-                            behaviors.Push(Behavior.transparencyIfFingersJoined(handedness, location));
-                            break;
-                    }
+                    case PlaceholderOnIfBehavior.FarAway:
+                        behaviors.Push(Behavior.transparencyIfNotFarAway(handedness, location));
+                        break;
+                    case PlaceholderOnIfBehavior.Joined:
+                        behaviors.Push(Behavior.transparencyIfFingersNotJoined(handedness, location));
+                        break;
+                    case PlaceholderOnIfBehavior.NotJoined:
+                        behaviors.Push(Behavior.transparencyIfFingersJoined(handedness, location));
+                        break;
                 }
             }
             return behaviors;
