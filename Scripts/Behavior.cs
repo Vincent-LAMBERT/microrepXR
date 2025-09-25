@@ -54,7 +54,6 @@ namespace Microgestures
         }
 
         public void setInitialTransparency(GameObject obj) {
-            MeshRenderer renderer;
             GameObject child;
             for (int i = 0; i < obj.transform.childCount; i++) {
                 child = obj.transform.GetChild(i).gameObject;
@@ -66,23 +65,16 @@ namespace Microgestures
                     {
                         if (child.GetComponent<MeshRenderer>() != null)
                         {
-                            // renderer = child.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-                            renderer = child.GetComponent<MeshRenderer>();
+                            MeshRenderer renderer = child.GetComponent<MeshRenderer>();
                             // Splitting is necessary because the left hand side is a copy
                             colorDict[i] = renderer.sharedMaterial.color.a;
                         }
                     }
-                    // }
-                        // else
-                        // {
-                        //     renderer = child.GetComponent<TMP_Text>();
-                        // }
-                    }
+                }
             }
         }
 
         private void alterTransparency(GameObject obj, float value) {
-            MeshRenderer renderer;
             GameObject child;
             for (int i = 0; i < obj.transform.childCount; i++) {
                 child = obj.transform.GetChild(i).gameObject;
@@ -94,8 +86,9 @@ namespace Microgestures
                     {
                         if (child.GetComponent<MeshRenderer>() != null)
                         {
-                            // renderer = child.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-                            renderer = child.GetComponent<MeshRenderer>();
+                            MeshRenderer renderer = child.GetComponent<MeshRenderer>();
+
+                            // Only for a transparent material 
                             // Change the alpha value for each material of the renderer
                             foreach (var mat in renderer.materials)
                             {
@@ -105,32 +98,33 @@ namespace Microgestures
                                 // Reassigning it
                                 mat.color = c;
                             }
+
                         }
                     }
-                    // else
-                    // {
-                    //     renderer = child.GetComponent<TMP_Text>();
-                    //     Color c = renderer.color;
-                    //     // Changing the alpha value
-                    //     c.a = colorDict[i] * value;
-                    //     // Reassigning it
-                    //     renderer.color = c;
-                    // }
                 }
             }
         }
+        
 
-        private void setVisible(GameObject obj, bool value) {
-            MeshRenderer renderer;
+        private void setVisible(GameObject obj, bool value)
+        {
             GameObject child;
-            for (int i = 0; i < obj.transform.childCount; i++) {
+            for (int i = 0; i < obj.transform.childCount; i++)
+            {
                 child = obj.transform.GetChild(i).gameObject;
-                if (child.transform.childCount>0) {
+                if (child.transform.childCount > 0)
+                {
                     setVisible(child, value);
-                } else {
-                    if(child.GetComponent<MeshRenderer>() == null) {
+                }
+                else
+                {
+                    MeshRenderer renderer;
+                    if (child.GetComponent<MeshRenderer>() == null)
+                    {
                         renderer = child.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-                    } else {
+                    }
+                    else
+                    {
                         renderer = child.GetComponent<MeshRenderer>();
                     }
                     // Reassigning it
@@ -168,10 +162,10 @@ namespace Microgestures
         private float joinedMaxFFingersDistance = 28f;
         private float distanceMinFingersDistance = 22f;
         private float distanceMaxFFingersDistance = 25f;
-        private float proximityMinFingersDistance = 60f;
+        private float proximityMinFingersDistance = 70f;
         private float proximityMaxFFingersDistance = 80f;
         // private float thumbDistanceFingersDistance = 70f;
-        private float thumbDistanceFingersDistance = 60f;
+        private float thumbDistanceFingersDistance = 70f;
 
         private void transparencyOnThumbMovementBehavior(GameObject obj) {
             float dist = calculateFingersMinDistanceWithThumb();

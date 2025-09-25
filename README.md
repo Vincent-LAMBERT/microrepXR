@@ -148,3 +148,7 @@ The handedness allows you to create a representation for the left OR the right h
 With this `Representation.cs` script, you can thus create both *single-picture* and *simultaneous* representations of microgestures.
 
 When you are done, save your representation prefab and test it !
+
+#### Additionnal comment on material shaders
+
+As you may notice if you look into the material in `µRepXR > PrefabResources > Materials`, we use the Universal Render Pipeline/Lit shader because it is easily imported from Blender to Unity. Nevertheless, if you want the *Visible if* statements to work (see the `Inspector` for each `VisualCue`), you will need to either set the surface type to *transparent* instead of *opaque* or activate the *alpha clipping* for an *opaque* surface type. In our tests, we set the threshold to 0.5 to make sure the switch is made in the middle of the min and max distances used to distinguish between fingers joined or not joined.  

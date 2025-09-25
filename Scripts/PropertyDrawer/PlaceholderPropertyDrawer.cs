@@ -130,7 +130,7 @@ public class PlaceholderPropertyDrawer : ConditionnalPropertyDrawer
                     (fingerEnumB1, fingerEnumB2) = Location.getJoinedFingers(actorEnum);
                     fingerEnumB1 = (JoinableFingerEnum) tools.insertEnum(fingerEnumB1, 0.15f);
                     tools.insertLabel("AND", 40);
-                    fingerEnumB2 = (JoinableFingerEnum) tools.insertEnum(fingerEnumB2, 0.15f);
+                    fingerEnumB2 = insertSpecificEnumJoinedFingers(fingerEnumB1, fingerEnumB2);
                     (oneZoneActorZone, twoZoneActorZone, threeZoneActorZone) = insertZone(actorEnum, oneZoneActorZone, twoZoneActorZone, threeZoneActorZone);
                     actorEnumProp.enumValueIndex = (int) Location.getJoinedActorEnum(fingerEnumB1, fingerEnumB2);
                 }
