@@ -95,13 +95,17 @@ Select `All Prefabs` in the `Project` tab and search for "MRTK". In the availabl
 Open the `Package Manager` (`Window > Package Manager`). Hit the top-left `+` button and select `Add a package from disk` then browse to the folder containing the µRepXR package. Select the `package.json` file to install the package.
 
 In the `Project` tab, you can see that a `µRepXR` folder has appeared.
-Check that the `Material.mat` file in `µRepXR > PrefabResources > Materials` is correctly imported. The shader should be *Universal Render Pipeline/Complex Lit*. If the material appears pink with an *InternalShaderError*, please repair your installation of the *Universal Render Pipeline* (`com.unity.render-pipelines.universal`).
+Check that the `Material.mat` file in `µRepXR > PrefabResources > Materials` is correctly imported. The shader should be *Universal Render Pipeline/Lit*. If the material appears pink with an *InternalShaderError*, please repair your installation of the *Universal Render Pipeline* (`com.unity.render-pipelines.universal`).
+
+##### Additionnal comment on material shaders
+
+As you may notice if you look into the material in `µRepXR > PrefabResources > Materials`, we use the Universal Render Pipeline/Lit shader because it is easily imported from Blender to Unity. Nevertheless, if you want the *Visible if* statements to work (see step 7), you will need to either set the surface type to *transparent* instead of *opaque* or activate the *alpha clipping* for an *opaque* surface type. In our tests, we set the threshold to 0.5 to make sure the switch is made in the middle of the min and max distances used to distinguish between fingers joined and not joined.  
 
 #### 7. Test the package
 
-You can create an empty object in you scene. When you click on this object, you can see the `Inspector` tab in which you will be able to manipulate representations of microgestures using special scripts and their associated Graphical User Interfaces (GUI). Go to the `µRepXR > Scripts` folder in the `Project` tab and drag and drop the `MicroRepToolkit.cs` script in the Inspector of your new empty object.
+You can create an empty object in you scene. When you click on this object, you can see the `Inspector` tab in which you will be able to manipulate representations of microgestures using special scripts and their associated Graphical User Interfaces (GUI). Go to the `µRepXR > Scripts` folder in the `Project` tab and drag and drop the `RepresentationList.cs` or the `SimultaneousRep.cs` script in the Inspector of your new empty object.
 As you can see, there is now a new component in which you can add multiple representations using the `+` button. Click on the `+` button to add a new representation. You should see a new line in the `Inspector` with a `None (Game Object)` asigned to it. 
-This script is a simple Representation manager that will be usefull to quickly test that the representations are correctly imported.
+These scripts are representation managers that will be usefull to quickly test that the representations are correctly imported. The first one allows you to switch between multiple representation using a functionnal trigger and the second one activates all the representations you want simultaneously.
 
 Go to the `µRepXR > Prefabs > Representations` folder in the `Project` tab. As you can see, we let pre-made representations for everyone to easily manipulate and understand the project without taking too much space. Drag and drop the `AandB_Tap` prefab instead of the `None (Game Object)` box. You just selected the `AandB_Tap` representation as you base representation for the scene. 
 
@@ -139,7 +143,7 @@ In Unity, select your Blender file (see `µRepXR > PrefabResources > BlenderMode
 
 In Unity, create an empty object. Then, go to the `µRepXR > Scripts` folder in the `Project` tab and drag and drop the `Representation.cs` script in the `Inspector` of your new empty object. As you can see, there is a new GUI with two elements: a handedness and a list of `VisualCues`.
 
-The handedness allows you to create a representation for the left OR the right hand. It is as simple as that. The list of `VisualCues` allows you to pick your previously created visual cue prefabs and associate them to a placeholder. Click on the `+` button and you will see a `None (Game Object)` box in which you can drag and drop a visual cue prefab. Then, you can decide if this visual cue should be `Always visible on a specific finger`, `Visible on two fingers that are joined` or `Visible between two fingers that are NOT joined`. Depending on the chosen configuration, the ChoiceBox widgets will slightly change to precise the exact location, e.g. the `Tip`of the `Index` finger.
+The handedness allows you to create a representation for the left OR the right hand. It is as simple as that. The list of `VisualCues` allows you to pick your previously created visual cue prefabs and associate them to a placeholder. Click on the `+` button and you will see a `None (Game Object)` box in which you can drag and drop a visual cue prefab. Then, you can decide where to *place* it and slightly change the transform with relative position and rotation properties. You can also specify the conditions to hide the prefab if it is relevant in your application.
 
 <div style="text-align: center;">
     <img src="./Documentation/Images/unity_representation.png" alt="Inspector representation screenshot" width="350"/>

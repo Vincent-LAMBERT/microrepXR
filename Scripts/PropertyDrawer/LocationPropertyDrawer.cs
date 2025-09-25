@@ -26,7 +26,6 @@ abstract public class LocationPropertyDrawer : ConditionnalPropertyDrawer
     protected OneZoneActorZone oneZoneActorZone;
     protected TwoZoneActorZone twoZoneActorZone;
     protected ThreeZoneActorZone threeZoneActorZone;
-    protected FourZoneActorZone fourZoneActorZone;
 
     protected bool oneZoneActor;
     protected bool twoZoneActor;
@@ -34,7 +33,7 @@ abstract public class LocationPropertyDrawer : ConditionnalPropertyDrawer
     protected bool fourZoneActor;
 
     protected void initializeLocationPropertyHeight() {
-        propertyHeight = 100;
+        propertyHeight = 120;
     }
 }
 

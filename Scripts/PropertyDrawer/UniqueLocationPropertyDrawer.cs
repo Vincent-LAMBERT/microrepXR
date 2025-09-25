@@ -47,19 +47,21 @@ public class UniqueLocationPropertyDrawer : LocationPropertyDrawer
             tools.beginHorizontal();
         
             actorProp.enumValueIndex = (int) (FingerEnum) tools.insertEnum(
-                    (FingerEnum) Location.getFingerEnum((ActorEnum) actorProp.enumValueIndex), 0.5f);
+                    (FingerEnum) Location.getFingerEnum((ActorEnum) actorProp.enumValueIndex), 1f);
 
             twoZoneActor = (actorProp.enumValueIndex == (int) ActorEnum.Little)
                         || (actorProp.enumValueIndex == (int) ActorEnum.Thumb);
 
+            tools.endHorizontal();
+
+            tools.beginHorizontal();
             if (twoZoneActor) {
                 twoZoneActorZoneProp.enumValueIndex = 
-                    (int) (TwoZoneActorZone) tools.insertEnum(twoZoneActorZone, 0.5f);
+                    (int) (TwoZoneActorZone) tools.insertEnum(twoZoneActorZone, 1f);
             } else {
                 threeZoneActorZoneProp.enumValueIndex = 
-                    (int) (ThreeZoneActorZone) tools.insertEnum(threeZoneActorZone, 0.5f);
+                    (int) (ThreeZoneActorZone) tools.insertEnum(threeZoneActorZone, 1f);
             }
-            
             tools.endHorizontal();
         }
     }

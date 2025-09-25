@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3545947526419438192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1894950826901391887}
+  - component: {fileID: 2594309947508014476}
+  m_Layer: 0
+  m_Name: MaS_Swipe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1894950826901391887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3545947526419438192}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2594309947508014476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3545947526419438192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451e12d522af5bd45952422327ce194a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand:
+    handedness: 2
+  visualCues:
+  - gameObject: {fileID: 1935002853083932411, guid: fba3b47fa3ea15544a4b05f8741af9a3,
+      type: 3}
+    transformElements:
+      positionX: 0
+      positionY: 0
+      positionZ: 0
+      rotationX: 0
+      rotationY: 0
+      rotationZ: 0
+    placeholder:
+      placeholderIsBetweenFingers: 0
+      placeholderComputeRotationPlane: 0
+      placeholderLocation:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      activateOnIfBehaviorOne: 0
+      onIfBehaviorLocationOne:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorOne: 0
+      activateOnIfBehaviorTwo: 0
+      onIfBehaviorLocationTwo:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorTwo: 0
+      activateOnIfBehaviorThree: 0
+      onIfBehaviorLocationThree:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorThree: 0
+    command:
+      text: 
+      fontSize: 0
+      textColor: {r: 0, g: 0, b: 0, a: 0}
+      outlineColor: {r: 0, g: 0, b: 0, a: 0}
+      outlineWidth: 0
+      textLocation: 0
+  - gameObject: {fileID: 1935002853083932411, guid: fba3b47fa3ea15544a4b05f8741af9a3,
+      type: 3}
+    transformElements:
+      positionX: 0
+      positionY: 0
+      positionZ: 0
+      rotationX: 0
+      rotationY: 0
+      rotationZ: 0
+    placeholder:
+      placeholderIsBetweenFingers: 0
+      placeholderComputeRotationPlane: 0
+      placeholderLocation:
+        actor: 1
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      activateOnIfBehaviorOne: 0
+      onIfBehaviorLocationOne:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorOne: 0
+      activateOnIfBehaviorTwo: 0
+      onIfBehaviorLocationTwo:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorTwo: 0
+      activateOnIfBehaviorThree: 0
+      onIfBehaviorLocationThree:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorThree: 0
+    command:
+      text: 
+      fontSize: 0
+      textColor: {r: 0, g: 0, b: 0, a: 0}
+      outlineColor: {r: 0, g: 0, b: 0, a: 0}
+      outlineWidth: 0
+      textLocation: 0
+  - gameObject: {fileID: 6304729395517412380, guid: f0fc53a748936c14db178fd64a6b4a27,
+      type: 3}
+    transformElements:
+      positionX: 0
+      positionY: 0
+      positionZ: 0
+      rotationX: 0
+      rotationY: 0
+      rotationZ: 0
+    placeholder:
+      placeholderIsBetweenFingers: 0
+      placeholderComputeRotationPlane: 0
+      placeholderLocation:
+        actor: 1
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      activateOnIfBehaviorOne: 0
+      onIfBehaviorLocationOne:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorOne: 0
+      activateOnIfBehaviorTwo: 0
+      onIfBehaviorLocationTwo:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorTwo: 0
+      activateOnIfBehaviorThree: 0
+      onIfBehaviorLocationThree:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorThree: 0
+    command:
+      text: 
+      fontSize: 0
+      textColor: {r: 0, g: 0, b: 0, a: 0}
+      outlineColor: {r: 0, g: 0, b: 0, a: 0}
+      outlineWidth: 0
+      textLocation: 0
+  m_InspectorXML: {fileID: 0}

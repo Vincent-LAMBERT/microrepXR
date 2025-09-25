@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9, y: 9, z: 9}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,54 +41,100 @@ MonoBehaviour:
   m_GameObject: {fileID: 3545947526419438192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e6726b0cc4ab6c4c866962d9be3adb7, type: 3}
+  m_Script: {fileID: 11500000, guid: 451e12d522af5bd45952422327ce194a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hand:
     handedness: 2
   visualCues:
-  - gameObject: {fileID: 6937921177331452648, guid: 8c4efe5fd3e72374d922b59d87c67ca7,
+  - gameObject: {fileID: 7225555850780893666, guid: 7b4455fe6dd888c44a6d66a0dce734f6,
       type: 3}
+    transformElements:
+      positionX: 0
+      positionY: 0
+      positionZ: 0
+      rotationX: 0
+      rotationY: 0
+      rotationZ: 0
     placeholder:
-      fingersStatus: 0
-      uniqueLocation:
+      placeholderIsBetweenFingers: 0
+      placeholderComputeRotationPlane: 1
+      placeholderLocation:
+        actor: 1
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      activateOnIfBehaviorOne: 0
+      onIfBehaviorLocationOne:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-        fourZoneActorZone: 0
-      joinedLocation:
+      onIfBehaviorOne: 0
+      activateOnIfBehaviorTwo: 0
+      onIfBehaviorLocationTwo:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-        fourZoneActorZone: 0
-      awayLocation:
+      onIfBehaviorTwo: 0
+      activateOnIfBehaviorThree: 0
+      onIfBehaviorLocationThree:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-        fourZoneActorZone: 0
-  - gameObject: {fileID: 6493198329950897749, guid: bdc3a8c337e038141add9cb33f647990,
+      onIfBehaviorThree: 0
+    command:
+      text: 
+      fontSize: 0
+      textColor: {r: 0, g: 0, b: 0, a: 0}
+      outlineColor: {r: 0, g: 0, b: 0, a: 0}
+      outlineWidth: 0
+      textLocation: 0
+  - gameObject: {fileID: 3302446890627247769, guid: 76d6b4115dc84f0409344c3e38aaa759,
       type: 3}
+    transformElements:
+      positionX: 0
+      positionY: 0
+      positionZ: 0
+      rotationX: 0
+      rotationY: 0
+      rotationZ: 0
     placeholder:
-      fingersStatus: 2
-      uniqueLocation:
-        actor: 0
-        oneZoneActorZone: 0
-        twoZoneActorZone: 0
-        threeZoneActorZone: 0
-        fourZoneActorZone: 0
-      joinedLocation:
-        actor: 0
-        oneZoneActorZone: 0
-        twoZoneActorZone: 0
-        threeZoneActorZone: 0
-        fourZoneActorZone: 0
-      awayLocation:
+      placeholderIsBetweenFingers: 1
+      placeholderComputeRotationPlane: 1
+      placeholderLocation:
         actor: 11
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-        fourZoneActorZone: 0
+      activateOnIfBehaviorOne: 0
+      onIfBehaviorLocationOne:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorOne: 0
+      activateOnIfBehaviorTwo: 0
+      onIfBehaviorLocationTwo:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorTwo: 0
+      activateOnIfBehaviorThree: 0
+      onIfBehaviorLocationThree:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      onIfBehaviorThree: 0
+    command:
+      text: 
+      fontSize: 0
+      textColor: {r: 0, g: 0, b: 0, a: 0}
+      outlineColor: {r: 0, g: 0, b: 0, a: 0}
+      outlineWidth: 0
+      textLocation: 0
   m_InspectorXML: {fileID: 0}

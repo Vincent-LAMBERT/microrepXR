@@ -21,14 +21,21 @@ namespace Microgestures
     public struct ARObject
     {
         public GameObject obj;
+        public TransformElements transformElements;
+        public Command command;
+        public TextMeshPro textMesh;
         private Stack<Behavior> behaviors;
         Tuple<TrackedHandJoint, float>[] joints;
         HandJointPose localpose;
         List<Vector3> jointPositions;
 
-        public ARObject(GameObject obj, Stack<Behavior> behaviors) {
+        public ARObject(GameObject obj, TransformElements transformElements, Command command, Stack<Behavior> behaviors) {
             this.obj = obj;
-            foreach (Behavior b in behaviors) {
+            this.transformElements = transformElements;
+            this.command = command;
+            this.textMesh = null;
+            foreach (Behavior b in behaviors)
+            {
                 b.setInitialTransparency(obj);
             }
             this.behaviors = behaviors;
@@ -37,19 +44,104 @@ namespace Microgestures
             this.jointPositions = null;
         }
 
-        public void instantiate(Transform transform, params Tuple<TrackedHandJoint, float>[] joints) 
-        {   
+        public void instantiate(Transform transform, params Tuple<TrackedHandJoint, float>[] joints)
+        {
             this.obj = UnityEngine.Object.Instantiate(this.obj, transform);
             this.joints = joints;
+
+            // this.textMesh = this.obj.AddComponent<TextMeshPro>();
+            GameObject textObject = new GameObject("Command");
+            this.textMesh = textObject.AddComponent<TextMeshPro>();
+
+            // Add the text object as a child of the object
+            textObject.transform.SetParent(this.obj.transform);
+
+            // Set text properties
+            this.textMesh.text = this.command.text;
+            this.textMesh.fontSize = this.command.fontSize;
+            this.textMesh.color = this.command.textColor;
+            this.textMesh.alignment = TextAlignmentOptions.Center;
+
+            // Enable outline
+            this.textMesh.enableVertexGradient = true;
+            this.textMesh.outlineWidth = this.command.outlineWidth;
+            this.textMesh.outlineColor = this.command.outlineColor;
+
+            // Set scale to 1
+            this.textMesh.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        
+        public void setPose(HandJointPose pose) {
+            if (obj != null)
+            {
+                obj.transform.position = pose.Position;
+                obj.transform.rotation = pose.Rotation;
+
+                obj.transform.transform.Translate(new Vector3(this.transformElements.positionX, 0, 0), Space.Self);
+                obj.transform.transform.Translate(new Vector3(0, this.transformElements.positionY, 0), Space.Self);
+                obj.transform.transform.Translate(new Vector3(0, 0, this.transformElements.positionZ), Space.Self);
+
+                obj.transform.transform.Rotate(new Vector3(this.transformElements.rotationX, 0, 0), Space.Self);
+                obj.transform.transform.Rotate(new Vector3(0, this.transformElements.rotationY, 0), Space.Self);
+                obj.transform.transform.Rotate(new Vector3(0, 0, this.transformElements.rotationZ), Space.Self);
+            }
+            if (command != null)
+            {
+                this.textMesh.transform.position = pose.Position;
+                this.textMesh.transform.rotation = pose.Rotation;
+
+                // Add a new rotation to make it face the pulp of the finger
+                this.textMesh.transform.Rotate(new Vector3(-90, 0, 0));
+                this.textMesh.transform.Rotate(new Vector3(0, 0, 180));
+
+                // Offset the text position based on the textLocation
+                float offsetUp = 0.02f; // Adjust this value as needed
+                float offsetDown = 0.015f; // Adjust this value as needed
+                // Adjust the offset based on the length of the text
+                float offsetLeft = 0.0035f * this.command.text.Length; // Adjust this value as needed
+                float offsetRight = 0.004f * this.command.text.Length; // Adjust this value as needed
+                switch (this.command.textLocation)
+                {
+                    case TextLocation.Up:
+                        this.textMesh.transform.Translate(new Vector3(0, offsetUp, 0), Space.Self);
+                        break;
+                    case TextLocation.Down:
+                        this.textMesh.transform.Translate(new Vector3(0, -offsetDown, 0), Space.Self);
+                        break;
+                    case TextLocation.Left:
+                        this.textMesh.transform.Translate(new Vector3(-offsetLeft, 0, 0), Space.Self);
+                        break;
+                    case TextLocation.Right:
+                        this.textMesh.transform.Translate(new Vector3(offsetRight, 0, 0), Space.Self);
+                        break;
+                }
+
+                this.textMesh.transform.Translate(new Vector3(this.transformElements.positionX, 0, 0), Space.Self);
+                this.textMesh.transform.Translate(new Vector3(0, this.transformElements.positionY, 0), Space.Self);
+                this.textMesh.transform.Translate(new Vector3(0, 0, this.transformElements.positionZ), Space.Self);
+
+                this.textMesh.transform.Rotate(new Vector3(this.transformElements.rotationX, 0, 0));
+                this.textMesh.transform.Rotate(new Vector3(0, this.transformElements.rotationY, 0));
+                this.textMesh.transform.Rotate(new Vector3(0, 0, this.transformElements.rotationZ));
+            }
         }
 
-        public bool visibleJoints(Handedness handedness, bool wristOriented, out HandJointPose pose) {
-            jointPositions = new List<Vector3> ();
+        public void setActive(bool state) {
+            if (obj != null) {
+                obj.SetActive(state);
+            }
+            if (command != null) {
+                this.textMesh.gameObject.SetActive(state);
+            }
+        }
+
+        public bool visibleJoints(Handedness handedness, bool wristOriented, out HandJointPose pose)
+        {
+            jointPositions = new List<Vector3>();
             try
             {
                 if (wristOriented)
                 {
-                    // pose = getStartingJoint(handedness);
                     pose = getWristOrientedJoint(handedness);
                 }
                 else
@@ -67,9 +159,10 @@ namespace Microgestures
             Vector3 headPosition = Camera.main.transform.position;
             Vector3 headForward = Camera.main.transform.forward;
 
-            pose = tweakPoseToCorrectHololens(headPosition, pose);        
+            pose = tweakPoseToCorrectHololens(headPosition, pose);
 
-            useBehaviors(jointPositions);
+            // useBehaviors(jointPositions);
+            useBehaviors();
 
             return true;
         }
@@ -111,7 +204,7 @@ namespace Microgestures
                             {
                                 pos += localpose.Position * joint.Item2;
                                 rot = localpose.Rotation;
-                                jointPositions.Add(localpose.Position);
+                                // jointPositions.Add(localpose.Position);
                             }
                             else
                             {
@@ -127,7 +220,7 @@ namespace Microgestures
                             {
                                 pos += localpose.Position * joint.Item2;
                                 rot = localpose.Rotation;
-                                jointPositions.Add(localpose.Position);
+                                // jointPositions.Add(localpose.Position);
                             }
                             else
                             {
@@ -208,9 +301,9 @@ namespace Microgestures
             return new HandJointPose();
         }
 
-        public void useBehaviors(List<Vector3> positions) {
+        public void useBehaviors() {
             foreach (Behavior behavior in behaviors) {
-                behavior.use(obj, positions);
+                behavior.use(obj);
             }
         }
     }

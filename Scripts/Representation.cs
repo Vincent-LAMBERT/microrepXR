@@ -65,7 +65,8 @@ namespace Microgestures
         }
         private bool state;
 
-        public void setActive() {
+        public void setActive()
+        {
             state = true;
         }
 

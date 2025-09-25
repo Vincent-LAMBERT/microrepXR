@@ -21,45 +21,63 @@ public class JoinedLocationPropertyDrawer : LocationPropertyDrawer
 {    
     JoinedActorEnum all_actor;
 
-    MainJoinedFingerEnum mainActor = MainJoinedFingerEnum.Index;
-    IndexJoinedFingerEnum indexMate = IndexJoinedFingerEnum.Middle;
-    MiddleJoinedFingerEnum middleMate = MiddleJoinedFingerEnum.Index;
-    RingJoinedFingerEnum ringMate = RingJoinedFingerEnum.Middle;
-    LittleJoinedFingerEnum littleMate = LittleJoinedFingerEnum.Ring;
+    JoinableFingerEnum mainActor = JoinableFingerEnum.Index;
+    JoinedWithIndexEnum indexMate = JoinedWithIndexEnum.Middle;
+    JoinedWithMiddleEnum middleMate = JoinedWithMiddleEnum.Index;
+    JoinedWithRingEnum ringMate = JoinedWithRingEnum.Middle;
+    JoinedWithLittleEnum littleMate = JoinedWithLittleEnum.Ring;
 
     protected override void initializeProperties(SerializedProperty property) {
         actorProp = property.FindPropertyRelative ("actor");
+        oneZoneActorZoneProp = property.FindPropertyRelative ("oneZoneActorZone");
+        threeZoneActorZoneProp = property.FindPropertyRelative ("threeZoneActorZone");
 
         all_actor = Location.getJoinedActorEnum((ActorEnum) actorProp.enumValueIndex);
+        oneZoneActor = false;
+        threeZoneActor = false;
 
         switch (all_actor) {
             case JoinedActorEnum.IndexJoinedMiddle:
-                mainActor = MainJoinedFingerEnum.Index;
-                indexMate = IndexJoinedFingerEnum.Middle;
+                mainActor = JoinableFingerEnum.Index;
+                indexMate = JoinedWithIndexEnum.Middle;
+                threeZoneActor = true;
                 break;
             case JoinedActorEnum.MiddleJoinedIndex:
-                mainActor = MainJoinedFingerEnum.Middle;
-                middleMate = MiddleJoinedFingerEnum.Index;
+                mainActor = JoinableFingerEnum.Middle;
+                middleMate = JoinedWithMiddleEnum.Index;
+                threeZoneActor = true;
                 break;
             case JoinedActorEnum.MiddleJoinedRing:
-                mainActor = MainJoinedFingerEnum.Middle;
-                middleMate = MiddleJoinedFingerEnum.Ring;
+                mainActor = JoinableFingerEnum.Middle;
+                middleMate = JoinedWithMiddleEnum.Ring;
+                threeZoneActor = true;
                 break;
             case JoinedActorEnum.RingJoinedMiddle:
-                mainActor = MainJoinedFingerEnum.Ring;
-                ringMate = RingJoinedFingerEnum.Middle;
+                mainActor = JoinableFingerEnum.Ring;
+                ringMate = JoinedWithRingEnum.Middle;
+                threeZoneActor = true;
                 break;
             case JoinedActorEnum.RingJoinedLittle:
-                mainActor = MainJoinedFingerEnum.Ring;
-                ringMate = RingJoinedFingerEnum.Little;
+                mainActor = JoinableFingerEnum.Ring;
+                ringMate = JoinedWithRingEnum.Little;
+                threeZoneActor = true;
                 break;
             case JoinedActorEnum.LittleJoinedRing:
-                mainActor = MainJoinedFingerEnum.Little;
-                littleMate = LittleJoinedFingerEnum.Ring;
+                mainActor = JoinableFingerEnum.Little;
+                littleMate = JoinedWithLittleEnum.Ring;
+                threeZoneActor = true;
                 break;
             default:
                 throw new Exception("Error on JoinedLocationProperyDrawer");
         };
+
+        if (oneZoneActor) {
+            oneZoneActorZone = (OneZoneActorZone) oneZoneActorZoneProp.enumValueIndex;
+        } else if (twoZoneActor) {
+            twoZoneActorZone = (TwoZoneActorZone) twoZoneActorZoneProp.enumValueIndex;
+        } else if (threeZoneActor) {
+            threeZoneActorZone = (ThreeZoneActorZone) threeZoneActorZoneProp.enumValueIndex;
+        }
     }
 
     protected override void OnConditionnalGUI (SerializedProperty property) {
@@ -68,42 +86,79 @@ public class JoinedLocationPropertyDrawer : LocationPropertyDrawer
         } else {
             initializeLocationPropertyHeight();
             tools.initialize();
+            oneZoneActor = false;
+            threeZoneActor = false;
             tools.beginHorizontal();
-            mainActor = (MainJoinedFingerEnum) tools.insertEnum(mainActor, 0.5f);
-
+            mainActor = (JoinableFingerEnum) tools.insertEnum(mainActor, 0.5f);
+            
             switch (mainActor) {
-                case MainJoinedFingerEnum.Index:
-                    indexMate = (IndexJoinedFingerEnum) tools.insertEnum(indexMate, 0.5f);
-                    actorProp.enumValueIndex = (int) ActorEnum.IndexJoinedMiddle;
+                case JoinableFingerEnum.Index:
+                    indexMate = (JoinedWithIndexEnum) tools.insertEnum(indexMate, 0.5f);
+                    switch (indexMate) {
+                        case JoinedWithIndexEnum.Middle:
+                            actorProp.enumValueIndex = (int) ActorEnum.IndexJoinedMiddle;
+                            threeZoneActor = true;
+                            break;
+                        default :
+                            throw new Exception("Error on JoinedLocationPropertyDrawer");
+                    }
                     break;
-                case MainJoinedFingerEnum.Middle:
-                    middleMate = (MiddleJoinedFingerEnum) tools.insertEnum(middleMate, 0.5f);
+                case JoinableFingerEnum.Middle:
+                    middleMate = (JoinedWithMiddleEnum) tools.insertEnum(middleMate, 0.5f);
                     switch (middleMate) {
-                        case MiddleJoinedFingerEnum.Index:
+                        case JoinedWithMiddleEnum.Index:
                             actorProp.enumValueIndex = (int) ActorEnum.MiddleJoinedIndex;
+                            threeZoneActor = true;
                             break;
-                        case MiddleJoinedFingerEnum.Ring:
+                        case JoinedWithMiddleEnum.Ring:
                             actorProp.enumValueIndex = (int) ActorEnum.MiddleJoinedRing;
+                            threeZoneActor = true;
                             break;
+                        default :
+                            throw new Exception("Error on JoinedLocationPropertyDrawer");
                     }
                     break;
-                case MainJoinedFingerEnum.Ring:
-                    ringMate = (RingJoinedFingerEnum) tools.insertEnum(ringMate, 0.5f);
+                case JoinableFingerEnum.Ring:
+                    ringMate = (JoinedWithRingEnum) tools.insertEnum(ringMate, 0.5f);
                     switch (ringMate) {
-                        case RingJoinedFingerEnum.Middle:
+                        case JoinedWithRingEnum.Middle:
                             actorProp.enumValueIndex = (int) ActorEnum.RingJoinedMiddle;
+                            threeZoneActor = true;
                             break;
-                        case RingJoinedFingerEnum.Little:
+                        case JoinedWithRingEnum.Little:
                             actorProp.enumValueIndex = (int) ActorEnum.RingJoinedLittle;
+                            threeZoneActor = true;
                             break;
+                        default :
+                            throw new Exception("Error on JoinedLocationPropertyDrawer");
                     }
                     break;
-                case MainJoinedFingerEnum.Little:
-                    littleMate = (LittleJoinedFingerEnum) tools.insertEnum(littleMate, 0.5f);
-                    actorProp.enumValueIndex = (int) ActorEnum.LittleJoinedRing;
+                case JoinableFingerEnum.Little:
+                    littleMate = (JoinedWithLittleEnum) tools.insertEnum(littleMate, 0.5f);
+                    switch (littleMate) {
+                        case JoinedWithLittleEnum.Ring:
+                            actorProp.enumValueIndex = (int) ActorEnum.LittleJoinedRing;
+                            threeZoneActor = true;
+                            break;
+                        default :
+                            throw new Exception("Error on JoinedLocationPropertyDrawer");
+                    }
                     break;
-            }
+                default:
+                    throw new Exception("Error on JoinedLocationPropertyDrawer");
+            };
 
+
+            tools.endHorizontal();
+            
+            tools.beginHorizontal();
+            if (oneZoneActor) {
+                oneZoneActorZoneProp.enumValueIndex = 
+                    (int) (OneZoneActorZone) tools.insertEnum(oneZoneActorZone, 1f);
+            } else if (threeZoneActor) {
+                threeZoneActorZoneProp.enumValueIndex = 
+                    (int) (ThreeZoneActorZone) tools.insertEnum(threeZoneActorZone, 1f);
+            }
             tools.endHorizontal();
         }
     }

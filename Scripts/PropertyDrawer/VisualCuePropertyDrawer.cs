@@ -20,30 +20,27 @@ using UnityEditor.UIElements;
 public class VisualCuePropertyDrawer : ConditionnalPropertyDrawer
 {    
     SerializedProperty gameObjectProp;
-    // SerializedProperty behaviorProp;
+    SerializedProperty transformElementsProp;
     SerializedProperty placeholderProp;
+    SerializedProperty commandProp;
 
     protected override void initializeProperties(SerializedProperty property) {
         gameObjectProp = property.FindPropertyRelative ("gameObject");
-        // behaviorProp = property.FindPropertyRelative ("behavior");
+        transformElementsProp = property.FindPropertyRelative ("transformElements");
         placeholderProp = property.FindPropertyRelative ("placeholder");
+        commandProp = property.FindPropertyRelative ("command");
     }
 
     protected override void OnConditionnalGUI (SerializedProperty property) {
         if (property.isArray) {
             EditorGUI.PropertyField(tools.getCurrentPosition(), property, true);
         } else {
-            initializePropertyHeight(gameObjectProp, placeholderProp);
+            initializePropertyHeight(gameObjectProp, transformElementsProp, placeholderProp, commandProp);
             tools.initialize();
             tools.insertField(gameObjectProp);
-            // beginHorizontal(maxHeightInProps(gameObjectProp, behaviorProp));
-            // tools.beginHorizontal(tools.maxHeightInProps(gameObjectProp));
-            // tools.insertField(gameObjectProp, 0.4f);
-            // tools.insertNone(0.075f);
-            // insertLabel("Behavior", 0.200f);
-            // insertField(behaviorProp, 0.325f);
-            // tools.endHorizontal();
+            tools.insertField(transformElementsProp);
             tools.insertField(placeholderProp);
+            tools.insertField(commandProp);
         }
     }
 }

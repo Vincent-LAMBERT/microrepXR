@@ -9,6 +9,7 @@ using System.Threading;
 using System.ComponentModel;
 using TMPro;
 using UnityEngine;
+using MixedReality.Toolkit;
 using Microgestures;
 using UnityEngine.UIElements;
 
@@ -22,7 +23,6 @@ namespace Microgestures
         public OneZoneActorZone oneZoneActorZone;
         public TwoZoneActorZone twoZoneActorZone;
         public ThreeZoneActorZone threeZoneActorZone;
-        public FourZoneActorZone fourZoneActorZone;
 
         public Location(ActorEnum actor, OneZoneActorZone zone) {
             this.actor = actor;
@@ -39,94 +39,310 @@ namespace Microgestures
             this.threeZoneActorZone = zone;
         }
 
-        public Location(ActorEnum actor, FourZoneActorZone zone) {
-            this.actor = actor;
-            this.fourZoneActorZone = zone;
+        public Tuple<TrackedHandJoint, float>[] getJoints(Handedness handedness)
+        {
+            switch (actor)
+            {
+                case ActorEnum.Thumb: return getJointsForActor(new Thumb(handedness));
+                case ActorEnum.Index: return getJointsForActor(new Index(handedness));
+                case ActorEnum.Middle: return getJointsForActor(new Middle(handedness));
+                case ActorEnum.Ring: return getJointsForActor(new Ring(handedness));
+                case ActorEnum.Little: return getJointsForActor(new Little(handedness));
+                case ActorEnum.IndexJoinedMiddle: return getJointsForActor(new IndexJoinedMiddle(handedness));
+                case ActorEnum.MiddleJoinedIndex: return getJointsForActor(new IndexJoinedMiddle(handedness));
+                case ActorEnum.MiddleJoinedRing: return getJointsForActor(new MiddleJoinedRing(handedness));
+                case ActorEnum.RingJoinedMiddle: return getJointsForActor(new MiddleJoinedRing(handedness));
+                case ActorEnum.RingJoinedLittle: return getJointsForActor(new RingJoinedLittle(handedness));
+                case ActorEnum.LittleJoinedRing: return getJointsForActor(new RingJoinedLittle(handedness));
+                case ActorEnum.ThumbAwayIndex: return getJointsForActor(new ThumbAwayIndex(handedness));
+                case ActorEnum.ThumbAwayMiddle: return getJointsForActor(new ThumbAwayMiddle(handedness));
+                case ActorEnum.ThumbAwayRing: return getJointsForActor(new ThumbAwayRing(handedness));
+                case ActorEnum.ThumbAwayLittle: return getJointsForActor(new ThumbAwayLittle(handedness));
+                case ActorEnum.IndexAwayThumb: return getJointsForActor(new ThumbAwayIndex(handedness));
+                case ActorEnum.IndexAwayMiddle: return getJointsForActor(new IndexAwayMiddle(handedness));
+                case ActorEnum.MiddleAwayThumb: return getJointsForActor(new ThumbAwayMiddle(handedness));
+                case ActorEnum.MiddleAwayIndex: return getJointsForActor(new IndexAwayMiddle(handedness));
+                case ActorEnum.MiddleAwayRing: return getJointsForActor(new MiddleAwayRing(handedness));
+                case ActorEnum.RingAwayThumb: return getJointsForActor(new ThumbAwayRing(handedness));
+                case ActorEnum.RingAwayMiddle: return getJointsForActor(new MiddleAwayRing(handedness));
+                case ActorEnum.RingAwayLittle: return getJointsForActor(new RingAwayLittle(handedness));
+                case ActorEnum.LittleAwayThumb: return getJointsForActor(new ThumbAwayLittle(handedness));
+                case ActorEnum.LittleAwayRing: return getJointsForActor(new RingAwayLittle(handedness));
+                default: return null;
+            }
+        }
+
+        private Tuple<TrackedHandJoint, float>[] getJointsForActor(Actor actor)
+        {
+            if (OneZoneActorEnum.TryParse(this.actor.ToString(), out OneZoneActorEnum oneZoneActor))
+            {   return ((OneZoneActor) actor).getTip(); }
+            else if (TwoZoneActorEnum.TryParse(this.actor.ToString(), out TwoZoneActorEnum twoZoneActor))
+            {
+                if (twoZoneActorZone == TwoZoneActorZone.Tip)
+                    return ((TwoZonesActor) actor).getTip();
+                else
+                    return ((TwoZonesActor) actor).getProximal();
+            }
+            else if (ThreeZoneActorEnum.TryParse(this.actor.ToString(), out ThreeZoneActorEnum threeZoneActor))
+            {
+                if (threeZoneActorZone == ThreeZoneActorZone.Tip)
+                    return ((ThreeZonesActor) actor).getTip();
+                else if (threeZoneActorZone == ThreeZoneActorZone.Center)
+                    return ((ThreeZonesActor) actor).getCenter();
+                else // Basis
+                    return ((ThreeZonesActor) actor).getBasis();
+            }
+            return null;
         }
 
         public ActorEnum getActorEnum() { return actor; }
 
         public static FingerEnum getFingerEnum(ActorEnum actor)
-            { return (FingerEnum) Enum.Parse(typeof(FingerEnum), actor.ToString()); }
+        {
+            try
+            {
+                return (FingerEnum)Enum.Parse(typeof(FingerEnum), actor.ToString());
+            }
+            catch (ArgumentException)
+            {
+                return FingerEnum.Index;
+            }
+
+        }
 
         public static ActorEnum getActorEnum(FingerEnum actor)
+        { return (ActorEnum)Enum.Parse(typeof(ActorEnum), actor.ToString()); }
+
+        public static ActorEnum getJoinedActorEnum(JoinableFingerEnum finger1, JoinableFingerEnum finger2)
+        {
+            switch (finger1)
+            {
+                case JoinableFingerEnum.Index:
+                    if (finger2 == JoinableFingerEnum.Middle) return ActorEnum.IndexJoinedMiddle;
+                    break;
+                case JoinableFingerEnum.Middle:
+                    if (finger2 == JoinableFingerEnum.Index) return ActorEnum.MiddleJoinedIndex;
+                    if (finger2 == JoinableFingerEnum.Ring) return ActorEnum.MiddleJoinedRing;
+                    break;
+                case JoinableFingerEnum.Ring:
+                    if (finger2 == JoinableFingerEnum.Middle) return ActorEnum.RingJoinedMiddle;
+                    if (finger2 == JoinableFingerEnum.Little) return ActorEnum.RingJoinedLittle;
+                    break;
+                case JoinableFingerEnum.Little:
+                    if (finger2 == JoinableFingerEnum.Ring) return ActorEnum.LittleJoinedRing;
+                    break;
+            }
+            return ActorEnum.IndexJoinedMiddle;
+        }
+        public static ActorEnum getAwayActorEnum(FingerEnum finger1, FingerEnum finger2)
+        {
+            switch (finger1)
+            {
+                case FingerEnum.Thumb:
+                    if (finger2 == FingerEnum.Index) return ActorEnum.ThumbAwayIndex;
+                    if (finger2 == FingerEnum.Middle) return ActorEnum.ThumbAwayMiddle;
+                    if (finger2 == FingerEnum.Ring) return ActorEnum.ThumbAwayRing;
+                    if (finger2 == FingerEnum.Little) return ActorEnum.ThumbAwayLittle;
+                    break;
+                case FingerEnum.Index:
+                    if (finger2 == FingerEnum.Thumb) return ActorEnum.IndexAwayThumb;
+                    if (finger2 == FingerEnum.Middle) return ActorEnum.IndexAwayMiddle;
+                    break;
+                case FingerEnum.Middle:
+                    if (finger2 == FingerEnum.Thumb) return ActorEnum.MiddleAwayThumb;
+                    if (finger2 == FingerEnum.Index) return ActorEnum.MiddleAwayIndex;
+                    if (finger2 == FingerEnum.Ring) return ActorEnum.MiddleAwayRing;
+                    break;
+                case FingerEnum.Ring:
+                    if (finger2 == FingerEnum.Thumb) return ActorEnum.RingAwayThumb;
+                    if (finger2 == FingerEnum.Middle) return ActorEnum.RingAwayMiddle;
+                    if (finger2 == FingerEnum.Little) return ActorEnum.RingAwayLittle;
+                    break;
+                case FingerEnum.Little:
+                    if (finger2 == FingerEnum.Thumb) return ActorEnum.LittleAwayThumb;
+                    if (finger2 == FingerEnum.Ring) return ActorEnum.LittleAwayRing;
+                    break;
+            }
+            return ActorEnum.ThumbAwayIndex;
+        }
+            
+
+        public static JoinableFingerEnum getJoinableFingerEnum(ActorEnum actor)
+        { return (JoinableFingerEnum)Enum.Parse(typeof(JoinableFingerEnum), actor.ToString()); }
+
+        public static ActorEnum getActorEnum(JoinableFingerEnum actor)
             { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
 
-        public static MainJoinedFingerEnum getMainJoinedFingerEnum(ActorEnum actor)
-            { return (MainJoinedFingerEnum) Enum.Parse(typeof(MainJoinedFingerEnum), actor.ToString()); }
+        public static JoinedWithIndexEnum getJoinedWithIndexEnum(ActorEnum actor)
+        {
+            try {
+                return (JoinedWithIndexEnum) Enum.Parse(typeof(JoinedWithIndexEnum), actor.ToString());
+            }
+            catch (ArgumentException) {
+                return JoinedWithIndexEnum.Middle;
+            }
+        }
 
-        public static ActorEnum getActorEnum(MainJoinedFingerEnum actor)
+        public static ActorEnum getActorEnum(JoinedWithIndexEnum actor)
             { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
 
-        public static IndexJoinedFingerEnum getIndexJoinedFingerEnum(ActorEnum actor)
-            { return (IndexJoinedFingerEnum) Enum.Parse(typeof(IndexJoinedFingerEnum), actor.ToString()); }
+        public static JoinedWithMiddleEnum getJoinedWithMiddleEnum(ActorEnum actor)
+        {
+            try {
+                return (JoinedWithMiddleEnum) Enum.Parse(typeof(JoinedWithMiddleEnum), actor.ToString());
+            }
+            catch (ArgumentException) {
+                return JoinedWithMiddleEnum.Index;
+            }
+        }
 
-        public static ActorEnum getActorEnum(IndexJoinedFingerEnum actor)
+        public static ActorEnum getActorEnum(JoinedWithMiddleEnum actor)
             { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
 
-        public static MiddleJoinedFingerEnum getMiddleJoinedFingerEnum(ActorEnum actor)
-            { return (MiddleJoinedFingerEnum) Enum.Parse(typeof(MiddleJoinedFingerEnum), actor.ToString()); }
+        public static JoinedWithRingEnum getJoinedWithRingEnum(ActorEnum actor)
+        {
+            try {
+                return (JoinedWithRingEnum) Enum.Parse(typeof(JoinedWithRingEnum), actor.ToString());
+            }
+            catch (ArgumentException) {
+                return JoinedWithRingEnum.Middle;
+            }
+        }
 
-        public static ActorEnum getActorEnum(MiddleJoinedFingerEnum actor)
+        public static ActorEnum getActorEnum(JoinedWithRingEnum actor)
             { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
 
-        public static RingJoinedFingerEnum getRingJoinedFingerEnum(ActorEnum actor)
-            { return (RingJoinedFingerEnum) Enum.Parse(typeof(RingJoinedFingerEnum), actor.ToString()); }
+        public static JoinedWithLittleEnum getJoinedWithLittleEnum(ActorEnum actor)
+        {
+            try {
+                return (JoinedWithLittleEnum) Enum.Parse(typeof(JoinedWithLittleEnum), actor.ToString());
+            }
+            catch (ArgumentException) {
+                return JoinedWithLittleEnum.Ring;
+            }
+        }
 
-        public static ActorEnum getActorEnum(RingJoinedFingerEnum actor)
-            { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
-
-        public static LittleJoinedFingerEnum getLittleJoinedFingerEnum(ActorEnum actor)
-            { return (LittleJoinedFingerEnum) Enum.Parse(typeof(LittleJoinedFingerEnum), actor.ToString()); }
-
-        public static ActorEnum getActorEnum(LittleJoinedFingerEnum actor)
+        public static ActorEnum getActorEnum(JoinedWithLittleEnum actor)
             { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
 
         public static AwayToThumbEnum getAwayToThumbEnum(ActorEnum actor)
-            { return (AwayToThumbEnum) Enum.Parse(typeof(AwayToThumbEnum), actor.ToString()); }
+        {
+            try {
+                return (AwayToThumbEnum) Enum.Parse(typeof(AwayToThumbEnum), actor.ToString());
+            }
+            catch (ArgumentException) {
+                return AwayToThumbEnum.Index;
+            }
+        }
 
         public static ActorEnum getActorEnum(AwayToThumbEnum actor)
             { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
 
         public static AwayToIndexEnum getAwayToIndexEnum(ActorEnum actor)
-            { return (AwayToIndexEnum) Enum.Parse(typeof(AwayToIndexEnum), actor.ToString()); }
+        {
+            try {
+                return (AwayToIndexEnum) Enum.Parse(typeof(AwayToIndexEnum), actor.ToString());
+            }
+            catch (ArgumentException) {
+                return AwayToIndexEnum.Thumb;
+            }
+        }
 
         public static ActorEnum getActorEnum(AwayToIndexEnum actor)
-            { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
+        { return (ActorEnum)Enum.Parse(typeof(ActorEnum), actor.ToString()); }
 
         public static AwayToMiddleEnum getAwayToMiddleEnum(ActorEnum actor)
-            { return (AwayToMiddleEnum) Enum.Parse(typeof(AwayToMiddleEnum), actor.ToString()); }
+        {
+            try {
+                return (AwayToMiddleEnum) Enum.Parse(typeof(AwayToMiddleEnum), actor.ToString());
+            }
+            catch (ArgumentException) {
+                return AwayToMiddleEnum.Thumb;
+            }
+        }
 
         public static ActorEnum getActorEnum(AwayToMiddleEnum actor)
             { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
 
         public static AwayToRingEnum getAwayToRingEnum(ActorEnum actor)
-            { return (AwayToRingEnum) Enum.Parse(typeof(AwayToRingEnum), actor.ToString()); }
+        {
+            try {
+                return (AwayToRingEnum) Enum.Parse(typeof(AwayToRingEnum), actor.ToString());
+            }
+            catch (ArgumentException) {
+                return AwayToRingEnum.Thumb;
+            }
+        }
 
         public static ActorEnum getActorEnum(AwayToRingEnum actor)
             { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
 
         public static AwayToLittleEnum getAwayToLittleEnum(ActorEnum actor)
-            { return (AwayToLittleEnum) Enum.Parse(typeof(AwayToLittleEnum), actor.ToString()); }
+        {
+            try {
+                return (AwayToLittleEnum) Enum.Parse(typeof(AwayToLittleEnum), actor.ToString());
+            }
+            catch (ArgumentException) {
+                return AwayToLittleEnum.Thumb;
+            }
+        }
 
         public static ActorEnum getActorEnum(AwayToLittleEnum actor)
             { return (ActorEnum) Enum.Parse(typeof(ActorEnum), actor.ToString()); }
 
+        public static (JoinableFingerEnum, JoinableFingerEnum) getJoinedFingers(ActorEnum actorEnum)
+        {
+            JoinedActorEnum joinedActor = getJoinedActorEnum(actorEnum);
+            switch (joinedActor)
+            {
+                case JoinedActorEnum.IndexJoinedMiddle: return (JoinableFingerEnum.Index, JoinableFingerEnum.Middle);
+                case JoinedActorEnum.MiddleJoinedIndex: return (JoinableFingerEnum.Middle, JoinableFingerEnum.Index);
+                case JoinedActorEnum.MiddleJoinedRing: return (JoinableFingerEnum.Middle, JoinableFingerEnum.Ring);
+                case JoinedActorEnum.RingJoinedMiddle: return (JoinableFingerEnum.Ring, JoinableFingerEnum.Middle);
+                case JoinedActorEnum.RingJoinedLittle: return (JoinableFingerEnum.Ring, JoinableFingerEnum.Little);
+                case JoinedActorEnum.LittleJoinedRing: return (JoinableFingerEnum.Little, JoinableFingerEnum.Ring);
+                default: return (JoinableFingerEnum.Index, JoinableFingerEnum.Middle);
+            }
+        }
+
+        public static (FingerEnum, FingerEnum) getAwayFingers(ActorEnum actorEnum)
+        {
+            AwayActorEnum awayActor = getAwayActorEnum(actorEnum);
+            switch (awayActor)
+            {
+                case AwayActorEnum.ThumbAwayIndex: return (FingerEnum.Thumb, FingerEnum.Index);
+                case AwayActorEnum.IndexAwayThumb: return (FingerEnum.Index, FingerEnum.Thumb);
+                case AwayActorEnum.ThumbAwayMiddle: return (FingerEnum.Thumb, FingerEnum.Middle);
+                case AwayActorEnum.MiddleAwayThumb: return (FingerEnum.Middle, FingerEnum.Thumb);
+                case AwayActorEnum.ThumbAwayRing: return (FingerEnum.Thumb, FingerEnum.Ring);
+                case AwayActorEnum.RingAwayThumb: return (FingerEnum.Ring, FingerEnum.Thumb);
+                case AwayActorEnum.ThumbAwayLittle: return (FingerEnum.Thumb, FingerEnum.Little);
+                case AwayActorEnum.LittleAwayThumb: return (FingerEnum.Little, FingerEnum.Thumb);
+                case AwayActorEnum.IndexAwayMiddle: return (FingerEnum.Index, FingerEnum.Middle);
+                case AwayActorEnum.MiddleAwayIndex: return (FingerEnum.Middle, FingerEnum.Index);
+                case AwayActorEnum.MiddleAwayRing: return (FingerEnum.Middle, FingerEnum.Ring);
+                case AwayActorEnum.RingAwayMiddle: return (FingerEnum.Ring, FingerEnum.Middle);
+                case AwayActorEnum.RingAwayLittle: return (FingerEnum.Ring, FingerEnum.Little);
+                case AwayActorEnum.LittleAwayRing: return (FingerEnum.Little, FingerEnum.Ring);
+                default: return (FingerEnum.Thumb, FingerEnum.Index);
+            }
+        }
 
         public OneZoneActorZone getOneZoneActorZone() { return oneZoneActorZone; }
         public TwoZoneActorZone getTwoZoneActorZone() { return twoZoneActorZone; }
         public ThreeZoneActorZone getThreeZoneActorZone() { return threeZoneActorZone; }
-        public FourZoneActorZone getFourZoneActorZone() { return fourZoneActorZone; }
-    
+        
         public static JoinedActorEnum getJoinedActorEnum(ActorEnum actor)
-            { 
-                try {
-                    return (JoinedActorEnum) Enum.Parse(typeof(JoinedActorEnum), actor.ToString());
-                }
-                catch (ArgumentException) {
-                    return JoinedActorEnum.IndexJoinedMiddle;
-                }
+        {
+            try
+            {
+                return (JoinedActorEnum) Enum.Parse(typeof(JoinedActorEnum), actor.ToString());
             }
+            catch (ArgumentException)
+            {
+                return JoinedActorEnum.IndexJoinedMiddle;
+            }
+        }
 
         public static AwayActorEnum getAwayActorEnum(ActorEnum actor)
             { 
@@ -145,7 +361,6 @@ namespace Microgestures
         public UniqueLocation(ActorEnum actor, OneZoneActorZone zone) : base(actor, zone) {}
         public UniqueLocation(ActorEnum actor, TwoZoneActorZone zone) : base(actor, zone) {}
         public UniqueLocation(ActorEnum actor, ThreeZoneActorZone zone) : base(actor, zone) {}
-        public UniqueLocation(ActorEnum actor, FourZoneActorZone zone) : base(actor, zone) {}
     }
 
     [Serializable, AddComponentMenu("JoinedLocation", 0)]
@@ -153,14 +368,12 @@ namespace Microgestures
         public JoinedLocation(ActorEnum actor, OneZoneActorZone zone) : base(actor, zone) {}
         public JoinedLocation(ActorEnum actor, TwoZoneActorZone zone) : base(actor, zone) {}
         public JoinedLocation(ActorEnum actor, ThreeZoneActorZone zone) : base(actor, zone) {}
-        public JoinedLocation(ActorEnum actor, FourZoneActorZone zone) : base(actor, zone) {}
     }
     [Serializable, AddComponentMenu("AwayLocation", 0)]
     public class AwayLocation : Location {
         public AwayLocation(ActorEnum actor, OneZoneActorZone zone) : base(actor, zone) {}
         public AwayLocation(ActorEnum actor, TwoZoneActorZone zone) : base(actor, zone) {}
         public AwayLocation(ActorEnum actor, ThreeZoneActorZone zone) : base(actor, zone) {}
-        public AwayLocation(ActorEnum actor, FourZoneActorZone zone) : base(actor, zone) {}
     }
 
     public enum ActorEnum  
@@ -180,36 +393,39 @@ namespace Microgestures
     }
 
     public enum OneZoneActorEnum 
-        { IndexJoinedMiddle, MiddleJoinedIndex,
-          MiddleJoinedRing, RingJoinedMiddle,
-          RingJoinedLittle, LittleJoinedRing,
-
-          IndexAwayMiddle, MiddleAwayIndex,
+        { IndexAwayMiddle, MiddleAwayIndex,
           MiddleAwayRing, RingAwayMiddle,
           RingAwayLittle, LittleAwayRing }
     public enum TwoZoneActorEnum { Thumb, Little }
-    public enum ThreeZoneActorEnum { Index, Middle, Ring, ThumbAwayLittle, LittleAwayThumb}
-    public enum FourZoneActorEnum 
-    { 
+    public enum ThreeZoneActorEnum
+    {
+        Index, Middle, Ring,
+        IndexJoinedMiddle, MiddleJoinedIndex,
+        MiddleJoinedRing, RingJoinedMiddle,
+        RingJoinedLittle, LittleJoinedRing,
         ThumbAwayIndex, IndexAwayThumb,
         ThumbAwayMiddle, MiddleAwayThumb,
         ThumbAwayRing, RingAwayThumb,
+        ThumbAwayLittle, LittleAwayThumb,
+        IndexAwayMiddle, MiddleAwayIndex,
+        MiddleAwayRing, RingAwayMiddle,
+        RingAwayLittle, LittleAwayRing,
     }
 
     public enum FingerEnum  { Thumb, Index, Middle, Ring, Little }
 
 
-    public enum JoinedActorEnum 
+    public enum JoinedActorEnum
         { IndexJoinedMiddle, MiddleJoinedIndex,
           MiddleJoinedRing, RingJoinedMiddle,
           RingJoinedLittle, LittleJoinedRing
         }
 
-    public enum MainJoinedFingerEnum  { Index, Middle, Ring, Little }
-    public enum IndexJoinedFingerEnum  { Middle }
-    public enum MiddleJoinedFingerEnum  { Index, Ring }
-    public enum RingJoinedFingerEnum  { Middle, Little }
-    public enum LittleJoinedFingerEnum  { Ring }
+    public enum JoinableFingerEnum  { Index, Middle, Ring, Little }
+    public enum JoinedWithIndexEnum  { Middle }
+    public enum JoinedWithMiddleEnum  { Index, Ring }
+    public enum JoinedWithRingEnum  { Middle, Little }
+    public enum JoinedWithLittleEnum  { Ring }
 
     public enum AwayActorEnum 
     { 
@@ -231,5 +447,4 @@ namespace Microgestures
     public enum OneZoneActorZone { Tip }
     public enum TwoZoneActorZone { Tip, Proximal }
     public enum ThreeZoneActorZone { Tip, Center, Basis }
-    public enum FourZoneActorZone { Tip, Center, Basis, ThumbBase }
 }

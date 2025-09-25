@@ -19,26 +19,39 @@ namespace Microgestures
     public class VisualCue
     {
         public GameObject gameObject;
+        public TransformElements transformElements;
         public Behavior behavior;
         public Placeholder placeholder;
+        public Command command;
 
-        public VisualCue(GameObject gameObject, Behavior behavior, Placeholder placeholder)
+        public VisualCue(GameObject gameObject, TransformElements transformElements, Behavior behavior, Placeholder placeholder, Command command)
         {
             this.gameObject = gameObject;
+            this.transformElements = transformElements;
             this.behavior = behavior;
             this.placeholder = placeholder;
+            this.command = command;
         }
 
         public GameObject getGameObject() {
             return gameObject;
         }
 
-        public Behavior getBehavior() {
+        public TransformElements getTransformElements() {
+            return transformElements;
+        }
+
+        public Behavior getBehavior()
+        {
             return behavior;
         }
 
         public Placeholder getPlaceholder() {
             return placeholder;
+        }
+
+        public Command getCommand() {
+            return command;
         }
     }
 }

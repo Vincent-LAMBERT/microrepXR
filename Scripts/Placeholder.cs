@@ -15,57 +15,65 @@ using MixedReality.Toolkit;
 // using UnityEngine.XR.Hands; // new for Handedness and XRHandJointID
 
 
-namespace Microgestures 
+namespace Microgestures
 {
     [Serializable, AddComponentMenu("Placeholder", 0)]
     public class Placeholder
     {
-        public FingersStatus fingersStatus;
-        public UniqueLocation uniqueLocation;
-        public JoinedLocation joinedLocation;
-        public AwayLocation awayLocation;
+        public bool placeholderIsBetweenFingers = false;
+        public bool placeholderComputeRotationPlane = false;
+        public Location placeholderLocation;
+        public bool activateOnIfBehaviorOne = false;
+        public Location onIfBehaviorLocationOne;
+        public PlaceholderOnIfBehavior onIfBehaviorOne;
+        public bool activateOnIfBehaviorTwo = false;
+        public Location onIfBehaviorLocationTwo;
+        public PlaceholderOnIfBehavior onIfBehaviorTwo;
+        public bool activateOnIfBehaviorThree = false;
+        public Location onIfBehaviorLocationThree;
+        public PlaceholderOnIfBehavior onIfBehaviorThree;
 
         public Placeholder()
         {
-            this.uniqueLocation = new UniqueLocation(ActorEnum.Index, ThreeZoneActorZone.Tip);
         }
 
-        public Placeholder(UniqueLocation location) { this.uniqueLocation = location; }
-        public Placeholder(JoinedLocation location) { this.joinedLocation = location; }
-        public Placeholder(AwayLocation location) { this.awayLocation = location; }
-
-        private FingersStatus getFingerStatus() { return fingersStatus; }
-        private UniqueLocation getUniqueLocation() { return uniqueLocation; }
-        private JoinedLocation getJoinedLocation() { return joinedLocation; }
-        private AwayLocation getAwayLocation() { return awayLocation; }
-
-        public Location getLocation() { 
-            switch (this.getFingerStatus()) {
-                case FingersStatus.Unique:
-                    return uniqueLocation;
-                case FingersStatus.Joined:
-                    return joinedLocation;
-                default :
-                    return awayLocation;
-            }
+        public Location getLocation()
+        {
+            return placeholderLocation;
         }
 
-        public Behavior getFingerStatusBehavior(Handedness handedness) {
-            switch (this.getFingerStatus()) {
-                case FingersStatus.Unique:
-                    return Behavior.nothing(handedness);
-                case FingersStatus.Joined:
-                    return Behavior.transparencyOnDistance(handedness);
-                default :
-                    return Behavior.transparencyOnProximity(handedness);
+        public Stack<Behavior> getBehaviors(Handedness handedness)
+        {
+            Stack<Behavior> behaviors = new Stack<Behavior>();
+            
+            foreach (var (activate, location, onIfBehavior) in new List<(bool, Location, PlaceholderOnIfBehavior)>{
+                (activateOnIfBehaviorOne, onIfBehaviorLocationOne, onIfBehaviorOne),
+                (activateOnIfBehaviorTwo, onIfBehaviorLocationTwo, onIfBehaviorTwo),
+                (activateOnIfBehaviorThree, onIfBehaviorLocationThree, onIfBehaviorThree),
+            })
+            {
+                if (!activate) continue;
+                switch (onIfBehavior)
+                {
+                    case PlaceholderOnIfBehavior.FarAway:
+                        behaviors.Push(Behavior.transparencyIfNotFarAway(handedness, location));
+                        break;
+                    case PlaceholderOnIfBehavior.Joined:
+                        behaviors.Push(Behavior.transparencyIfFingersNotJoined(handedness, location));
+                        break;
+                    case PlaceholderOnIfBehavior.NotJoined:
+                        behaviors.Push(Behavior.transparencyIfFingersJoined(handedness, location));
+                        break;
+                }
             }
+            return behaviors;
         }
     }
 
-    public enum FingersStatus 
+    public enum PlaceholderOnIfBehavior
     {
-        Unique,
+        FarAway,
         Joined,
-        Away
+        NotJoined,
     }
 }
