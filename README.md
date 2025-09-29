@@ -94,7 +94,7 @@ Select `All Prefabs` in the `Project` tab and search for "MRTK". In the availabl
 
 Open the `Package Manager` (`Window > Package Manager`). Hit the top-left `+` button and select `Add a package from disk` then browse to the folder containing the µRepXR package. Select the `package.json` file to install the package.
 
-In the `Project` tab, you can see that a `µRepXR` folder has appeared.
+In the `Project` tab, you can see that a `µRepXR` folder has appeared in the `Package` folder.
 Check that the `Material.mat` file in `µRepXR > PrefabResources > Materials` is correctly imported. The shader should be *Universal Render Pipeline/Lit*. If the material appears pink with an *InternalShaderError*, please repair your installation of the *Universal Render Pipeline* (`com.unity.render-pipelines.universal`).
 
 ##### Additionnal comment on material shaders
