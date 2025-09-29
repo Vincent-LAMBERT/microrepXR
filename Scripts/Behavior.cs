@@ -100,6 +100,10 @@ namespace Microgestures
                             }
 
                         }
+                    } else {
+                        // Change the alpha value of the text color
+                        TMP_Text m_TextComponent = child.GetComponent<TMP_Text>();
+                        m_TextComponent.alpha = value;
                     }
                 }
             }

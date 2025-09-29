@@ -116,13 +116,15 @@ namespace Microgestures
                         break;
                 }
 
+                // The axis are not the same for text and objects so we apply an axis transformation
+                // (x, y, z) [text axes] is equal to (x, z, -y) [obj axes]
                 this.textMesh.transform.Translate(new Vector3(this.transformElements.positionX, 0, 0), Space.Self);
-                this.textMesh.transform.Translate(new Vector3(0, this.transformElements.positionY, 0), Space.Self);
-                this.textMesh.transform.Translate(new Vector3(0, 0, this.transformElements.positionZ), Space.Self);
+                this.textMesh.transform.Translate(new Vector3(0, this.transformElements.positionZ, 0), Space.Self);
+                this.textMesh.transform.Translate(new Vector3(0, 0, -this.transformElements.positionY), Space.Self);
 
                 this.textMesh.transform.Rotate(new Vector3(this.transformElements.rotationX, 0, 0));
-                this.textMesh.transform.Rotate(new Vector3(0, this.transformElements.rotationY, 0));
-                this.textMesh.transform.Rotate(new Vector3(0, 0, this.transformElements.rotationZ));
+                this.textMesh.transform.Rotate(new Vector3(0, this.transformElements.rotationZ, 0));
+                this.textMesh.transform.Rotate(new Vector3(0, 0, -this.transformElements.rotationY));
             }
         }
 
