@@ -16,21 +16,22 @@ namespace Microgestures
             for (int i = 0; i < representations.Length; i++)
             {
                 representations[i] = UnityEngine.Object.Instantiate(representations[i]);
+                representations[i].SetActive(false);
             }
             if (representations.Length > 0)
             {
-                representations[0].GetComponent<Representation>().setActive();
+                representations[0].SetActive(true);
             }
         }
 
         public void Next()
         {
-            representations[active].GetComponent<Representation>().setInactive();
+            representations[active].SetActive(false);
             active++;
             if (active >= representations.Length) {
                 active = 0;
             }
-            representations[active].GetComponent<Representation>().setActive();
+            representations[active].SetActive(true);
         }
     }
 }

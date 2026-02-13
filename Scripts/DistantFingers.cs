@@ -30,13 +30,15 @@ namespace Microgestures
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
                 Tuple.Create(TrackedHandJoint.IndexTip, 0.5f)}; }
         override public Tuple<TrackedHandJoint, float>[] getCenter() 
-            { return new Tuple<TrackedHandJoint, float>[2]{
+            { return new Tuple<TrackedHandJoint, float>[3]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
-                Tuple.Create(TrackedHandJoint.IndexIntermediate, 0.5f)}; }
+                Tuple.Create(TrackedHandJoint.IndexTip, 0.25f), 
+                Tuple.Create(TrackedHandJoint.IndexIntermediate, 0.25f)}; }
         override public Tuple<TrackedHandJoint, float>[] getBasis() 
-            { return new Tuple<TrackedHandJoint, float>[2]{
+            { return new Tuple<TrackedHandJoint, float>[3]{
                 Tuple.Create(TrackedHandJoint.ThumbTip, 0.5f), 
-                Tuple.Create(TrackedHandJoint.IndexProximal, 0.5f)}; }
+                Tuple.Create(TrackedHandJoint.IndexProximal, 0.25f), 
+                Tuple.Create(TrackedHandJoint.IndexIntermediate, 0.25f)}; }
     }
 
     public class ThumbAwayMiddle : ThreeZonesActor

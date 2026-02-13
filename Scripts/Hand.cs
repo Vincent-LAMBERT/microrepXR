@@ -30,6 +30,9 @@ namespace Microgestures
         private IndexJoinedMiddle indexJoinedMiddle;
         private MiddleJoinedRing middleJoinedRing;
         private RingJoinedLittle ringJoinedLittle;
+        private IndexJoinedRing indexJoinedRing;
+        private LittleJoinedMiddle littleJoinedMiddle;
+        private IndexJoinedLittle indexJoinedLittle;
 
         private ThumbAwayIndex thumbAwayIndex;
         private ThumbAwayMiddle thumbAwayMiddle;
@@ -59,6 +62,9 @@ namespace Microgestures
             this.indexJoinedMiddle = new IndexJoinedMiddle(this.handedness);
             this.middleJoinedRing = new MiddleJoinedRing(this.handedness);
             this.ringJoinedLittle = new RingJoinedLittle(this.handedness);
+            this.indexJoinedRing = new IndexJoinedRing(this.handedness);
+            this.littleJoinedMiddle = new LittleJoinedMiddle(this.handedness);
+            this.indexJoinedLittle = new IndexJoinedLittle(this.handedness);
             
             this.thumbAwayIndex = new ThumbAwayIndex(this.handedness);
             this.thumbAwayMiddle = new ThumbAwayMiddle(this.handedness);
@@ -79,6 +85,9 @@ namespace Microgestures
             actors.Add(this.indexJoinedMiddle);
             actors.Add(this.middleJoinedRing);
             actors.Add(this.ringJoinedLittle);
+            actors.Add(this.indexJoinedRing);
+            actors.Add(this.littleJoinedMiddle);
+            actors.Add(this.indexJoinedLittle);
             
             actors.Add(this.thumbAwayIndex);
             actors.Add(this.thumbAwayMiddle);
@@ -98,15 +107,10 @@ namespace Microgestures
 
         private Stack<Behavior> getAllBehaviors(Placeholder ph) {
             Stack<Behavior> behaviors = new Stack<Behavior>();
-            behaviors.Push(getCurrentDisplayModeRelatedBehavior(this.handedness));
             foreach (Behavior b in ph.getBehaviors(this.handedness)) {
                 behaviors.Push(b);
             }
             return behaviors;
-        }
-
-        private static Behavior getCurrentDisplayModeRelatedBehavior(Handedness handedness) {
-            return Behavior.transparencyOnThumbMovement(handedness);
         }
 
         private void place(GameObject gameObject, TransformElements transformElements, Stack<Behavior> behaviors, Location location, Command command) {
@@ -123,12 +127,26 @@ namespace Microgestures
             foreach (Actor actor in actors) { actor.instantiate(transform); }
         }
 
-        public void update(bool state)
+        public void update()
         {
             foreach (Actor actor in actors)
             {
-                actor.update(state);
+                actor.update();
             }
         }
+    }
+
+    public class Palm : OneZoneActor
+    {
+        public override ActorEnum[] getActorTypes() 
+            { return new ActorEnum[1]{ ActorEnum.Palm }; }
+        override public bool isWristOriented() { return true; }
+        public Palm(Handedness handedness) : base(handedness){}
+
+        override public Tuple<TrackedHandJoint, float>[] getTip() 
+            { return new Tuple<TrackedHandJoint, float>[3]{
+                Tuple.Create(TrackedHandJoint.IndexProximal, 0.5f), 
+                Tuple.Create(TrackedHandJoint.LittleProximal, 0.5f), 
+                Tuple.Create(TrackedHandJoint.Wrist, 0.5f)}; }
     }
 }

@@ -25,6 +25,7 @@ public class CommandPropertyDrawer : ConditionnalPropertyDrawer
     SerializedProperty outlineColorProp;
     SerializedProperty outlineWidthProp;
     SerializedProperty textLocationProp;
+    SerializedProperty transformElementsProp;
 
     private TextLocation textLocation;
 
@@ -35,6 +36,7 @@ public class CommandPropertyDrawer : ConditionnalPropertyDrawer
         outlineColorProp = property.FindPropertyRelative ("outlineColor");
         outlineWidthProp = property.FindPropertyRelative ("outlineWidth");
         textLocationProp = property.FindPropertyRelative ("textLocation");
+        transformElementsProp = property.FindPropertyRelative ("transformElements");
 
         textLocation = (TextLocation) textLocationProp.enumValueIndex;
     }
@@ -43,7 +45,7 @@ public class CommandPropertyDrawer : ConditionnalPropertyDrawer
         if (property.isArray) {
             EditorGUI.PropertyField(tools.getCurrentPosition(), property, true);
         } else {
-            initializePropertyHeight(textProp, textLocationProp, outlineColorProp, outlineColorProp);
+            initializePropertyHeight(textProp, textLocationProp, outlineColorProp, outlineColorProp, transformElementsProp);
             tools.initialize();
             tools.beginHorizontal();
             tools.insertLabel("Command name", 110);
@@ -63,6 +65,7 @@ public class CommandPropertyDrawer : ConditionnalPropertyDrawer
             tools.insertLabel("Outline width", 85);
             outlineWidthProp.floatValue = (float) tools.insertFloat(outlineWidthProp.floatValue, 0.1f);
             tools.endHorizontal();
+            tools.insertField(transformElementsProp);
         }
     }
 }

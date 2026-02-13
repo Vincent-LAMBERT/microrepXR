@@ -64,27 +64,27 @@ MonoBehaviour:
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      activateOnIfBehaviorOne: 0
-      onIfBehaviorLocationOne:
+      activateOnIfOne: 0
+      placeholderOnIfBehaviorLocationOne:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorOne: 0
-      activateOnIfBehaviorTwo: 0
-      onIfBehaviorLocationTwo:
+      placeholderOnIfBehaviorOne: 0
+      activateOnIfTwo: 0
+      placeholderOnIfBehaviorLocationTwo:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorTwo: 0
-      activateOnIfBehaviorThree: 0
-      onIfBehaviorLocationThree:
+      placeholderOnIfBehaviorTwo: 0
+      activateOnIfThree: 0
+      placeholderOnIfBehaviorLocationThree:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorThree: 0
+      placeholderOnIfBehaviorThree: 0
     command:
       text: 
       fontSize: 0
@@ -109,27 +109,27 @@ MonoBehaviour:
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      activateOnIfBehaviorOne: 0
-      onIfBehaviorLocationOne:
+      activateOnIfOne: 0
+      placeholderOnIfBehaviorLocationOne:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorOne: 0
-      activateOnIfBehaviorTwo: 0
-      onIfBehaviorLocationTwo:
+      placeholderOnIfBehaviorOne: 0
+      activateOnIfTwo: 0
+      placeholderOnIfBehaviorLocationTwo:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorTwo: 0
-      activateOnIfBehaviorThree: 0
-      onIfBehaviorLocationThree:
+      placeholderOnIfBehaviorTwo: 0
+      activateOnIfThree: 0
+      placeholderOnIfBehaviorLocationThree:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorThree: 0
+      placeholderOnIfBehaviorThree: 0
     command:
       text: 
       fontSize: 0

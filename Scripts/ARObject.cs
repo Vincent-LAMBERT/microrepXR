@@ -34,10 +34,10 @@ namespace Microgestures
             this.transformElements = transformElements;
             this.command = command;
             this.textMesh = null;
-            foreach (Behavior b in behaviors)
-            {
-                b.setInitialTransparency(obj);
-            }
+            // foreach (Behavior b in behaviors)
+            // {
+            //     b.setInitialTransparency(obj);
+            // }
             this.behaviors = behaviors;
             this.joints = null;
             this.localpose = new HandJointPose();;
@@ -95,11 +95,11 @@ namespace Microgestures
                 this.textMesh.transform.Rotate(new Vector3(0, 0, 180));
 
                 // Offset the text position based on the textLocation
-                float offsetUp = 0.02f; // Adjust this value as needed
+                float offsetUp = 0.016f; // Adjust this value as needed
                 float offsetDown = 0.015f; // Adjust this value as needed
                 // Adjust the offset based on the length of the text
-                float offsetLeft = 0.0035f * this.command.text.Length; // Adjust this value as needed
-                float offsetRight = 0.004f * this.command.text.Length; // Adjust this value as needed
+                float offsetLeft = 0.007f + 0.0035f * this.command.text.Length; // Adjust this value as needed
+                float offsetRight = 0.007f + 0.004f * this.command.text.Length; // Adjust this value as needed
                 switch (this.command.textLocation)
                 {
                     case TextLocation.Up:
@@ -116,6 +116,7 @@ namespace Microgestures
                         break;
                 }
 
+
                 // The axis are not the same for text and objects so we apply an axis transformation
                 // (x, y, z) [text axes] is equal to (x, z, -y) [obj axes]
                 this.textMesh.transform.Translate(new Vector3(this.transformElements.positionX, 0, 0), Space.Self);
@@ -125,6 +126,16 @@ namespace Microgestures
                 this.textMesh.transform.Rotate(new Vector3(this.transformElements.rotationX, 0, 0));
                 this.textMesh.transform.Rotate(new Vector3(0, this.transformElements.rotationZ, 0));
                 this.textMesh.transform.Rotate(new Vector3(0, 0, -this.transformElements.rotationY));
+
+                // Add the additionnal transformElements for text
+
+                this.textMesh.transform.Translate(new Vector3(this.command.transformElements.positionX, 0, 0), Space.Self);
+                this.textMesh.transform.Translate(new Vector3(0, this.command.transformElements.positionZ, 0), Space.Self);
+                this.textMesh.transform.Translate(new Vector3(0, 0, -this.command.transformElements.positionY), Space.Self);
+
+                this.textMesh.transform.Rotate(new Vector3(this.command.transformElements.rotationX, 0, 0), Space.Self);
+                this.textMesh.transform.Rotate(new Vector3(0, this.command.transformElements.rotationZ, 0), Space.Self);
+                this.textMesh.transform.Rotate(new Vector3(0, 0, -this.command.transformElements.rotationY), Space.Self);
             }
         }
 
@@ -154,7 +165,7 @@ namespace Microgestures
             catch (InvalidOperationException e)
             {
                 pose = new HandJointPose();
-                UnityEngine.Debug.Log(e.Message);
+                // UnityEngine.Debug.Log(e.Message);
                 return false;
             }
 
@@ -304,8 +315,62 @@ namespace Microgestures
         }
 
         public void useBehaviors() {
+            Boolean visibility = true;
+            List<Boolean> addedVisibilitiesFingers = new List<Boolean>(); 
             foreach (Behavior behavior in behaviors) {
-                behavior.use(obj);
+                Boolean vis = behavior.computeVisibility(obj);
+                switch (behavior.getType())
+                {
+                    case BehaviorType.VisibilityIfFingerJoined:
+                        addedVisibilitiesFingers.Add(vis);
+                        break;
+                    case BehaviorType.VisibilityIfNotFarAway:
+                        addedVisibilitiesFingers.Add(vis);
+                        break;
+                    case BehaviorType.VisibilityIfFingerNotJoined:
+                        addedVisibilitiesFingers.Add(vis);
+                        break;
+                    default:
+                        if (visibility && vis==false)
+                        {
+                            setVisible(obj, false);
+                            return ;
+                        }
+                        break;
+                }
+            }
+            foreach (Boolean bol in addedVisibilitiesFingers)
+            {
+                if (!bol) { visibility = false; }
+            }
+            setVisible(obj, visibility);
+        }
+        
+
+        private void setVisible(GameObject obj, bool value)
+        {
+            GameObject child;
+            for (int i = 0; i < obj.transform.childCount; i++)
+            {
+                child = obj.transform.GetChild(i).gameObject;
+                if (child.transform.childCount > 0)
+                {
+                    setVisible(child, value);
+                }
+                else
+                {
+                    MeshRenderer renderer;
+                    if (child.GetComponent<MeshRenderer>() == null)
+                    {
+                        renderer = child.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
+                    }
+                    else
+                    {
+                        renderer = child.GetComponent<MeshRenderer>();
+                    }
+                    // Reassigning it
+                    renderer.enabled = value;
+                }
             }
         }
     }

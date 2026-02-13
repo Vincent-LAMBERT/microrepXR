@@ -60,31 +60,64 @@ MonoBehaviour:
       placeholderIsBetweenFingers: 0
       placeholderComputeRotationPlane: 1
       placeholderLocation:
-        actor: 1
+        actor: 2
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      activateOnIfBehaviorOne: 0
-      onIfBehaviorLocationOne:
+      activateOnIfOne: 0
+      ifTypeOne: 1
+      handOrientationOne: 0
+      placeholderOnIfBehaviorLocationOne:
+        actor: 11
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorOne: 0
+      activateOnIfTwo: 0
+      ifTypeTwo: 1
+      handOrientationTwo: 0
+      placeholderOnIfBehaviorLocationTwo:
+        actor: 11
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorTwo: 0
+      activateOnIfThree: 0
+      ifTypeThree: 1
+      handOrientationThree: 0
+      placeholderOnIfBehaviorLocationThree:
+        actor: 11
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorThree: 0
+      activateOnIfFour: 0
+      ifTypeFour: 0
+      handOrientationFour: 0
+      placeholderOnIfBehaviorLocationFour:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorOne: 0
-      activateOnIfBehaviorTwo: 0
-      onIfBehaviorLocationTwo:
+      placeholderOnIfBehaviorFour: 0
+      activateOnIfFive: 0
+      ifTypeFive: 0
+      handOrientationFive: 0
+      placeholderOnIfBehaviorLocationFive:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorTwo: 0
-      activateOnIfBehaviorThree: 0
-      onIfBehaviorLocationThree:
+      placeholderOnIfBehaviorFive: 0
+      activateOnIfSix: 0
+      ifTypeSix: 0
+      handOrientationSix: 0
+      placeholderOnIfBehaviorLocationSix:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorThree: 0
+      placeholderOnIfBehaviorSix: 0
     command:
       text: Test 4
       fontSize: 12
@@ -105,31 +138,64 @@ MonoBehaviour:
       placeholderIsBetweenFingers: 0
       placeholderComputeRotationPlane: 0
       placeholderLocation:
-        actor: 1
+        actor: 2
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      activateOnIfBehaviorOne: 0
-      onIfBehaviorLocationOne:
+      activateOnIfOne: 0
+      ifTypeOne: 0
+      handOrientationOne: 0
+      placeholderOnIfBehaviorLocationOne:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorOne: 0
-      activateOnIfBehaviorTwo: 0
-      onIfBehaviorLocationTwo:
+      placeholderOnIfBehaviorOne: 0
+      activateOnIfTwo: 0
+      ifTypeTwo: 0
+      handOrientationTwo: 0
+      placeholderOnIfBehaviorLocationTwo:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorTwo: 0
-      activateOnIfBehaviorThree: 0
-      onIfBehaviorLocationThree:
+      placeholderOnIfBehaviorTwo: 0
+      activateOnIfThree: 0
+      ifTypeThree: 0
+      handOrientationThree: 0
+      placeholderOnIfBehaviorLocationThree:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorThree: 0
+      placeholderOnIfBehaviorThree: 0
+      activateOnIfFour: 0
+      ifTypeFour: 0
+      handOrientationFour: 0
+      placeholderOnIfBehaviorLocationFour:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorFour: 0
+      activateOnIfFive: 0
+      ifTypeFive: 0
+      handOrientationFive: 0
+      placeholderOnIfBehaviorLocationFive:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorFive: 0
+      activateOnIfSix: 0
+      ifTypeSix: 0
+      handOrientationSix: 0
+      placeholderOnIfBehaviorLocationSix:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorSix: 0
     command:
       text: 
       fontSize: 0
@@ -150,31 +216,64 @@ MonoBehaviour:
       placeholderIsBetweenFingers: 0
       placeholderComputeRotationPlane: 0
       placeholderLocation:
-        actor: 1
+        actor: 2
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 2
-      activateOnIfBehaviorOne: 0
-      onIfBehaviorLocationOne:
+      activateOnIfOne: 0
+      ifTypeOne: 0
+      handOrientationOne: 0
+      placeholderOnIfBehaviorLocationOne:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorOne: 0
-      activateOnIfBehaviorTwo: 0
-      onIfBehaviorLocationTwo:
+      placeholderOnIfBehaviorOne: 0
+      activateOnIfTwo: 0
+      ifTypeTwo: 0
+      handOrientationTwo: 0
+      placeholderOnIfBehaviorLocationTwo:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorTwo: 0
-      activateOnIfBehaviorThree: 0
-      onIfBehaviorLocationThree:
+      placeholderOnIfBehaviorTwo: 0
+      activateOnIfThree: 0
+      ifTypeThree: 0
+      handOrientationThree: 0
+      placeholderOnIfBehaviorLocationThree:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorThree: 0
+      placeholderOnIfBehaviorThree: 0
+      activateOnIfFour: 0
+      ifTypeFour: 0
+      handOrientationFour: 0
+      placeholderOnIfBehaviorLocationFour:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorFour: 0
+      activateOnIfFive: 0
+      ifTypeFive: 0
+      handOrientationFive: 0
+      placeholderOnIfBehaviorLocationFive:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorFive: 0
+      activateOnIfSix: 0
+      ifTypeSix: 0
+      handOrientationSix: 0
+      placeholderOnIfBehaviorLocationSix:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorSix: 0
     command:
       text: 
       fontSize: 0
@@ -195,31 +294,64 @@ MonoBehaviour:
       placeholderIsBetweenFingers: 0
       placeholderComputeRotationPlane: 1
       placeholderLocation:
-        actor: 1
+        actor: 2
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 2
-      activateOnIfBehaviorOne: 0
-      onIfBehaviorLocationOne:
+      activateOnIfOne: 0
+      ifTypeOne: 0
+      handOrientationOne: 0
+      placeholderOnIfBehaviorLocationOne:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorOne: 0
-      activateOnIfBehaviorTwo: 0
-      onIfBehaviorLocationTwo:
+      placeholderOnIfBehaviorOne: 0
+      activateOnIfTwo: 0
+      ifTypeTwo: 0
+      handOrientationTwo: 0
+      placeholderOnIfBehaviorLocationTwo:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorTwo: 0
-      activateOnIfBehaviorThree: 0
-      onIfBehaviorLocationThree:
+      placeholderOnIfBehaviorTwo: 0
+      activateOnIfThree: 0
+      ifTypeThree: 0
+      handOrientationThree: 0
+      placeholderOnIfBehaviorLocationThree:
         actor: 0
         oneZoneActorZone: 0
         twoZoneActorZone: 0
         threeZoneActorZone: 0
-      onIfBehaviorThree: 0
+      placeholderOnIfBehaviorThree: 0
+      activateOnIfFour: 0
+      ifTypeFour: 0
+      handOrientationFour: 0
+      placeholderOnIfBehaviorLocationFour:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorFour: 0
+      activateOnIfFive: 0
+      ifTypeFive: 0
+      handOrientationFive: 0
+      placeholderOnIfBehaviorLocationFive:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorFive: 0
+      activateOnIfSix: 0
+      ifTypeSix: 0
+      handOrientationSix: 0
+      placeholderOnIfBehaviorLocationSix:
+        actor: 0
+        oneZoneActorZone: 0
+        twoZoneActorZone: 0
+        threeZoneActorZone: 0
+      placeholderOnIfBehaviorSix: 0
     command:
       text: Test 5
       fontSize: 12

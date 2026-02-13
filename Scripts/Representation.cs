@@ -61,18 +61,15 @@ namespace Microgestures
         }
         void Update()
         {
-            hand.update(state);
+            hand.update();
         }
-        private bool state;
+        // private bool state;
 
-        public void setActive()
-        {
-            state = true;
-        }
+        // public void setActive(bool st)
+        // {
+        //     state = st;
+        // }
 
-        public void setInactive() {
-            state = false;
-        }
         public VisualTreeAsset m_InspectorXML;
     }
 }

@@ -117,7 +117,7 @@ namespace Microgestures
         public Ring(Handedness handedness) : base(handedness){}
     }
     
-    public class Little : TwoZonesActor
+    public class Little : ThreeZonesActor
     {
         public override ActorEnum[] getActorTypes() 
             { return new ActorEnum[1]{
@@ -130,8 +130,13 @@ namespace Microgestures
         //     { return new Tuple<TrackedHandJoint, float>[1]{
         //         Tuple.Create(TrackedHandJoint.LittleProximal, 1f)}; }
         
+        override public Tuple<TrackedHandJoint, float>[] getCenter() 
+            { return new Tuple<TrackedHandJoint, float>[2]{
+                Tuple.Create(TrackedHandJoint.LittleTip, 0.65f),
+                Tuple.Create(TrackedHandJoint.LittleProximal, 0.35f)}; }
+
         // Had to change the placeholder values from MRTK2 to MRTK3
-        override public Tuple<TrackedHandJoint, float>[] getProximal() 
+        override public Tuple<TrackedHandJoint, float>[] getBasis() 
             { return new Tuple<TrackedHandJoint, float>[2]{
                 Tuple.Create(TrackedHandJoint.LittleTip, 0.35f),
                 Tuple.Create(TrackedHandJoint.LittleProximal, 0.65f)}; }

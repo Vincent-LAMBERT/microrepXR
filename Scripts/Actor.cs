@@ -24,10 +24,10 @@ namespace Microgestures
 
         public Actor(Handedness handedness) { this.handedness = handedness; }
         public abstract void instantiate(Transform transform);       
-        public void update(bool state)
+        public void update()
         {
             foreach (ARObject arObject in arObjects) {
-                if (state && arObject.visibleJoints(handedness, isWristOriented(), out pose))
+                if (arObject.visibleJoints(handedness, isWristOriented(), out pose))
                 {
                     arObject.setPose(pose);
                     arObject.setActive(true);

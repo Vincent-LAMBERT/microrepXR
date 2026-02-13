@@ -34,26 +34,65 @@ public class PlaceholderPropertyDrawer : ConditionnalPropertyDrawer
     private TwoZoneActorZone twoZoneActorZone;
     private ThreeZoneActorZone threeZoneActorZone;
 
-    SerializedProperty activateOnIfBehaviorOneProp;
-    private bool activateOnIfBehaviorOne;
-    SerializedProperty onIfBehaviorOneProp;
-    SerializedProperty onIfBehaviorLocationOneProp;
+    SerializedProperty activateOnIfOneProp;
+    private bool activateOnIfOne;
+    SerializedProperty ifTypeOneProp;
+    SerializedProperty handOrientationOneProp;
+    SerializedProperty fingerOnIfBehaviorOneProp;
+    SerializedProperty placeholderOnIfBehaviorOneProp;
+    SerializedProperty placeholderOnIfBehaviorLocationOneProp;
     SerializedProperty actorEnumPropBehaviorOne;
     private ActorEnum actorEnumBehaviorOne;
 
-    SerializedProperty activateOnIfBehaviorTwoProp;
-    private bool activateOnIfBehaviorTwo;
-    SerializedProperty onIfBehaviorTwoProp;
-    SerializedProperty onIfBehaviorLocationTwoProp;
+    SerializedProperty activateOnIfTwoProp;
+    private bool activateOnIfTwo;
+    SerializedProperty ifTypeTwoProp;
+    SerializedProperty handOrientationTwoProp;
+    SerializedProperty fingerOnIfBehaviorTwoProp;
+    SerializedProperty placeholderOnIfBehaviorTwoProp;
+    SerializedProperty placeholderOnIfBehaviorLocationTwoProp;
     SerializedProperty actorEnumPropBehaviorTwo;
     private ActorEnum actorEnumBehaviorTwo;
 
-    SerializedProperty activateOnIfBehaviorThreeProp;
-    private bool activateOnIfBehaviorThree;
-    SerializedProperty onIfBehaviorThreeProp;
-    SerializedProperty onIfBehaviorLocationThreeProp;
+    SerializedProperty activateOnIfThreeProp;
+    private bool activateOnIfThree;
+    SerializedProperty ifTypeThreeProp;
+    SerializedProperty handOrientationThreeProp;
+    SerializedProperty fingerOnIfBehaviorThreeProp;
+    SerializedProperty placeholderOnIfBehaviorThreeProp;
+    SerializedProperty placeholderOnIfBehaviorLocationThreeProp;
     SerializedProperty actorEnumPropBehaviorThree;
     private ActorEnum actorEnumBehaviorThree;
+
+    SerializedProperty activateOnIfFourProp;
+    private bool activateOnIfFour;
+    SerializedProperty ifTypeFourProp;
+    SerializedProperty handOrientationFourProp;
+    SerializedProperty fingerOnIfBehaviorFourProp;
+    SerializedProperty placeholderOnIfBehaviorFourProp;
+    SerializedProperty placeholderOnIfBehaviorLocationFourProp;
+    SerializedProperty actorEnumPropBehaviorFour;
+    private ActorEnum actorEnumBehaviorFour;
+
+    SerializedProperty activateOnIfFiveProp;
+    private bool activateOnIfFive;
+    SerializedProperty ifTypeFiveProp;
+    SerializedProperty handOrientationFiveProp;
+    SerializedProperty fingerOnIfBehaviorFiveProp;
+    SerializedProperty placeholderOnIfBehaviorFiveProp;
+    SerializedProperty placeholderOnIfBehaviorLocationFiveProp;
+    SerializedProperty actorEnumPropBehaviorFive;
+    private ActorEnum actorEnumBehaviorFive;
+
+    SerializedProperty activateOnIfSixProp;
+    private bool activateOnIfSix;
+    SerializedProperty ifTypeSixProp;
+    SerializedProperty handOrientationSixProp;
+    SerializedProperty fingerOnIfBehaviorSixProp;
+    SerializedProperty placeholderOnIfBehaviorSixProp;
+    SerializedProperty placeholderOnIfBehaviorLocationSixProp;
+    SerializedProperty actorEnumPropBehaviorSix;
+    private ActorEnum actorEnumBehaviorSix;
 
     protected override void initializeProperties(SerializedProperty property) {
         placeholderIsBetweenFingersProp = property.FindPropertyRelative ("placeholderIsBetweenFingers");
@@ -71,33 +110,72 @@ public class PlaceholderPropertyDrawer : ConditionnalPropertyDrawer
         twoZoneActorZone = (TwoZoneActorZone) twoZoneActorZoneProp.enumValueIndex;
         threeZoneActorZone = (ThreeZoneActorZone) threeZoneActorZoneProp.enumValueIndex;
 
-        activateOnIfBehaviorOneProp = property.FindPropertyRelative ("activateOnIfBehaviorOne");
-        activateOnIfBehaviorOne = activateOnIfBehaviorOneProp.boolValue;
-        onIfBehaviorOneProp = property.FindPropertyRelative ("onIfBehaviorOne");
-        onIfBehaviorLocationOneProp = property.FindPropertyRelative ("onIfBehaviorLocationOne");
-        actorEnumPropBehaviorOne = onIfBehaviorLocationOneProp.FindPropertyRelative("actor");
+        activateOnIfOneProp = property.FindPropertyRelative ("activateOnIfOne");
+        activateOnIfOne = activateOnIfOneProp.boolValue;
+        ifTypeOneProp = property.FindPropertyRelative ("ifTypeOne");
+        handOrientationOneProp = property.FindPropertyRelative ("handOrientationOne");
+        fingerOnIfBehaviorOneProp = property.FindPropertyRelative ("fingerOnIfBehaviorOne");
+        placeholderOnIfBehaviorOneProp = property.FindPropertyRelative ("placeholderOnIfBehaviorOne");
+        placeholderOnIfBehaviorLocationOneProp = property.FindPropertyRelative ("placeholderOnIfBehaviorLocationOne");
+        actorEnumPropBehaviorOne = placeholderOnIfBehaviorLocationOneProp.FindPropertyRelative("actor");
         actorEnumBehaviorOne = (ActorEnum) actorEnumPropBehaviorOne.enumValueIndex;
 
-        activateOnIfBehaviorTwoProp = property.FindPropertyRelative ("activateOnIfBehaviorTwo");
-        activateOnIfBehaviorTwo = activateOnIfBehaviorTwoProp.boolValue;
-        onIfBehaviorTwoProp = property.FindPropertyRelative ("onIfBehaviorTwo");
-        onIfBehaviorLocationTwoProp = property.FindPropertyRelative ("onIfBehaviorLocationTwo");
-        actorEnumPropBehaviorTwo = onIfBehaviorLocationTwoProp.FindPropertyRelative("actor");
+        activateOnIfTwoProp = property.FindPropertyRelative ("activateOnIfTwo");
+        activateOnIfTwo = activateOnIfTwoProp.boolValue;
+        ifTypeTwoProp = property.FindPropertyRelative ("ifTypeTwo");
+        handOrientationTwoProp = property.FindPropertyRelative ("handOrientationTwo");
+        fingerOnIfBehaviorTwoProp = property.FindPropertyRelative ("fingerOnIfBehaviorTwo");
+        placeholderOnIfBehaviorTwoProp = property.FindPropertyRelative ("placeholderOnIfBehaviorTwo");
+        placeholderOnIfBehaviorLocationTwoProp = property.FindPropertyRelative ("placeholderOnIfBehaviorLocationTwo");
+        actorEnumPropBehaviorTwo = placeholderOnIfBehaviorLocationTwoProp.FindPropertyRelative("actor");
         actorEnumBehaviorTwo = (ActorEnum) actorEnumPropBehaviorTwo.enumValueIndex;
 
-        activateOnIfBehaviorThreeProp = property.FindPropertyRelative ("activateOnIfBehaviorThree");
-        activateOnIfBehaviorThree = activateOnIfBehaviorThreeProp.boolValue;
-        onIfBehaviorThreeProp = property.FindPropertyRelative ("onIfBehaviorThree");
-        onIfBehaviorLocationThreeProp = property.FindPropertyRelative ("onIfBehaviorLocationThree");
-        actorEnumPropBehaviorThree = onIfBehaviorLocationThreeProp.FindPropertyRelative("actor");
+        activateOnIfThreeProp = property.FindPropertyRelative ("activateOnIfThree");
+        activateOnIfThree = activateOnIfThreeProp.boolValue;
+        ifTypeThreeProp = property.FindPropertyRelative ("ifTypeThree");
+        handOrientationThreeProp = property.FindPropertyRelative ("handOrientationThree");
+        fingerOnIfBehaviorThreeProp = property.FindPropertyRelative ("fingerOnIfBehaviorThree");
+        placeholderOnIfBehaviorThreeProp = property.FindPropertyRelative ("placeholderOnIfBehaviorThree");
+        placeholderOnIfBehaviorLocationThreeProp = property.FindPropertyRelative ("placeholderOnIfBehaviorLocationThree");
+        actorEnumPropBehaviorThree = placeholderOnIfBehaviorLocationThreeProp.FindPropertyRelative("actor");
         actorEnumBehaviorThree = (ActorEnum) actorEnumPropBehaviorThree.enumValueIndex;
+
+        activateOnIfFourProp = property.FindPropertyRelative ("activateOnIfFour");
+        activateOnIfFour = activateOnIfFourProp.boolValue;
+        ifTypeFourProp = property.FindPropertyRelative ("ifTypeFour");
+        handOrientationFourProp = property.FindPropertyRelative ("handOrientationFour");
+        fingerOnIfBehaviorFourProp = property.FindPropertyRelative ("fingerOnIfBehaviorFour");
+        placeholderOnIfBehaviorFourProp = property.FindPropertyRelative ("placeholderOnIfBehaviorFour");
+        placeholderOnIfBehaviorLocationFourProp = property.FindPropertyRelative ("placeholderOnIfBehaviorLocationFour");
+        actorEnumPropBehaviorFour = placeholderOnIfBehaviorLocationFourProp.FindPropertyRelative("actor");
+        actorEnumBehaviorFour = (ActorEnum) actorEnumPropBehaviorFour.enumValueIndex;
+
+        activateOnIfFiveProp = property.FindPropertyRelative ("activateOnIfFive");
+        activateOnIfFive = activateOnIfFiveProp.boolValue;
+        ifTypeFiveProp = property.FindPropertyRelative ("ifTypeFive");
+        handOrientationFiveProp = property.FindPropertyRelative ("handOrientationFive");
+        fingerOnIfBehaviorFiveProp = property.FindPropertyRelative ("fingerOnIfBehaviorFive");
+        placeholderOnIfBehaviorFiveProp = property.FindPropertyRelative ("placeholderOnIfBehaviorFive");
+        placeholderOnIfBehaviorLocationFiveProp = property.FindPropertyRelative ("placeholderOnIfBehaviorLocationFive");
+        actorEnumPropBehaviorFive = placeholderOnIfBehaviorLocationFiveProp.FindPropertyRelative("actor");
+        actorEnumBehaviorFive = (ActorEnum) actorEnumPropBehaviorFive.enumValueIndex;
+
+        activateOnIfSixProp = property.FindPropertyRelative ("activateOnIfSix");
+        activateOnIfSix = activateOnIfSixProp.boolValue;
+        ifTypeSixProp = property.FindPropertyRelative ("ifTypeSix");
+        handOrientationSixProp = property.FindPropertyRelative ("handOrientationSix");
+        fingerOnIfBehaviorSixProp = property.FindPropertyRelative ("fingerOnIfBehaviorSix");
+        placeholderOnIfBehaviorSixProp = property.FindPropertyRelative ("placeholderOnIfBehaviorSix");
+        placeholderOnIfBehaviorLocationSixProp = property.FindPropertyRelative ("placeholderOnIfBehaviorLocationSix");
+        actorEnumPropBehaviorSix = placeholderOnIfBehaviorLocationSixProp.FindPropertyRelative("actor");
+        actorEnumBehaviorSix = (ActorEnum) actorEnumPropBehaviorSix.enumValueIndex;
     }
 
     protected override void OnConditionnalGUI (SerializedProperty property) {
         if (property.isArray) {
             EditorGUI.PropertyField(tools.getCurrentPosition(), property, false);
         } else {
-            initializePropertyHeight(placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp);
+            initializePropertyHeight(placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp, placeholderIsBetweenFingersProp);
             tools.initialize();
             tools.beginHorizontal();
             tools.insertLabel("Place", 50);
@@ -130,7 +208,8 @@ public class PlaceholderPropertyDrawer : ConditionnalPropertyDrawer
                     (fingerEnumB1, fingerEnumB2) = Location.getJoinedFingers(actorEnum);
                     fingerEnumB1 = (JoinableFingerEnum) tools.insertEnum(fingerEnumB1, 0.15f);
                     tools.insertLabel("AND", 40);
-                    fingerEnumB2 = insertSpecificEnumJoinedFingers(fingerEnumB1, fingerEnumB2);
+                    // fingerEnumB2 = insertSpecificEnumJoinedFingers(fingerEnumB1, fingerEnumB2);
+                    fingerEnumB2 = (JoinableFingerEnum) tools.insertEnum(fingerEnumB2, 0.15f);
                     (oneZoneActorZone, twoZoneActorZone, threeZoneActorZone) = insertZone(actorEnum, oneZoneActorZone, twoZoneActorZone, threeZoneActorZone);
                     actorEnumProp.enumValueIndex = (int) Location.getJoinedActorEnum(fingerEnumB1, fingerEnumB2);
                 }
@@ -144,9 +223,12 @@ public class PlaceholderPropertyDrawer : ConditionnalPropertyDrawer
                 tools.endHorizontal();
             }
 
-            insertOnIfBehavior(activateOnIfBehaviorOneProp, onIfBehaviorOneProp, actorEnumPropBehaviorOne, activateOnIfBehaviorOne, actorEnumBehaviorOne, "Visible if :");
-            insertOnIfBehavior(activateOnIfBehaviorTwoProp, onIfBehaviorTwoProp, actorEnumPropBehaviorTwo, activateOnIfBehaviorTwo, actorEnumBehaviorTwo);
-            insertOnIfBehavior(activateOnIfBehaviorThreeProp, onIfBehaviorThreeProp, actorEnumPropBehaviorThree, activateOnIfBehaviorThree, actorEnumBehaviorThree);
+            insertOnIfBehavior(activateOnIfOneProp, ifTypeOneProp, handOrientationOneProp, placeholderOnIfBehaviorOneProp, fingerOnIfBehaviorOneProp, actorEnumPropBehaviorOne, activateOnIfOne, actorEnumBehaviorOne, "Visible if :");
+            insertOnIfBehavior(activateOnIfTwoProp, ifTypeTwoProp, handOrientationTwoProp, placeholderOnIfBehaviorTwoProp, fingerOnIfBehaviorTwoProp, actorEnumPropBehaviorTwo, activateOnIfTwo, actorEnumBehaviorTwo);
+            insertOnIfBehavior(activateOnIfThreeProp, ifTypeThreeProp, handOrientationThreeProp, placeholderOnIfBehaviorThreeProp, fingerOnIfBehaviorThreeProp, actorEnumPropBehaviorThree, activateOnIfThree, actorEnumBehaviorThree);
+            insertOnIfBehavior(activateOnIfFourProp, ifTypeFourProp, handOrientationFourProp, placeholderOnIfBehaviorFourProp, fingerOnIfBehaviorFourProp, actorEnumPropBehaviorFour, activateOnIfFour, actorEnumBehaviorFour);
+            insertOnIfBehavior(activateOnIfFiveProp, ifTypeFiveProp, handOrientationFiveProp, placeholderOnIfBehaviorFiveProp, fingerOnIfBehaviorFiveProp, actorEnumPropBehaviorFive, activateOnIfFive, actorEnumBehaviorFive);
+            insertOnIfBehavior(activateOnIfSixProp, ifTypeSixProp, handOrientationSixProp, placeholderOnIfBehaviorSixProp, fingerOnIfBehaviorSixProp, actorEnumPropBehaviorSix, activateOnIfSix, actorEnumBehaviorSix);
             tools.endHorizontal();
         }
     }
@@ -165,49 +247,83 @@ public class PlaceholderPropertyDrawer : ConditionnalPropertyDrawer
         return new Tuple<OneZoneActorZone, TwoZoneActorZone, ThreeZoneActorZone>(oneZoneActorZone, twoZoneActorZone, threeZoneActorZone);
     }
 
-    public void insertOnIfBehavior(SerializedProperty activateOnIfBehaviorProp, SerializedProperty onIfBehaviorProp, SerializedProperty actorEnumPropBehavior, bool activateOnIfBehavior, ActorEnum actorEnumBehavior, string textIf="") {
+    public void insertOnIfBehavior(SerializedProperty activateOnIfProp, SerializedProperty ifTypeProp, SerializedProperty handOrientationProp, SerializedProperty placeholderOnIfBehaviorProp, SerializedProperty fingerOnIfBehaviorProp, SerializedProperty actorEnumPropBehavior, bool activateOnIf, ActorEnum actorEnumBehavior, string textIf="") {
         tools.beginHorizontal();
         tools.insertLabel(textIf, 70);
-        if (activateOnIfBehavior) {
-            switch ((PlaceholderOnIfBehavior) onIfBehaviorProp.enumValueIndex) {
-                case PlaceholderOnIfBehavior.FarAway:
-                    FingerEnum fingerEnumb1;
-                    FingerEnum fingerEnumb2;
-                    (fingerEnumb1, fingerEnumb2) = Location.getAwayFingers(actorEnumBehavior);
-                    fingerEnumb1 = (FingerEnum) tools.insertEnum(fingerEnumb1, 0.15f);
-                    tools.insertLabel("AND", 40);
-                    fingerEnumb2 = insertSpecificEnumAwayFingers(fingerEnumb1, fingerEnumb2);
-                    actorEnumPropBehavior.enumValueIndex = (int) Location.getAwayActorEnum(fingerEnumb1, fingerEnumb2);
+        if (activateOnIf) {
+            ifTypeProp.enumValueIndex = (int) (IfType) tools.insertEnum((IfType) ifTypeProp.enumValueIndex, 0.15f);
+            switch ((IfType) ifTypeProp.enumValueIndex) {
+                case IfType.Fingers:
+                    insertOnIfFingers(placeholderOnIfBehaviorProp, actorEnumPropBehavior, actorEnumBehavior);
                     break;
-                case PlaceholderOnIfBehavior.Joined:
-                    JoinableFingerEnum fingerEnumbJ1;
-                    JoinableFingerEnum fingerEnumbJ2;
-                    (fingerEnumbJ1, fingerEnumbJ2) = Location.getJoinedFingers(actorEnumBehavior);
-                    fingerEnumbJ1 = (JoinableFingerEnum) tools.insertEnum(fingerEnumbJ1, 0.15f);
-                    tools.insertLabel("AND", 40);
-                    fingerEnumbJ2 = insertSpecificEnumJoinedFingers(fingerEnumbJ1, fingerEnumbJ2);
-                    actorEnumPropBehavior.enumValueIndex = (int) Location.getJoinedActorEnum(fingerEnumbJ1, fingerEnumbJ2);
+                case IfType.Finger:
+                    insertOnIfFinger(fingerOnIfBehaviorProp, actorEnumPropBehavior, actorEnumBehavior);
                     break;
-                case PlaceholderOnIfBehavior.NotJoined:
-                    JoinableFingerEnum fingerEnumbJ3;
-                    JoinableFingerEnum fingerEnumbJ4;
-                    (fingerEnumbJ3, fingerEnumbJ4) = Location.getJoinedFingers(actorEnumBehavior);
-                    fingerEnumbJ3 = (JoinableFingerEnum) tools.insertEnum(fingerEnumbJ3, 0.15f);
-                    tools.insertLabel("AND", 40);
-                    fingerEnumbJ4 = insertSpecificEnumJoinedFingers(fingerEnumbJ3, fingerEnumbJ4);
-                    actorEnumPropBehavior.enumValueIndex = (int) Location.getJoinedActorEnum(fingerEnumbJ3, fingerEnumbJ4);
+                case IfType.Hand:
+                    insertOnIfHand(handOrientationProp);
                     break;
+                // case IfType.Thumb:
+                //     insertOnIfThumb();
+                //     break;
             }
-            onIfBehaviorProp.enumValueIndex = (int) (PlaceholderOnIfBehavior) tools.insertEnum((PlaceholderOnIfBehavior) onIfBehaviorProp.enumValueIndex, 0.15f);
         }
-        activateOnIfBehaviorProp.boolValue = tools.insertToggle(activateOnIfBehaviorProp.boolValue, 0.03f);
-        if (activateOnIfBehaviorProp.boolValue) {
+        activateOnIfProp.boolValue = tools.insertToggle(activateOnIfProp.boolValue, 0.03f);
+        if (activateOnIfProp.boolValue) {
             tools.insertLabel("delete", 50);
         } else {
             tools.insertLabel("add if statement", 110);
         }
         tools.endHorizontal();
     }
+
+    public void insertOnIfFingers(SerializedProperty placeholderOnIfBehaviorProp, SerializedProperty actorEnumPropBehavior, ActorEnum actorEnumBehavior) {
+        switch ((PlaceholderOnIfBehavior) placeholderOnIfBehaviorProp.enumValueIndex) {
+            case PlaceholderOnIfBehavior.FarAway:
+                FingerEnum fingerEnumb1;
+                FingerEnum fingerEnumb2;
+                (fingerEnumb1, fingerEnumb2) = Location.getAwayFingers(actorEnumBehavior);
+                fingerEnumb1 = (FingerEnum) tools.insertEnum(fingerEnumb1, 0.15f);
+                tools.insertLabel("AND", 40);
+                fingerEnumb2 = insertSpecificEnumAwayFingers(fingerEnumb1, fingerEnumb2);
+                actorEnumPropBehavior.enumValueIndex = (int) Location.getAwayActorEnum(fingerEnumb1, fingerEnumb2);
+                break;
+            case PlaceholderOnIfBehavior.Joined:
+                JoinableFingerEnum fingerEnumbJ1;
+                JoinableFingerEnum fingerEnumbJ2;
+                (fingerEnumbJ1, fingerEnumbJ2) = Location.getJoinedFingers(actorEnumBehavior);
+                fingerEnumbJ1 = (JoinableFingerEnum) tools.insertEnum(fingerEnumbJ1, 0.15f);
+                tools.insertLabel("AND", 40);
+                fingerEnumbJ2 = insertSpecificEnumJoinedFingers(fingerEnumbJ1, fingerEnumbJ2);
+                actorEnumPropBehavior.enumValueIndex = (int) Location.getJoinedActorEnum(fingerEnumbJ1, fingerEnumbJ2);
+                break;
+            case PlaceholderOnIfBehavior.NotJoined:
+                JoinableFingerEnum fingerEnumbJ3;
+                JoinableFingerEnum fingerEnumbJ4;
+                (fingerEnumbJ3, fingerEnumbJ4) = Location.getJoinedFingers(actorEnumBehavior);
+                fingerEnumbJ3 = (JoinableFingerEnum) tools.insertEnum(fingerEnumbJ3, 0.15f);
+                tools.insertLabel("AND", 40);
+                fingerEnumbJ4 = insertSpecificEnumJoinedFingers(fingerEnumbJ3, fingerEnumbJ4);
+                actorEnumPropBehavior.enumValueIndex = (int) Location.getJoinedActorEnum(fingerEnumbJ3, fingerEnumbJ4);
+                break;
+        }
+        placeholderOnIfBehaviorProp.enumValueIndex = (int) (PlaceholderOnIfBehavior) tools.insertEnum((PlaceholderOnIfBehavior) placeholderOnIfBehaviorProp.enumValueIndex, 0.15f);
+    }
+
+    public void insertOnIfFinger(SerializedProperty fingerOnIfBehaviorProp, SerializedProperty actorEnumPropBehavior, ActorEnum actorEnumBehavior) {
+        FingerEnum fingerEnum = Location.getFingerEnum(actorEnumBehavior);
+        fingerEnum = (FingerEnum) tools.insertEnum(fingerEnum, 0.15f);
+        actorEnumPropBehavior.enumValueIndex = (int) Location.getActorEnum(fingerEnum);
+        fingerOnIfBehaviorProp.enumValueIndex = (int) (FingerOnIfBehavior) tools.insertEnum((FingerOnIfBehavior) fingerOnIfBehaviorProp.enumValueIndex, 0.15f);
+    }
+
+    public void insertOnIfHand(SerializedProperty handOrientationProp) {
+        tools.insertLabel("FACES", 60);
+        handOrientationProp.enumValueIndex = (int) (HandOrientation) tools.insertEnum((HandOrientation) handOrientationProp.enumValueIndex, 0.15f);
+    }
+
+    // public void insertOnIfThumb() {
+    //     tools.insertLabel("CLOSE TO THE FINGERS", 155);
+    // }
 
     public FingerEnum insertSpecificEnumAwayFingers(FingerEnum fingerEnumb1, FingerEnum fingerEnumb2) {
         switch (fingerEnumb1) {

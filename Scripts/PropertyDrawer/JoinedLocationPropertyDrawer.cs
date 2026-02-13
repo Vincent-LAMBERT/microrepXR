@@ -67,6 +67,36 @@ public class JoinedLocationPropertyDrawer : LocationPropertyDrawer
                 littleMate = JoinedWithLittleEnum.Ring;
                 threeZoneActor = true;
                 break;
+            case JoinedActorEnum.IndexJoinedRing:
+                mainActor = JoinableFingerEnum.Little;
+                littleMate = JoinedWithLittleEnum.Ring;
+                threeZoneActor = true;
+                break;
+            case JoinedActorEnum.RingJoinedIndex:
+                mainActor = JoinableFingerEnum.Little;
+                littleMate = JoinedWithLittleEnum.Ring;
+                threeZoneActor = true;
+                break;
+            case JoinedActorEnum.MiddleJoinedLittle:
+                mainActor = JoinableFingerEnum.Little;
+                littleMate = JoinedWithLittleEnum.Ring;
+                threeZoneActor = true;
+                break;
+            case JoinedActorEnum.LittleJoinedMiddle:
+                mainActor = JoinableFingerEnum.Little;
+                littleMate = JoinedWithLittleEnum.Ring;
+                threeZoneActor = true;
+                break;
+            case JoinedActorEnum.IndexJoinedLittle:
+                mainActor = JoinableFingerEnum.Little;
+                littleMate = JoinedWithLittleEnum.Ring;
+                threeZoneActor = true;
+                break;
+            case JoinedActorEnum.LittleJoinedIndex:
+                mainActor = JoinableFingerEnum.Little;
+                littleMate = JoinedWithLittleEnum.Ring;
+                threeZoneActor = true;
+                break;
             default:
                 throw new Exception("Error on JoinedLocationProperyDrawer");
         };

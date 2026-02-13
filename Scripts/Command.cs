@@ -26,6 +26,7 @@ namespace Microgestures
         public Color outlineColor = Color.black;
         public float outlineWidth = 0.2f;
         public TextLocation textLocation = TextLocation.Down;
+        public TransformElements transformElements;
 
         public Command(string text, TextLocation textLocation)
         {

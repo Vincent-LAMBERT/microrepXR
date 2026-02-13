@@ -54,6 +54,12 @@ namespace Microgestures
                 case ActorEnum.RingJoinedMiddle: return getJointsForActor(new MiddleJoinedRing(handedness));
                 case ActorEnum.RingJoinedLittle: return getJointsForActor(new RingJoinedLittle(handedness));
                 case ActorEnum.LittleJoinedRing: return getJointsForActor(new RingJoinedLittle(handedness));
+                case ActorEnum.IndexJoinedRing: return getJointsForActor(new IndexJoinedRing(handedness));
+                case ActorEnum.RingJoinedIndex: return getJointsForActor(new IndexJoinedRing(handedness));
+                case ActorEnum.LittleJoinedMiddle: return getJointsForActor(new LittleJoinedMiddle(handedness));
+                case ActorEnum.MiddleJoinedLittle: return getJointsForActor(new LittleJoinedMiddle(handedness));
+                case ActorEnum.IndexJoinedLittle: return getJointsForActor(new IndexJoinedLittle(handedness));
+                case ActorEnum.LittleJoinedIndex: return getJointsForActor(new IndexJoinedLittle(handedness));
                 case ActorEnum.ThumbAwayIndex: return getJointsForActor(new ThumbAwayIndex(handedness));
                 case ActorEnum.ThumbAwayMiddle: return getJointsForActor(new ThumbAwayMiddle(handedness));
                 case ActorEnum.ThumbAwayRing: return getJointsForActor(new ThumbAwayRing(handedness));
@@ -72,10 +78,13 @@ namespace Microgestures
             }
         }
 
-        private Tuple<TrackedHandJoint, float>[] getJointsForActor(Actor actor)
+        public Tuple<TrackedHandJoint, float>[] getJointsForActor(Actor actor)
         {
+            // UnityEngine.Debug.Log(" getJointsForActor - actor: "+actor);
             if (OneZoneActorEnum.TryParse(this.actor.ToString(), out OneZoneActorEnum oneZoneActor))
-            {   return ((OneZoneActor) actor).getTip(); }
+            {
+                return ((OneZoneActor) actor).getTip(); 
+            }
             else if (TwoZoneActorEnum.TryParse(this.actor.ToString(), out TwoZoneActorEnum twoZoneActor))
             {
                 if (twoZoneActorZone == TwoZoneActorZone.Tip)
@@ -118,18 +127,48 @@ namespace Microgestures
             switch (finger1)
             {
                 case JoinableFingerEnum.Index:
-                    if (finger2 == JoinableFingerEnum.Middle) return ActorEnum.IndexJoinedMiddle;
+                    switch (finger2)
+                    {
+                        case JoinableFingerEnum.Middle:
+                            return ActorEnum.IndexJoinedMiddle;
+                        case JoinableFingerEnum.Ring:
+                            return ActorEnum.IndexJoinedRing;
+                        case JoinableFingerEnum.Little:
+                            return ActorEnum.IndexJoinedLittle;
+                    }
                     break;
                 case JoinableFingerEnum.Middle:
-                    if (finger2 == JoinableFingerEnum.Index) return ActorEnum.MiddleJoinedIndex;
-                    if (finger2 == JoinableFingerEnum.Ring) return ActorEnum.MiddleJoinedRing;
+                    switch (finger2)
+                    {
+                        case JoinableFingerEnum.Index:
+                            return ActorEnum.MiddleJoinedIndex;
+                        case JoinableFingerEnum.Ring:
+                            return ActorEnum.MiddleJoinedRing;
+                        case JoinableFingerEnum.Little:
+                            return ActorEnum.MiddleJoinedLittle;
+                    }
                     break;
                 case JoinableFingerEnum.Ring:
-                    if (finger2 == JoinableFingerEnum.Middle) return ActorEnum.RingJoinedMiddle;
-                    if (finger2 == JoinableFingerEnum.Little) return ActorEnum.RingJoinedLittle;
+                    switch (finger2)
+                    {
+                        case JoinableFingerEnum.Index:
+                            return ActorEnum.RingJoinedIndex;
+                        case JoinableFingerEnum.Middle:
+                            return ActorEnum.RingJoinedMiddle;
+                        case JoinableFingerEnum.Little:
+                            return ActorEnum.RingJoinedLittle;
+                    }
                     break;
                 case JoinableFingerEnum.Little:
-                    if (finger2 == JoinableFingerEnum.Ring) return ActorEnum.LittleJoinedRing;
+                    switch (finger2)
+                    {
+                        case JoinableFingerEnum.Index:
+                            return ActorEnum.LittleJoinedIndex;
+                        case JoinableFingerEnum.Middle:
+                            return ActorEnum.LittleJoinedMiddle;
+                        case JoinableFingerEnum.Ring:
+                            return ActorEnum.LittleJoinedRing;
+                    }
                     break;
             }
             return ActorEnum.IndexJoinedMiddle;
@@ -301,6 +340,12 @@ namespace Microgestures
                 case JoinedActorEnum.RingJoinedMiddle: return (JoinableFingerEnum.Ring, JoinableFingerEnum.Middle);
                 case JoinedActorEnum.RingJoinedLittle: return (JoinableFingerEnum.Ring, JoinableFingerEnum.Little);
                 case JoinedActorEnum.LittleJoinedRing: return (JoinableFingerEnum.Little, JoinableFingerEnum.Ring);
+                case JoinedActorEnum.IndexJoinedRing: return (JoinableFingerEnum.Index, JoinableFingerEnum.Ring);
+                case JoinedActorEnum.RingJoinedIndex: return (JoinableFingerEnum.Ring, JoinableFingerEnum.Index);
+                case JoinedActorEnum.LittleJoinedMiddle: return (JoinableFingerEnum.Little, JoinableFingerEnum.Middle);
+                case JoinedActorEnum.MiddleJoinedLittle: return (JoinableFingerEnum.Middle, JoinableFingerEnum.Little);
+                case JoinedActorEnum.IndexJoinedLittle: return (JoinableFingerEnum.Index, JoinableFingerEnum.Little);
+                case JoinedActorEnum.LittleJoinedIndex: return (JoinableFingerEnum.Little, JoinableFingerEnum.Index);
                 default: return (JoinableFingerEnum.Index, JoinableFingerEnum.Middle);
             }
         }
@@ -382,27 +427,33 @@ namespace Microgestures
         IndexJoinedMiddle, MiddleJoinedIndex,
         MiddleJoinedRing, RingJoinedMiddle,
         RingJoinedLittle, LittleJoinedRing,
-
+        IndexJoinedRing, RingJoinedIndex,
+        LittleJoinedMiddle, MiddleJoinedLittle,
+        IndexJoinedLittle, LittleJoinedIndex,
         ThumbAwayIndex, IndexAwayThumb,
         ThumbAwayMiddle, MiddleAwayThumb,
         ThumbAwayRing, RingAwayThumb,
         ThumbAwayLittle, LittleAwayThumb,
         IndexAwayMiddle, MiddleAwayIndex,
         MiddleAwayRing, RingAwayMiddle,
-        RingAwayLittle, LittleAwayRing
+        RingAwayLittle, LittleAwayRing,
+        Palm
     }
 
     public enum OneZoneActorEnum 
         { IndexAwayMiddle, MiddleAwayIndex,
           MiddleAwayRing, RingAwayMiddle,
           RingAwayLittle, LittleAwayRing }
-    public enum TwoZoneActorEnum { Thumb, Little }
+    public enum TwoZoneActorEnum { Thumb }
     public enum ThreeZoneActorEnum
     {
-        Index, Middle, Ring,
+        Index, Middle, Ring, Little,
         IndexJoinedMiddle, MiddleJoinedIndex,
         MiddleJoinedRing, RingJoinedMiddle,
         RingJoinedLittle, LittleJoinedRing,
+        IndexJoinedRing, RingJoinedIndex,
+        LittleJoinedMiddle, MiddleJoinedLittle,
+        IndexJoinedLittle, LittleJoinedIndex,
         ThumbAwayIndex, IndexAwayThumb,
         ThumbAwayMiddle, MiddleAwayThumb,
         ThumbAwayRing, RingAwayThumb,
@@ -418,7 +469,10 @@ namespace Microgestures
     public enum JoinedActorEnum
         { IndexJoinedMiddle, MiddleJoinedIndex,
           MiddleJoinedRing, RingJoinedMiddle,
-          RingJoinedLittle, LittleJoinedRing
+          RingJoinedLittle, LittleJoinedRing,
+          IndexJoinedRing, RingJoinedIndex,
+          LittleJoinedMiddle, MiddleJoinedLittle,
+          IndexJoinedLittle, LittleJoinedIndex
         }
 
     public enum JoinableFingerEnum  { Index, Middle, Ring, Little }
